@@ -1,0 +1,114 @@
+package com.memoquest.app;
+
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
+
+import com.memoquest.app.test.ActivityAppSyncTuto;
+import com.memoquest.dao.testRest.ActivityTestSpringRest;
+import com.memoquest.model.Liste;
+import com.memoquest.service.ListeService;
+
+
+public class MainActivity extends ActionBarActivity{
+//public class MainActivity extends Activity {
+
+
+    private Button myButton;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        Log.i("", "MainActivity.class: onStart()");
+        super.onStart();
+
+
+        /*
+        Version memoQuest
+        Intent intent = new Intent(MainActivity.this, ConnectionActivity.class);
+         */
+
+
+        /*
+        Version ActivityAppSyncTuto
+        Intent intent = new Intent(MainActivity.this, ActivityAppSyncTuto.class);
+         */
+
+
+        /*
+        Version ActivityTestSpringRest
+        Intent intent = new Intent(MainActivity.this, ActivityTestSpringRest.class);
+         */
+
+        ListeService listeService = new ListeService();
+
+        Liste liste = new Liste();
+
+        liste.setNom("testPostListAndroidNom");
+        liste.setCategory("testPostListAndroidCategory");
+        liste.setTheme("testPostListAndroidTheme");
+
+        listeService.restPostListe(liste);
+     //   listeService.restGetAllListe();
+
+/*
+A REMETTRE
+ */
+    //    this.startActivityForResult(intent, 1000);
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i("","MainActivity.class: onStop()");
+        super.onStop();
+    }
+
+
+    @Override
+    protected void onPause() {
+        Log.i("","MainActivity.class: onPause()");
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i("","MainActivity.class: onResume()");
+        super.onResume();
+    }
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+}

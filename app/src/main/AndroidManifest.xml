@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.memoquest.app" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.memoquest.app.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.memoquest.app.ConnectionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_connection"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.memoquest.app.MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name="com.memoquest.app.ManageListActivity"
+            android:label="@string/title_activity_manage_list" >
+        </activity>
+        <activity
+            android:name="com.memoquest.app.CreateNewListActivity"
+            android:label="@string/title_activity_create_new_list" >
+        </activity>
+        <activity
+            android:name="com.memoquest.app.AddWordDefActivity"
+            android:label="@string/title_activity_manage_list" >
+        </activity>
+
+<!--         A RETIRER -->
+        <activity
+            android:name="com.memoquest.app.test.ActivityAppSyncTuto"
+            android:label="@string/title_activity_app_sync_tuto" >
+        </activity>
+        <activity
+            android:name="com.memoquest.dao.testRest.ActivityTestSpringRest"
+            android:label="@string/title_activity_test_spring_rest" >
+        </activity>
+
+        <!--         A RETIRER -->
+
+
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MemoQuest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_luncher">LuncherActivity</string>
+    <string name="title_activity_connection">ConnectionActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_manage_list">ManageListActivity</string>
+    <string name="title_activity_create_new_list">CreateNewListActivity</string>
+
+<!--         Pour test provider -->
+    <string name="birthday">Birthday</string>
+    <string name="name">Name</string>
+    <string name="add">Add a new Birthday</string>
+    <string name="show">Show all the Birthdays</string>
+    <string name="delete">Delete all the Birthdays</string>
+    <string name="title_activity_app_sync_tuto">ActivityAppSyncTuto</string>
+    <string name="title_activity_test_spring_rest">ActivityTestSpringRest</string>
+    <string name="id_label">The ID is</string>
+    <string name="id_value">[id]</string>
+    <string name="content_label">The Content is</string>
+    <string name="content_value">[content]</string>
+    <string name="action_refresh">Refresh</string>>
+
+
+</resources>
