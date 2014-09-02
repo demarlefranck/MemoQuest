@@ -6,6 +6,17 @@ import android.util.Log;
 import com.memoquest.model.ListOfListe;
 import com.memoquest.model.Liste;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -14,14 +25,27 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-public class RestPostListeDao extends AsyncTask<Void, Void, String> {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-    private int userId;
+public class RestPostListeDao extends AsyncTask<Void, Void, String> {
 
     private Liste liste;
 
-    public void setUserId(int id) {
-        this.userId = id;
+    private int userId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Liste getListe() {
+        return liste;
     }
 
     public void setListe(Liste liste) {
@@ -31,44 +55,45 @@ public class RestPostListeDao extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
 
+        InputStream inputStream = null;
+
         try {
 
-            //  POST http://memoquest.fr/MemoQuest/app_dev.php/api/users/{userId}/listes
             final String url = "http://memoquest.fr/MemoQuest/app_dev.php/api/users/" + this.userId + "/listes";
 
+            HttpClient httpclient = new DefaultHttpClient();
 
-            RestTemplate restTemplate = new RestTemplate();
-
-            HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
-            HttpMessageConverter stringHttpMessageConverternew = new StringHttpMessageConverter();
-
-            restTemplate.getMessageConverters().add(formHttpMessageConverter);
-            restTemplate.getMessageConverters().add(stringHttpMessageConverternew);
-
-            MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-            map.add("nom", this.liste.getNom());
-            map.add("theme", this.liste.getTheme());
-            map.add("category", this.liste.getCategory());
+            HttpPost httpPost = new HttpPost(url);
 
 
+            // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("nom", liste.getNom());
+            jsonObject.accumulate("theme", liste.getTheme());
+            jsonObject.accumulate("category", liste.getCategory());
 
-            return restTemplate.postForObject(url, map, String.class);
 
-/*
-JE N ARRIVE PAS A POSTER
+            JSONObject jsonObjectEnveloppe = new JSONObject();
+            jsonObjectEnveloppe.accumulate("liste", jsonObject);
 
-EST CE COMME CA
 
-SOUS REST CONSOLE
+            String json = "";
+            json = jsonObjectEnveloppe.toString();
 
-{
-        "row_id": 11,
-        "nom": "titre_liste_post",
-        "theme": "theme_liste_post",
-        "category": "category_liste_post",
-        "user_id": 4
-}
- */
+            StringEntity se = new StringEntity(json);
+
+            httpPost.setEntity(se);
+
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if(inputStream == null)
+                throw new Exception("L'ajout de la liste n'a pas fonctionne:  "  );
 
 
 
@@ -77,6 +102,18 @@ SOUS REST CONSOLE
         }
 
         return null;
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
     }
 
 }
