@@ -3,7 +3,6 @@ package com.memoquest.dao.rest;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.memoquest.model.ListOfListe;
 import com.memoquest.model.Liste;
 
 import org.apache.http.HttpResponse;
@@ -12,18 +11,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,16 +23,8 @@ public class RestPostListeDao extends AsyncTask<Void, Void, String> {
 
     private int userId;
 
-    public int getUserId() {
-        return userId;
-    }
-
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public Liste getListe() {
-        return liste;
     }
 
     public void setListe(Liste liste) {
