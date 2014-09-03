@@ -1,4 +1,4 @@
-package com.memoquest.dao.rest;
+package com.memoquest.dao.rest.get;
 
 import android.os.AsyncTask;
 import android.util.Log;

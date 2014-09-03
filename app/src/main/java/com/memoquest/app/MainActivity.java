@@ -60,7 +60,10 @@ public class MainActivity extends ActionBarActivity{
         liste.setCategory("testPostListAndroidCategory");
         liste.setTheme("testPostListAndroidTheme");
 
-        listeService.restPostListe(liste);
+
+
+        listeService.addListe(liste);
+        // listeService.restPostListe(liste);
      //   listeService.restGetAllListe();
 
 /*

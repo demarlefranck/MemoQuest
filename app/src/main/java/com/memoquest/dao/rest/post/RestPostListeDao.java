@@ -1,4 +1,4 @@
-package com.memoquest.dao.rest;
+package com.memoquest.dao.rest.post;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -6,18 +6,19 @@ import android.util.Log;
 import com.memoquest.model.Liste;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
-public class RestPostListeDao extends AsyncTask<Void, Void, String> {
+public class RestPostListeDao extends AsyncTask<Void, Void, Boolean> {
 
     private Liste liste;
 
@@ -32,9 +33,7 @@ public class RestPostListeDao extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... params) {
-
-        InputStream inputStream = null;
+    protected Boolean doInBackground(Void... params) {
 
         try {
 
@@ -44,17 +43,13 @@ public class RestPostListeDao extends AsyncTask<Void, Void, String> {
 
             HttpPost httpPost = new HttpPost(url);
 
-
-            // 3. build jsonObject
             JSONObject jsonObject = new JSONObject();
             jsonObject.accumulate("nom", liste.getNom());
             jsonObject.accumulate("theme", liste.getTheme());
             jsonObject.accumulate("category", liste.getCategory());
 
-
             JSONObject jsonObjectEnveloppe = new JSONObject();
             jsonObjectEnveloppe.accumulate("liste", jsonObject);
-
 
             String json = "";
             json = jsonObjectEnveloppe.toString();
@@ -68,31 +63,20 @@ public class RestPostListeDao extends AsyncTask<Void, Void, String> {
 
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
-            inputStream = httpResponse.getEntity().getContent();
-
-            // 10. convert inputstream to string
-            if(inputStream == null)
-                throw new Exception("L'ajout de la liste n'a pas fonctionne:  "  );
+            if (httpResponse.getStatusLine().getStatusCode() == 201)
+                return true;
 
 
-
-        } catch (Exception e) {
-            Log.e("ActivityTestSpringRest", e.getMessage(), e);
+        } catch (JSONException e) {
+            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
+        } catch (ClientProtocolException e) {
+            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
+        } catch (UnsupportedEncodingException e) {
+            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
+        } catch (IOException e) {
+            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
         }
 
-        return null;
+        return false;
     }
-
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        return result;
-
-    }
-
 }

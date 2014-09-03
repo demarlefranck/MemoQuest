@@ -1,8 +1,10 @@
 package com.memoquest.service;
 
 import android.util.Log;
-import com.memoquest.dao.rest.RestGetAllListeDao;
-import com.memoquest.dao.rest.RestPostListeDao;
+import com.memoquest.dao.rest.get.RestGetAllListeDao;
+import com.memoquest.dao.rest.post.RestPostListeDao;
+import com.memoquest.exception.FonctionalAppException;
+import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.ListOfListe;
 import com.memoquest.model.Liste;
 
@@ -18,6 +20,31 @@ public class ListeService {
     public ListeService(){
         userService = new UserService();
     }
+
+    public void addListe(Liste liste) {
+
+        try {
+            if (restPostListe(liste))
+
+                Log.i("INFO", "CREATION LISTE OK IL FAUT RECHARGER SQLITE");
+
+        } catch (TechnicalAppException e) {
+
+
+
+            Log.i("INFO", "faire une FonctionalAppException pour l'afficher sur l'ecran utilisateur");
+
+            /*
+                faire une FonctionalAppException
+
+                pour l'afficher sur l'ecran utilisateur
+             */
+
+
+            e.printStackTrace();
+        }
+    }
+
 
     public ListOfListe restGetAllListe() {
 
@@ -46,16 +73,30 @@ public class ListeService {
         return listOfListe;
     }
 
-    public void restPostListe(Liste liste) {
+    public Boolean restPostListe(Liste liste) throws TechnicalAppException {
 
         RestPostListeDao restPostListeDao = new RestPostListeDao();
-
 
         restPostListeDao.setUserId(userService.getId());
 
         restPostListeDao.setListe(liste);
 
         restPostListeDao.execute();
+
+        try {
+
+            if(restPostListeDao.get()){
+                return true;
+            }
+            else{
+                throw new TechnicalAppException("echec de la creation de la liste dans le serveur");
+            }
+
+        } catch (InterruptedException e) {
+            throw new TechnicalAppException("ListeService.class, restPostListe(): " + e.toString());
+        } catch (ExecutionException e) {
+            throw new TechnicalAppException("ListeService.class, restPostListe(): " + e.toString());
+        }
     }
 
 }
