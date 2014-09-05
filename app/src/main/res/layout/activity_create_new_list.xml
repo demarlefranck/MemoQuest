@@ -29,12 +29,38 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp" />
 
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/cathegoryListText"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:hint="Cathégorie de la liste"
+            android:background="@drawable/round_corner"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="90dp" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/themeListText"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:hint="Thême de la liste"
+            android:background="@drawable/round_corner"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="150dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ajout mot / def"
-            android:id="@+id/addWordDefText"
+            android:text="Ajout de la liste"
+            android:id="@+id/addListText"
             android:textColor="#ffffff"
             android:onClick="onClick"
             android:layout_alignTop="@+id/cancelText"

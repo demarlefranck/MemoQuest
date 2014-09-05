@@ -13,4 +13,8 @@ public class ConnexionService {
     public Boolean isAuthentifiate(String loginTextStr, String passwordTextStr){
         return connexionDao.isAuthentifiate(loginTextStr, passwordTextStr);
     }
+
+    public Boolean isConnected(){
+        return connexionDao.isConnected();
+    }
 }

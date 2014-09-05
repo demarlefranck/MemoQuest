@@ -39,40 +39,37 @@ public class ConnectionActivity extends Activity {
 
         connexionText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                isAuthentifiate(v);
+                if(isAuthentifiate(v)){
+
+                    Intent intent = new Intent(ConnectionActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
     }
 
-    private void isAuthentifiate(View v) {
+    private Boolean isAuthentifiate(View v) {
 
         ConnexionService connexionService = new ConnexionService();
 
         String loginTextStr = String.valueOf(loginText.getText());
         String passwordTextStr = String.valueOf(passwordText.getText());
 
-
         if (loginTextStr.equals("")){
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir votre identifiant", this);
+            return false;
         }
         else if (passwordTextStr.equals("")){
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir votre password", this);
+            return false;
         }
-        else{
-            if(connexionService.isAuthentifiate(loginTextStr, passwordTextStr)){
-                Intent intent = new Intent(ConnectionActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
-            else{
-                Alerte.showAlertDialog("erreur d'authentification", "L'authentification a échouée", this);
-            }
+        else if(connexionService.isAuthentifiate(loginTextStr, passwordTextStr) == false){
+            Alerte.showAlertDialog("erreur d'authentification", "L'authentification a échouée", this);
+            return false;
         }
+        return true;
     }
-
-
-
-
 
     @Override
     protected void onStart() {
@@ -101,7 +98,7 @@ public class ConnectionActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.connection, menu);
         return true;

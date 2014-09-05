@@ -7,27 +7,60 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.memoquest.app.util.Alerte;
+import com.memoquest.exception.FonctionalAppException;
+import com.memoquest.model.Liste;
+import com.memoquest.service.ConnexionService;
+import com.memoquest.service.ListeService;
 
 
 public class CreateNewListActivity extends Activity {
 
+
+
+    private EditText titreListText;
+    private EditText themeListText;
+    private EditText cathegoryListText;
     private TextView cancelText;
-    private TextView addWordDefText;
+    private TextView addListText;
+
+    private String titreListTextStr;
+    private String themeListTextStr;
+    private String cathegoryListTextStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_list);
 
-        addWordDefText = (TextView) this.findViewById(R.id.addWordDefText);
-        addWordDefText.setOnClickListener(new View.OnClickListener() {
+
+
+        titreListText = (EditText) this.findViewById(R.id.titreListText);
+        themeListText = (EditText) this.findViewById(R.id.themeListText);
+        cathegoryListText = (EditText) this.findViewById(R.id.cathegoryListText);
+
+        addListText = (TextView) this.findViewById(R.id.addListText);
+        addListText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(CreateNewListActivity.this, AddWordDefActivity.class);
-                startActivity(intent);
+                if(isValidate()){
+
+                    createListe();
+
+                    /*
+                    CHANGER LA REDIRECTION VERS L'AFFICHAGE DES LISTES POUR ENSUITE AJOUTER DES MOTS / DEF
+
+                    CAR NOUS NE RECUPERONS PAS L'ID DE LA LISTE CREEE
+                     */
+
+
+                    Intent intent = new Intent(CreateNewListActivity.this, ModifyListesActivity.class);
+                    startActivity(intent);
+                }
             }
         });
-
 
         cancelText = (TextView) this.findViewById(R.id.cancelText);
         cancelText.setOnClickListener(new View.OnClickListener() {
@@ -35,36 +68,47 @@ public class CreateNewListActivity extends Activity {
                 onStop();
             }
         });
-/*
-        TextView textTitreList;
-        textTitreList = (TextView)findViewById(R.id.titreListText);
+    }
 
+    public Boolean isValidate(){
 
-        ArrayList<Item> listItem = new ArrayList<Item>();
+        titreListTextStr = "";
+        themeListTextStr = "";
+        cathegoryListTextStr ="";
 
-        for (int i = 0; i != 10; i++){
-            Item item = new Item();
-            item.setMot("mot" + i);
-            item.setDefinition("definition" + i);
-            listItem.add(item);
+        titreListTextStr = String.valueOf(titreListText.getText());
+        themeListTextStr = String.valueOf(themeListText.getText());
+        cathegoryListTextStr = String.valueOf(cathegoryListText.getText());
+
+        if(titreListTextStr.equals("")){
+            Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir le titre de la liste", this);
+            return false;
         }
+        else if(themeListTextStr.equals("")){
+            Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir le thême de la liste", this);
+            return false;
+        }
+        else if(cathegoryListTextStr.equals("")){
+            Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir la catégorie de la liste", this);
+            return false;
+        }
+        return true;
+    }
 
-        ListeMot listeMot = new ListeMot();
-        listeMot.setListItem(listItem);
+    public void createListe(){
 
-
+        ListeService listeService = new ListeService();
         Liste liste = new Liste();
-        liste.setNom("listeNom");
-        liste.setListeMot(listeMot);
 
+        liste.setNom(titreListTextStr);
+        liste.setTheme(themeListTextStr);
+        liste.setCategory(cathegoryListTextStr);
 
-        CreateListDao createListDao = new CreateListDao();
-        String text = new String();
-        //text = createListDao.getCelsiusConversion("40");
-        text = createListDao.getCelsiusConversion(liste);
-        textTitreList.setText(text);
-*/
-
+        try {
+            listeService.addListe(liste, this);
+        } catch (FonctionalAppException e) {
+            Alerte.showAlertDialog("Probleme", e.getText(), this);
+        }
     }
 
     @Override
@@ -75,7 +119,7 @@ public class CreateNewListActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.create_new_list, menu);
         return true;

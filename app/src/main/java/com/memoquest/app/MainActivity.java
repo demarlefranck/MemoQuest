@@ -8,17 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-import com.memoquest.app.test.ActivityAppSyncTuto;
-import com.memoquest.dao.testRest.ActivityTestSpringRest;
+import com.memoquest.app.util.Alerte;
 import com.memoquest.model.Liste;
+import com.memoquest.service.ConnexionService;
 import com.memoquest.service.ListeService;
 
 
 public class MainActivity extends ActionBarActivity{
+
+
 //public class MainActivity extends Activity {
-
-
-    private Button myButton;
 
 
     @Override
@@ -27,49 +26,41 @@ public class MainActivity extends ActionBarActivity{
         setContentView(R.layout.activity_main);
     }
 
-
-
     @Override
     protected void onStart() {
         Log.i("", "MainActivity.class: onStart()");
         super.onStart();
 
+        ConnexionService connexionService = new ConnexionService();
 
-        /*
-        Version memoQuest
-        Intent intent = new Intent(MainActivity.this, ConnectionActivity.class);
-         */
+        if(connexionService.isConnected())
+            startWithConnection();
+        else
+            startWithoutConnection();
+    }
 
+    public void startWithConnection(){
 
-        /*
-        Version ActivityAppSyncTuto
-        Intent intent = new Intent(MainActivity.this, ActivityAppSyncTuto.class);
-         */
+        //verif authentification
 
+        //si id de user
+            //reload All Tables
 
-        /*
-        Version ActivityTestSpringRest
-        Intent intent = new Intent(MainActivity.this, ActivityTestSpringRest.class);
-         */
+            //Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
+            //startActivity(intentMenu);
+        //sinon
+            Intent intentConnexion = new Intent(MainActivity.this, ConnectionActivity.class);
+            startActivity(intentConnexion);
+            //this.startActivityForResult(intentConnexion, 1000);
 
-        ListeService listeService = new ListeService();
+    }
+    public void startWithoutConnection(){
 
-        Liste liste = new Liste();
-
-        liste.setNom("testPostListAndroidNom");
-        liste.setCategory("testPostListAndroidCategory");
-        liste.setTheme("testPostListAndroidTheme");
-
-
-
-        listeService.addListe(liste);
-        // listeService.restPostListe(liste);
-     //   listeService.restGetAllListe();
-
-/*
-A REMETTRE
- */
-    //    this.startActivityForResult(intent, 1000);
+        //si id de user
+            Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
+            startActivity(intentMenu);
+        //sinon
+             //Alerte.showAlertDialog("Probleme de connexion", "Une connexion internet est requise", this);
     }
 
     @Override

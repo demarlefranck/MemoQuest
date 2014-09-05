@@ -38,20 +38,10 @@
             android:name="com.memoquest.app.AddWordDefActivity"
             android:label="@string/title_activity_manage_list" >
         </activity>
-
-<!--         A RETIRER -->
         <activity
-            android:name="com.memoquest.app.test.ActivityAppSyncTuto"
-            android:label="@string/title_activity_app_sync_tuto" >
+            android:name="com.memoquest.app.ModifyListesActivity"
+            android:label="@string/title_activity_modify_listes" >
         </activity>
-        <activity
-            android:name="com.memoquest.dao.testRest.ActivityTestSpringRest"
-            android:label="@string/title_activity_test_spring_rest" >
-        </activity>
-
-        <!--         A RETIRER -->
-
-
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
