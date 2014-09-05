@@ -41,6 +41,22 @@ public class MainActivity extends ActionBarActivity{
 
     public void startWithConnection(){
 
+
+
+
+
+        /*
+
+        ARETER AVEC SQLITE    REPRENDRE TOUT PETIT A PETIT
+
+        VOIR POUR CE QUI IL Y A EN DESOUS
+         */
+
+
+
+
+
+
         //verif authentification
 
         //si id de user

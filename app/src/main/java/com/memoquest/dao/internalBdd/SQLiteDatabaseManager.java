@@ -93,7 +93,8 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
 
     public List<Liste> getListes() {
 
-        List<Liste> listes = new ArrayList<Liste>();
+        List<Liste> listes = new LinkedList<Liste>();
+        //        List<Liste> listes = new ArrayList<Liste>();
         String query = "SELECT  * FROM " + NAME_TABLE_LISTE;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -105,6 +106,9 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
             do {
                 liste = new Liste();
                 liste.setId(Integer.parseInt(cursor.getString(0)));
+
+//                liste.setId(Integer.valueOf(cursor.getInt(0)));
+
                 liste.setNom(cursor.getString(1));
                 liste.setTheme(cursor.getString(2));
                 liste.setCategory(cursor.getString(3));
