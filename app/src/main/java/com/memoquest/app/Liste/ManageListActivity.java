@@ -1,13 +1,14 @@
-package com.memoquest.app;
+package com.memoquest.app.Liste;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import com.memoquest.app.R;
 
 
 public class ManageListActivity extends Activity {

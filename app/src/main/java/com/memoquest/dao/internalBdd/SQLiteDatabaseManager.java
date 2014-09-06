@@ -117,4 +117,7 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
 
         return listes;
     }
+
+    public void reloadAllTables() {
+    }
 }

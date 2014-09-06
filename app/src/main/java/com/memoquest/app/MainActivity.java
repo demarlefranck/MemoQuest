@@ -12,6 +12,7 @@ import com.memoquest.app.util.Alerte;
 import com.memoquest.dao.ListeDao;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.model.Liste;
+import com.memoquest.service.BddService;
 import com.memoquest.service.ConnexionService;
 import com.memoquest.service.ListeService;
 
@@ -33,64 +34,20 @@ public class MainActivity extends ActionBarActivity{
         Log.i("", "MainActivity.class: onStart()");
         super.onStart();
 
-/*
-        ListeService listeService = new ListeService();
-
-        for(Liste liste : listeService.getListes(this)){
-
-            Log.i("DEBUG", liste.toString());
-        }
-*/
-
-
-        ListeDao listeDao = new ListeDao();
-        listeDao.restGetListes(4);
-/*
-        for(Liste liste : listeDao.restGetListes(4)){
-
-            Log.i("DEBUG", liste.toString());
-        }
-*/
-
-/*
-        ListeService listeService = new ListeService();
-        Liste liste = new Liste();
-        liste.setNom("retest");
-
-        try {
-            Log.i("DEBUG",
-                    listeService.addListe( liste, this).toString());
-        } catch (FonctionalAppException e) {
-            e.printStackTrace();
-        }
-*/
-
-
         /*
+        Voir pour trouver mieux pour tester la connexion car trop long
+         */
+
+
         ConnexionService connexionService = new ConnexionService();
         if(connexionService.isConnected())
             startWithConnection();
         else
             startWithoutConnection();
-    */
 
     }
 
     public void startWithConnection(){
-
-
-
-
-
-        /*
-
-        ARETER AVEC SQLITE    REPRENDRE TOUT PETIT A PETIT
-
-        VOIR POUR CE QUI IL Y A EN DESOUS
-         */
-
-
-
 
 
 
@@ -99,11 +56,14 @@ public class MainActivity extends ActionBarActivity{
         //si id de user
             //reload All Tables
 
-            //Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
-            //startActivity(intentMenu);
+            BddService bddService = new BddService();
+            bddService.reloadAllTables(this);
+
+            Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
+            startActivity(intentMenu);
         //sinon
-            Intent intentConnexion = new Intent(MainActivity.this, ConnectionActivity.class);
-            startActivity(intentConnexion);
+           // Intent intentConnexion = new Intent(MainActivity.this, ConnectionActivity.class);
+           // startActivity(intentConnexion);
             //this.startActivityForResult(intentConnexion, 1000);
 
     }

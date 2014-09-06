@@ -56,11 +56,7 @@ public class ListeDao {
 
     public List<Liste> restGetListes(Integer userId){
 
-
-        Log.i("DEBUG", "restGetListes");
-
         RestGetListesDao restGetListesDao = new RestGetListesDao();
-      //  ListOfListe listOfListe = null;
 
         List<Liste> listes = null;
 
@@ -72,25 +68,14 @@ public class ListeDao {
             listes = restGetListesDao.get();
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            new TechnicalAppException("ListeDao.class: restGetListes(): Probleme lors de la recuperation des listes: " + e.toString());
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            new TechnicalAppException("ListeDao.class: restGetListes(): Probleme lors de la recuperation des listes: " + e.toString());
         }
-
-        /*
-        Voir pour Eliminer ListOfList
-         */
-
-
-     //   return listOfListe.getEntities();
     return listes;
-
     }
 
     public List<Liste> getListes(Context context) {
-
-
-        Log.i("DEBUG", "getListes");
 
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
         return internalBdd.getListes();
@@ -112,7 +97,6 @@ public class ListeDao {
         Log.i("DEBUG","restGetListes OK");
 
         internalBdd.addListes(listes);
-
 
         Log.i("DEBUG","internalBdd.addListes OK");
     }

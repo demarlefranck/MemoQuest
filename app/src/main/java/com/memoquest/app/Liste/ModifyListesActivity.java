@@ -1,4 +1,4 @@
-package com.memoquest.app;
+package com.memoquest.app.Liste;
 
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.memoquest.app.R;
 import com.memoquest.service.ListeService;
 
 

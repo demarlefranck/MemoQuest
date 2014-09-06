@@ -17,31 +17,38 @@ import java.util.List;
 public class ListeService {
 
     private UserService userService;
-
+    private ConnexionService connexionService;
     private ListeDao listeDao;
 
     public ListeService(){
         userService = new UserService();
         listeDao = new ListeDao();
+        connexionService = new ConnexionService();
     }
 
     public Boolean addListe(Liste liste, Context context) throws FonctionalAppException {
 
-        Integer userId = userService.getId();
+        if(connexionService.isConnected()){
+            Integer userId = userService.getId();
 
-        try {
-            if(listeDao.restPostListe(liste, userId)){
+            try {
+                if(listeDao.restPostListe(liste, userId)){
 
-                Log.i("DEBUG","Liste ajoute");
-                listeDao.reloadBddListTable(context, userId);
+                    Log.i("DEBUG","Liste ajoute");
+                    reloadBddListTable(context);
 
 
-                Log.i("DEBUG","BDD recharger");
-                return true;
+                    Log.i("DEBUG","BDD recharger");
+                    return true;
+                }
+            } catch (TechnicalAppException e) {
+                throw new FonctionalAppException("Un probleme est surevenu lors de la creation de la liste");
             }
-        } catch (TechnicalAppException e) {
-            throw new FonctionalAppException("Un probleme est surevenu lors de la creation de la liste");
         }
+        else{
+            throw new FonctionalAppException("Une connexion internet est requise");
+        }
+
         return false;
     }
 
@@ -51,4 +58,9 @@ public class ListeService {
         return listeDao.getListes(context);
     }
 
+    public void reloadBddListTable(Context context) {
+
+        Integer userId = userService.getId();
+        listeDao.reloadBddListTable(context, userId);
+    }
 }
