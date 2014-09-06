@@ -45,11 +45,11 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public void addListOfListe(List<Liste> listOfListe) {
+    public void addListes(List<Liste> listes) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        for(Liste liste : listOfListe){
+        for(Liste liste : listes){
 
             Log.d("ajout de la liste avec le nom :", liste.getNom());
 
@@ -92,28 +92,29 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
     public List<Liste> getListes() {
 
         List<Liste> listes = new LinkedList<Liste>();
-        //        List<Liste> listes = new ArrayList<Liste>();
-
         String query = "SELECT  * FROM " + NAME_TABLE_LISTE;
+
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        Liste liste;
+        Liste liste = null;
+
         if (cursor.moveToFirst())
         {
             do {
                 liste = new Liste();
                 liste.setId(Integer.parseInt(cursor.getString(0)));
-//                liste.setId(Integer.valueOf(cursor.getInt(0)));
-
                 liste.setNom(cursor.getString(1));
                 liste.setTheme(cursor.getString(2));
                 liste.setCategory(cursor.getString(3));
                 listes.add(liste);
             } while (cursor.moveToNext());
         }
-        Log.d("afficherTout()", listes.toString());
+
+        cursor.close();
+        db.close();
+
         return listes;
     }
 }

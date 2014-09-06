@@ -1,6 +1,7 @@
 package com.memoquest.service;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.memoquest.dao.ListeDao;
 import com.memoquest.dao.rest.post.RestPostListeDao;
@@ -30,7 +31,12 @@ public class ListeService {
 
         try {
             if(listeDao.restPostListe(liste, userId)){
+
+                Log.i("DEBUG","Liste ajoute");
                 listeDao.reloadBddListTable(context, userId);
+
+
+                Log.i("DEBUG","BDD recharger");
                 return true;
             }
         } catch (TechnicalAppException e) {

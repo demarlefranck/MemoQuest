@@ -2,6 +2,7 @@ package com.memoquest.dao;
 
 
 import android.content.Context;
+import android.util.Log;
 
 
 import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
@@ -18,6 +19,9 @@ public class ListeDao {
 
     public Boolean restPostListe(Liste liste, Integer userId) throws TechnicalAppException {
 
+
+        Log.i("DEBUG", "restPostListe");
+
         RestPostListeDao restPostListeDao = new RestPostListeDao();
 
         restPostListeDao.setUserId(userId);
@@ -26,9 +30,14 @@ public class ListeDao {
 
         restPostListeDao.execute();
 
+
+        Log.i("DEBUG", "restPostListeDao.execute OK");
+/*
         try {
 
             if(restPostListeDao.get()){
+
+                Log.i("DEBUG", "Post Liste OK");
             }
             else{
                 throw new TechnicalAppException("echec de la creation de la liste dans le serveur");
@@ -39,7 +48,7 @@ public class ListeDao {
         } catch (ExecutionException e) {
             throw new TechnicalAppException("ListeService.class, restPostListe(): " + e.toString());
         }
-
+*/
         return true;
     }
 
@@ -47,14 +56,20 @@ public class ListeDao {
 
     public List<Liste> restGetListes(Integer userId){
 
+
+        Log.i("DEBUG", "restGetListes");
+
         RestGetListesDao restGetListesDao = new RestGetListesDao();
-        ListOfListe listOfListe = null;
+      //  ListOfListe listOfListe = null;
+
+        List<Liste> listes = null;
+
         restGetListesDao.setUserId(userId);
         restGetListesDao.execute();
 
         try {
 
-            listOfListe = restGetListesDao.get();
+            listes = restGetListesDao.get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -67,10 +82,15 @@ public class ListeDao {
          */
 
 
-        return listOfListe.getEntities();
+     //   return listOfListe.getEntities();
+    return listes;
+
     }
 
     public List<Liste> getListes(Context context) {
+
+
+        Log.i("DEBUG", "getListes");
 
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
         return internalBdd.getListes();
@@ -79,12 +99,22 @@ public class ListeDao {
 
     public void reloadBddListTable(Context context, Integer userId){
 
+        Log.i("DEBUG", "reloadBddListTable");
+
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
         internalBdd.deleteAllListe();
 
+        Log.i("DEBUG","internalBdd.deleteAllListe OK");
+
         List<Liste> listes = restGetListes(userId);
 
-        internalBdd.addListOfListe(listes);
+
+        Log.i("DEBUG","restGetListes OK");
+
+        internalBdd.addListes(listes);
+
+
+        Log.i("DEBUG","internalBdd.addListes OK");
     }
 
 }

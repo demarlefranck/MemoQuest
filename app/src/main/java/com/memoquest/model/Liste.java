@@ -1,8 +1,5 @@
 package com.memoquest.model;
 
-/**
- * Created by franck on 30/08/2014.
- */
 public class Liste {
 
     private int id;
@@ -17,7 +14,6 @@ public class Liste {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getNom() {
         return nom;
@@ -41,5 +37,15 @@ public class Liste {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString(){
+
+        return ("\nliste id:       " + this.getId() +
+                "\nliste nom:      " + this.getNom() +
+                "\nliste theme:    " + this.getTheme() +
+                "\nliste category: " + this.getCategory()
+               );
     }
 }

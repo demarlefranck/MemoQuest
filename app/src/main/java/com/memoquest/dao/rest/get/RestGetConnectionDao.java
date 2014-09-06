@@ -8,6 +8,7 @@ import com.memoquest.model.ListOfListe;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -36,9 +37,9 @@ public class RestGetConnectionDao extends AsyncTask<Void, Void, Boolean> {
 
             HttpClient httpclient = new DefaultHttpClient();
 
-            HttpPost httpPost = new HttpPost(url);
+            HttpGet httpGet = new HttpGet(url);
 
-            HttpResponse httpResponse = httpclient.execute(httpPost);
+            HttpResponse httpResponse = httpclient.execute(httpGet);
 
             if (httpResponse.getStatusLine().getStatusCode() == 200)
                 return true;
