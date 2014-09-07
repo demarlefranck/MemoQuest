@@ -37,9 +37,7 @@ public class RestGetConnectionDao extends AsyncTask<Void, Void, Boolean> {
             final String url = "http://memoquest.fr";
 
             HttpClient httpclient = new DefaultHttpClient();
-
             HttpGet httpGet = new HttpGet(url);
-
             HttpResponse httpResponse = httpclient.execute(httpGet);
 
             if (httpResponse.getStatusLine().getStatusCode() == 200)
@@ -54,5 +52,4 @@ public class RestGetConnectionDao extends AsyncTask<Void, Void, Boolean> {
         }
         return false;
     }
-
 }

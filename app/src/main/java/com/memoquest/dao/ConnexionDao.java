@@ -18,7 +18,6 @@ public class ConnexionDao {
 
         //REMPLACER PAR SERVICE SOAP
 
-
         if(loginTextStr.equals("toto") && passwordTextStr.equals("toto")){
             return true;
         }
@@ -61,6 +60,7 @@ public class ConnexionDao {
     }
 
     public Boolean isConnected(Context context) {
-       return checkInternetConenction(context);
+
+        return checkInternetConenction(context);
     }
 }

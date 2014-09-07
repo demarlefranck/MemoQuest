@@ -19,7 +19,6 @@ public class ListeDao {
 
     public Boolean restPostListe(Liste liste, Integer userId) throws TechnicalAppException {
 
-
         Log.i("DEBUG", "restPostListe");
 
         RestPostListeDao restPostListeDao = new RestPostListeDao();
@@ -30,29 +29,8 @@ public class ListeDao {
 
         restPostListeDao.execute();
 
-
-        Log.i("DEBUG", "restPostListeDao.execute OK");
-/*
-        try {
-
-            if(restPostListeDao.get()){
-
-                Log.i("DEBUG", "Post Liste OK");
-            }
-            else{
-                throw new TechnicalAppException("echec de la creation de la liste dans le serveur");
-            }
-
-        } catch (InterruptedException e) {
-            throw new TechnicalAppException("ListeService.class, restPostListe(): " + e.toString());
-        } catch (ExecutionException e) {
-            throw new TechnicalAppException("ListeService.class, restPostListe(): " + e.toString());
-        }
-*/
         return true;
     }
-
-
 
     public List<Liste> restGetListes(Integer userId){
 
@@ -79,12 +57,9 @@ public class ListeDao {
 
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
         return internalBdd.getListes();
-
     }
 
     public void reloadBddListTable(Context context, Integer userId){
-
-        Log.i("DEBUG", "reloadBddListTable");
 
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
         internalBdd.deleteAllListe();
@@ -92,7 +67,6 @@ public class ListeDao {
         Log.i("DEBUG","internalBdd.deleteAllListe OK");
 
         List<Liste> listes = restGetListes(userId);
-
 
         Log.i("DEBUG","restGetListes OK");
 
