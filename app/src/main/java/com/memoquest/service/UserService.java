@@ -1,8 +1,5 @@
 package com.memoquest.service;
 
-/**
- * Created by franck on 31/08/2014.
- */
 public class UserService {
 
     private int id;

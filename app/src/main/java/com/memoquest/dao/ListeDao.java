@@ -9,7 +9,6 @@ import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
 import com.memoquest.dao.rest.get.RestGetListesDao;
 import com.memoquest.dao.rest.post.RestPostListeDao;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.ListOfListe;
 import com.memoquest.model.Liste;
 
 import java.util.List;
@@ -21,6 +20,8 @@ public class ListeDao {
 
         Log.i("DEBUG", "restPostListe");
 
+        Boolean rtn = false;
+
         RestPostListeDao restPostListeDao = new RestPostListeDao();
 
         restPostListeDao.setUserId(userId);
@@ -29,7 +30,15 @@ public class ListeDao {
 
         restPostListeDao.execute();
 
-        return true;
+        try {
+            rtn = restPostListeDao.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return rtn;
     }
 
     public List<Liste> restGetListes(Integer userId){

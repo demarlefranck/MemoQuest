@@ -63,8 +63,10 @@ public class RestPostListeDao extends AsyncTask<Void, Void, Boolean> {
 
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
-            if (httpResponse.getStatusLine().getStatusCode() == 201)
+            if (httpResponse.getStatusLine().getStatusCode() == 201){
+
                 return true;
+            }
 
         } catch (JSONException e) {
             Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);

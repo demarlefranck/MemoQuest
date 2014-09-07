@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.memoquest.dao.rest.get.RestGetConnectionDao;
 import com.memoquest.exception.TechnicalAppException;

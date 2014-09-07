@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.memoquest.model.Liste;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

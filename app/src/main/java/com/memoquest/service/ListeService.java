@@ -4,16 +4,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.memoquest.dao.ListeDao;
-import com.memoquest.dao.rest.post.RestPostListeDao;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.Liste;
 
 import java.util.List;
 
-/**
- * Created by franck on 30/08/2014.
- */
 public class ListeService {
 
     private UserService userService;

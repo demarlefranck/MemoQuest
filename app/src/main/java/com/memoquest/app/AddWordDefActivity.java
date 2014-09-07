@@ -1,14 +1,9 @@
 package com.memoquest.app;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
-import com.memoquest.app.R;
 
 
 public class AddWordDefActivity extends Activity {

@@ -2,8 +2,6 @@ package com.memoquest.service;
 
 import android.content.Context;
 
-import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
-
 public class BddService {
 
     private ListeService listeService;
