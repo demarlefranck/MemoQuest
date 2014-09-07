@@ -3,6 +3,7 @@ package com.memoquest.dao.rest.get;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.ListOfListe;
 
 import org.apache.http.HttpResponse;
@@ -45,10 +46,11 @@ public class RestGetConnectionDao extends AsyncTask<Void, Void, Boolean> {
                 return true;
 
         } catch (UnknownHostException e) {
-            Log.i("DEBUG", "Pas de connexion");
+            new TechnicalAppException("RestGetConnectionDao.class: Probleme de connection au serveur " + e.toString());
             return false;
         } catch (IOException e) {
-            Log.e("RestGetConnectionDao.class, doInBackground(): ", e.getMessage(), e);
+            new TechnicalAppException("RestGetConnectionDao.class: Probleme de connection au serveur " + e.toString());
+            return false;
         }
         return false;
     }

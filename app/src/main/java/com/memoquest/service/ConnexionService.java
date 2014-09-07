@@ -1,5 +1,7 @@
 package com.memoquest.service;
 
+import android.content.Context;
+
 import com.memoquest.dao.ConnexionDao;
 
 public class ConnexionService {
@@ -14,7 +16,7 @@ public class ConnexionService {
         return connexionDao.isAuthentifiate(loginTextStr, passwordTextStr);
     }
 
-    public Boolean isConnected(){
-        return connexionDao.isConnected();
+    public Boolean isConnected(Context context){
+        return connexionDao.isConnected(context);
     }
 }

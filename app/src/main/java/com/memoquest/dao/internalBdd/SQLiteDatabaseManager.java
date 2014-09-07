@@ -85,7 +85,7 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
     public void deleteAllListe() {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(NAME_TABLE_LISTE, "1 = ?", new String[] { String.valueOf(1) });
+        db.delete(NAME_TABLE_LISTE, null, null);
         db.close();
     }
 

@@ -3,12 +3,16 @@ package com.memoquest.app.Liste;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.memoquest.app.R;
+import com.memoquest.model.Liste;
 import com.memoquest.service.ListeService;
+
+import java.util.List;
 
 
 public class ModifyListesActivity  extends Activity {
@@ -24,8 +28,9 @@ public class ModifyListesActivity  extends Activity {
 
         ListeService listeService = new ListeService();
 
-        viewListes.setText((CharSequence) listeService.getListes(this));
+        List<Liste> listes = listeService.getListes(this);
 
+        viewListes.setText(listes.toString());
     }
 
 
@@ -48,5 +53,4 @@ public class ModifyListesActivity  extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

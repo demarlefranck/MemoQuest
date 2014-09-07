@@ -6,20 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-
-import com.memoquest.app.util.Alerte;
-import com.memoquest.dao.ListeDao;
-import com.memoquest.exception.FonctionalAppException;
-import com.memoquest.model.Liste;
 import com.memoquest.service.BddService;
 import com.memoquest.service.ConnexionService;
-import com.memoquest.service.ListeService;
 
 
 public class MainActivity extends ActionBarActivity{
-
-
 //public class MainActivity extends Activity {
 
 
@@ -34,17 +25,11 @@ public class MainActivity extends ActionBarActivity{
         Log.i("", "MainActivity.class: onStart()");
         super.onStart();
 
-        /*
-        Voir pour trouver mieux pour tester la connexion car trop long
-         */
-
-
         ConnexionService connexionService = new ConnexionService();
-        if(connexionService.isConnected())
+        if(connexionService.isConnected(this))
             startWithConnection();
         else
             startWithoutConnection();
-
     }
 
     public void startWithConnection(){
@@ -54,8 +39,6 @@ public class MainActivity extends ActionBarActivity{
         //verif authentification
 
         //si id de user
-            //reload All Tables
-
             BddService bddService = new BddService();
             bddService.reloadAllTables(this);
 

@@ -16,11 +16,18 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="441dp"
-            android:text="New Text"
-            android:id="@+id/textViewListes"
-            android:layout_gravity="center_horizontal|top" />
+        <ScrollView
+            android:layout_width="251dp"
+            android:layout_height="295dp"
+            android:id="@+id/scrollView"
+            android:layout_gravity="center" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="162dp"
+                android:text="New Text"
+                android:id="@+id/textViewListes"
+                android:layout_gravity="center_horizontal|top" />
+        </ScrollView>
     </FrameLayout>
 </RelativeLayout>

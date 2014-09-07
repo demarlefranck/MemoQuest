@@ -28,7 +28,7 @@ public class ListeService {
 
     public Boolean addListe(Liste liste, Context context) throws FonctionalAppException {
 
-        if(connexionService.isConnected()){
+        if(connexionService.isConnected(context)){
             Integer userId = userService.getId();
 
             try {
