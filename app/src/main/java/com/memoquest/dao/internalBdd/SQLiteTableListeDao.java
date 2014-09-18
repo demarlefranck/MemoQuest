@@ -3,7 +3,6 @@ package com.memoquest.dao.internalBdd;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
@@ -44,16 +43,12 @@ public class SQLiteTableListeDao {
 
 
     public void addListe(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {
-
-        Log.d("ajout de la liste avec le nom :", listeInternalBdd.getNom());
-
         ContentValues values = new ContentValues();
         values.put(KEY_LISTE_ID, listeInternalBdd.getId());
         values.put(KEY_LISTE_NOM, listeInternalBdd.getNom());
         values.put(KEY_LISTE_THEME, listeInternalBdd.getTheme());
         values.put(KEY_LISTE_CATHEGORY, listeInternalBdd.getCathegory());
         values.put(KEY_LISTE_SYNCHRO, listeInternalBdd.getSynchro());
-
 
         db.insert(NAME_TABLE_LISTE, null, values);
         db.close();
@@ -178,22 +173,4 @@ public class SQLiteTableListeDao {
     public static String getNameTableListe() {
         return NAME_TABLE_LISTE;
     }
-
-    public static String getKeyListeId() {
-        return KEY_LISTE_ID;
-    }
-
-    public static String getKeyListeNom() {
-        return KEY_LISTE_NOM;
-    }
-
-    public static String getKeyListeTheme() {
-        return KEY_LISTE_THEME;
-    }
-
-    public static String getKeyListeCathegory() {
-        return KEY_LISTE_CATHEGORY;
-    }
-
-
 }

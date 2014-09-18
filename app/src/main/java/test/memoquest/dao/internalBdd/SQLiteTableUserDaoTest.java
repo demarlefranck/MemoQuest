@@ -1,12 +1,19 @@
 package test.memoquest.dao.internalBdd;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
 import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
 import com.memoquest.model.ListeInternalBdd;
+import com.memoquest.model.User;
 
-public class SQLiteDatabaseManagerTest extends AndroidTestCase {
+import java.util.LinkedList;
+import java.util.List;
+/*
+public class SQLiteTableUserDaoTest extends AndroidTestCase {
 
     private SQLiteDatabaseManager db;
 
@@ -17,29 +24,19 @@ public class SQLiteDatabaseManagerTest extends AndroidTestCase {
         db = new SQLiteDatabaseManager(context);
 
     }
-/*
-    public ListeInternalBdd addListeTest() throws Exception {
 
-        ListeInternalBdd listeInternalBdd =
-                new ListeInternalBdd(null, -1,"NameListeTest", "themeListeTest", "categoryListeTest", false, false);
-        db.addListeInternalBdd(listeInternalBdd);
-        return listeInternalBdd;
-    }
-*/
-    public void testGetAllListeInternalBdd() throws Exception {
-        ListeInternalBdd listeExpected = new ListeInternalBdd(null, -1,"NameListeTest", "themeListeTest", "categoryListeTest", false, false);
+    public void testGetAllUser() throws Exception {
+        User user = new User(null, "emailTest", "paswordTest");
+
+
         db.addListeInternalBdd(listeExpected);
         ListeInternalBdd listeReality = db.getAllListeInternalBdd().get(0);
         db.deleteListeInternalBddWithIdTemp(listeExpected);
 
-        /*
-        Verifie Que l'auto-increment est ok
-         */
+
         assertNotNull(listeReality.getIdTemp());
 
-        /*
-        Verifie Que les champs sont identiques
-         */
+
         assertEquals(listeExpected.getId(), listeReality.getId());
         assertEquals(listeExpected.getNom(), listeReality.getNom());
         assertEquals(listeExpected.getTheme(), listeReality.getTheme());
@@ -112,4 +109,16 @@ public class SQLiteDatabaseManagerTest extends AndroidTestCase {
         assertEquals(0, db.getAllListeInternalBdd().size());
     }
 }
+*/
 
+/*
+
+    public void addUser(SQLiteDatabase db, User user) {
+
+    public List<User> getAllUser(SQLiteDatabase db) {
+
+    public boolean deleteUserWithId(SQLiteDatabase db, User user) {
+
+    public void deleteAllUsers(SQLiteDatabase db) {
+
+    */
