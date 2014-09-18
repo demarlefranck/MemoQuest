@@ -2,6 +2,21 @@ package com.memoquest.model;
 
 public class Liste {
 
+    public Liste() {}
+
+    public Liste(String nom, String theme, String category) {
+        this.nom = nom;
+        this.theme = theme;
+        this.category = category;
+    }
+
+    public Liste(int id, String nom, String theme, String category) {
+        this.id = id;
+        this.nom = nom;
+        this.theme = theme;
+        this.category = category;
+    }
+
     private int id;
     private String nom;
     private String theme;

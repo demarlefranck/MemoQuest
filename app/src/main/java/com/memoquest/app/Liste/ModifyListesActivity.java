@@ -23,12 +23,15 @@ public class ModifyListesActivity  extends Activity {
         setContentView(R.layout.activity_modify_listes);
 
         viewListes = (TextView) this.findViewById(R.id.textViewListes);
-
+/*
         ListeService listeService = new ListeService();
 
         List<Liste> listes = listeService.getListes(this);
 
         viewListes.setText(listes.toString());
+
+*/
+
     }
 
 

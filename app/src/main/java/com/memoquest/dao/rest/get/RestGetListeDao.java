@@ -28,7 +28,7 @@ Classe pas testee mais doit etre OK
 
 Elle doit s'appeler de cette facon:
 
-RestGetListeDao restGetListeDao = new RestGetListeDao();
+RestGetListeDaoTest restGetListeDao = new RestGetListeDaoTest();
 Liste liste = null;
 
 restGetListeDao.setUserId(userId);
@@ -64,7 +64,7 @@ public class RestGetListeDao extends AsyncTask<Void, Void, Liste>{
             return liste;
 
         } catch (Exception e) {
-            Log.e("RestGetListesDao", e.getMessage(), e);
+            Log.e("RestGetListesDaoTest", e.getMessage(), e);
         }
 
         return null;

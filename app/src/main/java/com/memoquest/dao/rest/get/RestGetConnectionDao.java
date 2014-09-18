@@ -34,10 +34,10 @@ public class RestGetConnectionDao extends AsyncTask<Void, Void, Boolean> {
                 return true;
 
         } catch (UnknownHostException e) {
-            new TechnicalAppException("RestGetConnectionDao.class: Probleme de connection au serveur " + e.toString());
+            new TechnicalAppException("RestGetConnectionDaoTest.class: Probleme de connection au serveur " + e.toString());
             return false;
         } catch (IOException e) {
-            new TechnicalAppException("RestGetConnectionDao.class: Probleme de connection au serveur " + e.toString());
+            new TechnicalAppException("RestGetConnectionDaoTest.class: Probleme de connection au serveur " + e.toString());
             return false;
         }
         return false;

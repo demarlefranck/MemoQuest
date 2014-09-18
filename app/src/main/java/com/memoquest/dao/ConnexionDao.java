@@ -51,9 +51,9 @@ public class ConnexionDao {
                 return true;
             }
         } catch (InterruptedException e) {
-            new TechnicalAppException("ConnexionDao.class: checkServerConnection(): Probleme de connection: " + e.toString());
+            new TechnicalAppException("ConnexionDaoTest.class: checkServerConnection(): Probleme de connection: " + e.toString());
         } catch (ExecutionException e) {
-            new TechnicalAppException("ConnexionDao.class: checkServerConnection(): Probleme de connection: " + e.toString());
+            new TechnicalAppException("ConnexionDaoTest.class: checkServerConnection(): Probleme de connection: " + e.toString());
         }
         return false;
     }

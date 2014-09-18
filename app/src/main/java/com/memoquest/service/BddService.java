@@ -13,6 +13,6 @@ public class BddService {
 
     public void reloadAllTables(Context context){
 
-        listeService.reloadBddListTable(context);
+        //listeService.reloadBddListTable(context);
     }
 }

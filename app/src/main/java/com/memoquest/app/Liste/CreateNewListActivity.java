@@ -98,11 +98,7 @@ public class CreateNewListActivity extends Activity {
     public void createListe(){
 
         ListeService listeService = new ListeService();
-        Liste liste = new Liste();
-
-        liste.setNom(titreListTextStr);
-        liste.setTheme(themeListTextStr);
-        liste.setCategory(cathegoryListTextStr);
+        Liste liste = new Liste(titreListTextStr, themeListTextStr, cathegoryListTextStr);
 
         try {
             listeService.addListe(liste, this);

@@ -4,7 +4,6 @@ package com.memoquest.dao;
 import android.content.Context;
 import android.util.Log;
 
-
 import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
 import com.memoquest.dao.rest.get.RestGetListesDao;
 import com.memoquest.dao.rest.post.RestPostListeDao;
@@ -55,23 +54,23 @@ public class ListeDao {
             listes = restGetListesDao.get();
 
         } catch (InterruptedException e) {
-            new TechnicalAppException("ListeDao.class: restGetListes(): Probleme lors de la recuperation des listes: " + e.toString());
+            new TechnicalAppException("ListeDaoTest.class: restGetListes(): Probleme lors de la recuperation des listes: " + e.toString());
         } catch (ExecutionException e) {
-            new TechnicalAppException("ListeDao.class: restGetListes(): Probleme lors de la recuperation des listes: " + e.toString());
+            new TechnicalAppException("ListeDaoTest.class: restGetListes(): Probleme lors de la recuperation des listes: " + e.toString());
         }
     return listes;
     }
-
+/*
     public List<Liste> getListes(Context context) {
 
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
-        return internalBdd.getListes();
+        return internalBdd.getAllListeInternalBdd();
     }
 
     public void reloadBddListTable(Context context, Integer userId){
 
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
-        internalBdd.deleteAllListe();
+        internalBdd.deleteAllListeInternalBdd();
 
         Log.i("DEBUG","internalBdd.deleteAllListe OK");
 
@@ -83,5 +82,5 @@ public class ListeDao {
 
         Log.i("DEBUG","internalBdd.addListes OK");
     }
-
+*/
 }

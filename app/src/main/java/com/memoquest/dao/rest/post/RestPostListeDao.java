@@ -69,13 +69,13 @@ public class RestPostListeDao extends AsyncTask<Void, Void, Boolean> {
             }
 
         } catch (JSONException e) {
-            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
+            Log.e("RestPostListeDaoTest.class, doInBackground(): ", e.getMessage(), e);
         } catch (ClientProtocolException e) {
-            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
+            Log.e("RestPostListeDaoTest.class, doInBackground(): ", e.getMessage(), e);
         } catch (UnsupportedEncodingException e) {
-            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
+            Log.e("RestPostListeDaoTest.class, doInBackground(): ", e.getMessage(), e);
         } catch (IOException e) {
-            Log.e("RestPostListeDao.class, doInBackground(): ", e.getMessage(), e);
+            Log.e("RestPostListeDaoTest.class, doInBackground(): ", e.getMessage(), e);
         }
 
         return false;

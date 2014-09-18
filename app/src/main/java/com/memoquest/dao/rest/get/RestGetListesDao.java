@@ -49,10 +49,10 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
                 listes = httpEntityToObject(httpResponse.getEntity());
 
             } else {
-                new TechnicalAppException("RestGetListesDao.class: Probleme lors de la recuperation des listes");
+                new TechnicalAppException("RestGetListesDaoTest.class: Probleme lors de la recuperation des listes");
             }
         } catch (IOException e) {
-            new TechnicalAppException("RestGetListesDao.class: Probleme lors de la recuperation des listes: " + e.toString());
+            new TechnicalAppException("RestGetListesDaoTest.class: Probleme lors de la recuperation des listes: " + e.toString());
         }
         return listes;
     }
@@ -71,7 +71,7 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
                 builder.append(line);
             }
         } catch (IOException e) {
-            new TechnicalAppException("RestGetListesDao.class: HttpEntityToObject(): Probleme lors de la recuperation des listes: " + e.toString());
+            new TechnicalAppException("RestGetListesDaoTest.class: HttpEntityToObject(): Probleme lors de la recuperation des listes: " + e.toString());
         }
         return stringToListes(builder.toString());
     }
@@ -101,7 +101,7 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
             }
 
         } catch (JSONException e) {
-            new TechnicalAppException("RestGetListesDao.class: stringToListes(): Probleme lors de la conversion Json to listes: " + e.toString());
+            new TechnicalAppException("RestGetListesDaoTest.class: stringToListes(): Probleme lors de la conversion Json to listes: " + e.toString());
         }
         return listes;
     }

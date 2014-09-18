@@ -31,7 +31,7 @@ public class ListeService {
                 if(listeDao.restPostListe(liste, userId)){
 
                     Log.i("DEBUG","Liste ajoute");
-                    reloadBddListTable(context);
+                    //reloadBddListTable(context);
 
 
                     Log.i("DEBUG","BDD recharger");
@@ -48,7 +48,7 @@ public class ListeService {
         return false;
     }
 
-
+/*
     public List<Liste> getListes(Context context) {
 
         return listeDao.getListes(context);
@@ -59,4 +59,5 @@ public class ListeService {
         Integer userId = userService.getId();
         listeDao.reloadBddListTable(context, userId);
     }
+    */
 }
