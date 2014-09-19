@@ -3,7 +3,7 @@ package com.memoquest.dao.rest.get;
 import android.os.AsyncTask;
 
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.Liste;
+import com.memoquest.model.ListeRest;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
+public class RestGetListesDao extends AsyncTask<Void, Void, List<ListeRest> > {
 
     private int userId;
 
@@ -31,9 +31,9 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
         this.userId = id;
     }
 
-    protected List<Liste> doInBackground(Void... params) {
+    protected List<ListeRest> doInBackground(Void... params) {
 
-        List<Liste> listes = null;
+        List<ListeRest> listes = null;
 
         final String url = "http://memoquest.fr/MemoQuest/app_dev.php/api/users/" + this.userId + "/listes";
 
@@ -57,8 +57,8 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
         return listes;
     }
 
-    public List<Liste> httpEntityToObject(HttpEntity httpEntity){
-        List<Liste> listes = null;
+    public List<ListeRest> httpEntityToObject(HttpEntity httpEntity){
+        List<ListeRest> listes = null;
 
         StringBuilder builder = new StringBuilder();
 
@@ -77,8 +77,8 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
     }
 
 
-    public List<Liste> stringToListes(String string){
-        List<Liste> listes = new ArrayList<Liste>();
+    public List<ListeRest> stringToListes(String string){
+        List<ListeRest> listes = new ArrayList<ListeRest>();
 
         JSONObject envellopeListesJson;
         try {
@@ -86,13 +86,13 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<Liste> > {
 
             JSONArray listesJson = envellopeListesJson.getJSONArray("entities");
 
-            Liste liste;
+            ListeRest liste;
 
             for (int i = 0; i < listesJson.length(); i++) {
 
                 JSONObject jsonObject = listesJson.getJSONObject(i);
 
-                liste = new Liste();
+                liste = new ListeRest();
                 liste.setId(Integer.parseInt(jsonObject.getString("id")));
                 liste.setNom(jsonObject.getString("nom"));
                 liste.setCategory(jsonObject.getString("category"));

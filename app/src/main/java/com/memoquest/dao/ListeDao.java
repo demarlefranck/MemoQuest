@@ -1,21 +1,19 @@
 package com.memoquest.dao;
 
 
-import android.content.Context;
 import android.util.Log;
 
-import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
 import com.memoquest.dao.rest.get.RestGetListesDao;
 import com.memoquest.dao.rest.post.RestPostListeDao;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.Liste;
+import com.memoquest.model.ListeRest;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class ListeDao {
 
-    public Boolean restPostListe(Liste liste, Integer userId) throws TechnicalAppException {
+    public Boolean restPostListe(ListeRest liste, Integer userId) throws TechnicalAppException {
 
         Log.i("DEBUG", "restPostListe");
 
@@ -40,11 +38,11 @@ public class ListeDao {
         return rtn;
     }
 
-    public List<Liste> restGetListes(Integer userId){
+    public List<ListeRest> restGetListes(Integer userId){
 
         RestGetListesDao restGetListesDao = new RestGetListesDao();
 
-        List<Liste> listes = null;
+        List<ListeRest> listes = null;
 
         restGetListesDao.setUserId(userId);
         restGetListesDao.execute();
@@ -61,7 +59,7 @@ public class ListeDao {
     return listes;
     }
 /*
-    public List<Liste> getListes(Context context) {
+    public List<ListeRest> getListes(Context context) {
 
         SQLiteDatabaseManager internalBdd = new SQLiteDatabaseManager(context);
         return internalBdd.getAllListeInternalBdd();
@@ -74,7 +72,7 @@ public class ListeDao {
 
         Log.i("DEBUG","internalBdd.deleteAllListe OK");
 
-        List<Liste> listes = restGetListes(userId);
+        List<ListeRest> listes = restGetListes(userId);
 
         Log.i("DEBUG","restGetListes OK");
 

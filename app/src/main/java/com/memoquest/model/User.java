@@ -5,16 +5,25 @@ package com.memoquest.model;
  */
 public class User {
 
+    private Integer idAi;
     private Integer id;
     private String email;
     private String password;
 
     public User(){}
 
-    public User(Integer id, String email, String password) {
-        this.id = id;
+    public User(Integer idAi, String email, String password) {
+        this.idAi = idAi;
         this.email = email;
         this.password = password;
+    }
+
+    public Integer getIdAi() {
+        return idAi;
+    }
+
+    public void setIdAi(Integer idAi) {
+        this.idAi = idAi;
     }
 
     public Integer getId() {

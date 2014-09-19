@@ -7,10 +7,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.memoquest.app.R;
-import com.memoquest.model.Liste;
-import com.memoquest.service.ListeService;
-
-import java.util.List;
 
 
 public class ModifyListesActivity  extends Activity {
@@ -26,7 +22,7 @@ public class ModifyListesActivity  extends Activity {
 /*
         ListeService listeService = new ListeService();
 
-        List<Liste> listes = listeService.getListes(this);
+        List<ListeRest> listes = listeService.getListes(this);
 
         viewListes.setText(listes.toString());
 

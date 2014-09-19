@@ -1,33 +1,36 @@
 package com.memoquest.model;
 
-public class Liste {
+import java.util.List;
 
-    public Liste() {}
+public class ListeRest {
 
-    public Liste(String nom, String theme, String category) {
-        this.nom = nom;
-        this.theme = theme;
-        this.category = category;
-    }
 
-    public Liste(int id, String nom, String theme, String category) {
-        this.id = id;
-        this.nom = nom;
-        this.theme = theme;
-        this.category = category;
-    }
-
-    private int id;
+    private Integer id;
     private String nom;
     private String theme;
     private String category;
 
-    public int getId() {
+    public ListeRest() {}
+
+    public ListeRest(String nom, String theme, String category) {
+        this.nom = nom;
+        this.theme = theme;
+        this.category = category;
+    }
+
+    public ListeRest(int idAi, String nom, String theme, String category) {
+        this.id = id;
+        this.nom = nom;
+        this.theme = theme;
+        this.category = category;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Integer idAi) {
+        this.id = idAi;
     }
 
     public String getNom() {

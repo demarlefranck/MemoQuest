@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.memoquest.app.R;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
-import com.memoquest.model.Liste;
+import com.memoquest.model.ListeRest;
 import com.memoquest.service.ListeService;
 
 
@@ -98,7 +98,7 @@ public class CreateNewListActivity extends Activity {
     public void createListe(){
 
         ListeService listeService = new ListeService();
-        Liste liste = new Liste(titreListTextStr, themeListTextStr, cathegoryListTextStr);
+        ListeRest liste = new ListeRest(titreListTextStr, themeListTextStr, cathegoryListTextStr);
 
         try {
             listeService.addListe(liste, this);

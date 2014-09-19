@@ -3,7 +3,7 @@ package com.memoquest.dao.rest.post;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.memoquest.model.Liste;
+import com.memoquest.model.ListeRest;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -20,7 +20,7 @@ import java.io.UnsupportedEncodingException;
 
 public class RestPostListeDao extends AsyncTask<Void, Void, Boolean> {
 
-    private Liste liste;
+    private ListeRest liste;
 
     private int userId;
 
@@ -28,7 +28,7 @@ public class RestPostListeDao extends AsyncTask<Void, Void, Boolean> {
         this.userId = userId;
     }
 
-    public void setListe(Liste liste) {
+    public void setListe(ListeRest liste) {
         this.liste = liste;
     }
 

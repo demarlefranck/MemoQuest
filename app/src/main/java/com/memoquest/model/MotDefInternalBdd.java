@@ -1,28 +1,19 @@
 package com.memoquest.model;
 
-import org.apache.http.impl.cookie.DateUtils;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
- * Created by fdemarle on 18/09/2014.
+ * Created by fdemarle on 19/09/2014.
  */
-public class ListeInternalBdd {
+public class MotDefInternalBdd {
 
     private Integer idAi;
     private int id;
-    private String nom;
-    private String theme;
-    private String cathegory;
-    private Boolean shared;
+    private String mot;
+    private String definition;
     private Boolean mustDeleted;
     private int createUser;
     private String createTime;
     private int updateUser;
     private String updateTime;
-
-    public ListeInternalBdd() {}
 
     public Integer getIdAi() {
         return idAi;
@@ -40,36 +31,20 @@ public class ListeInternalBdd {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getMot() {
+        return mot;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setMot(String mot) {
+        this.mot = mot;
     }
 
-    public String getTheme() {
-        return theme;
+    public String getDefinition() {
+        return definition;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public String getCathegory() {
-        return cathegory;
-    }
-
-    public void setCathegory(String cathegory) {
-        this.cathegory = cathegory;
-    }
-
-    public Boolean getShared() {
-        return shared;
-    }
-
-    public void setShared(Boolean shared) {
-        this.shared = shared;
+    public void setDefinition(String definition) {
+        this.definition = definition;
     }
 
     public Boolean getMustDeleted() {
@@ -117,10 +92,8 @@ public class ListeInternalBdd {
 
         return ("\nidAi:    " + this.getIdAi() +
                 "\nid:        " + this.getId() +
-                "\nnom:       " + this.getNom() +
-                "\ntheme:     " + this.getTheme() +
-                "\ncathegory: " + this.getCathegory() +
-                "\n:shared "    + this.getShared() +
+                "\nmot:       " + this.getMot() +
+                "\ndefinition:     " + this.getDefinition() +
                 "\nmustDeleted: " + this.getMustDeleted().toString() +
                 "\n:createUser " + this.getCreateUser() +
                 "\n:createTime " + this.getCreateTime()) +
@@ -128,6 +101,3 @@ public class ListeInternalBdd {
                 "\n:updateTime " + this.getUpdateTime();
     }
 }
-
-
-

@@ -3,25 +3,10 @@ package com.memoquest.dao.rest.get;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.memoquest.model.Liste;
+import com.memoquest.model.ListeRest;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
 
 /*
 Classe pas testee mais doit etre OK
@@ -29,7 +14,7 @@ Classe pas testee mais doit etre OK
 Elle doit s'appeler de cette facon:
 
 RestGetListeDaoTest restGetListeDao = new RestGetListeDaoTest();
-Liste liste = null;
+ListeRest liste = null;
 
 restGetListeDao.setUserId(userId);
 restGetListeDao.execute();
@@ -43,7 +28,7 @@ try {
 }
 */
 
-public class RestGetListeDao extends AsyncTask<Void, Void, Liste>{
+public class RestGetListeDao extends AsyncTask<Void, Void, ListeRest>{
 
     private int userId;
 
@@ -52,14 +37,14 @@ public class RestGetListeDao extends AsyncTask<Void, Void, Liste>{
     }
 
     @Override
-    protected Liste doInBackground(Void... params) {
+    protected ListeRest doInBackground(Void... params) {
 
         try {
             final String url = "http://memoquest.fr/MemoQuest/app_dev.php/api/users/" + this.userId + "/listes";
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-            Liste liste = restTemplate.getForObject(url, Liste.class);
+            ListeRest liste = restTemplate.getForObject(url, ListeRest.class);
 
             return liste;
 

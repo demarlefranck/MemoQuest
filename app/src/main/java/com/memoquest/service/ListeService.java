@@ -6,9 +6,7 @@ import android.util.Log;
 import com.memoquest.dao.ListeDao;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.Liste;
-
-import java.util.List;
+import com.memoquest.model.ListeRest;
 
 public class ListeService {
 
@@ -22,7 +20,7 @@ public class ListeService {
         connexionService = new ConnexionService();
     }
 
-    public Boolean addListe(Liste liste, Context context) throws FonctionalAppException {
+    public Boolean addListe(ListeRest liste, Context context) throws FonctionalAppException {
 
         if(connexionService.isConnected(context)){
             Integer userId = userService.getId();
@@ -30,7 +28,7 @@ public class ListeService {
             try {
                 if(listeDao.restPostListe(liste, userId)){
 
-                    Log.i("DEBUG","Liste ajoute");
+                    Log.i("DEBUG","ListeRest ajoute");
                     //reloadBddListTable(context);
 
 
@@ -49,7 +47,7 @@ public class ListeService {
     }
 
 /*
-    public List<Liste> getListes(Context context) {
+    public List<ListeRest> getListes(Context context) {
 
         return listeDao.getListes(context);
     }
