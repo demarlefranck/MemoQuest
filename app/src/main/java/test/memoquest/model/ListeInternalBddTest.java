@@ -13,7 +13,7 @@ public class ListeInternalBddTest {
 
     public ListeInternalBdd createOneListeInternalBdd(int i){
         ListeInternalBdd listeInternalBdd = new ListeInternalBdd();
-        listeInternalBdd.setId(-1);
+        listeInternalBdd.setId(i);
         listeInternalBdd.setNom("listeInternalBddNom" + i);
         listeInternalBdd.setTheme("listeInternalBddTheme" + i);
         listeInternalBdd.setCategory("listeInternalBddCategory" + i);

@@ -28,4 +28,8 @@ public class MotDefService {
             throw  new FonctionalAppException(this.getClass().getSimpleName() + "getAllMotDefServiceForListe(): probleme" + e.toString());
         }
     }
+
+    public void addMotDefInternalBdd(MotDefInternalBdd motDef) {
+        db.addMotDefInternalBdd(motDef);
+    }
 }

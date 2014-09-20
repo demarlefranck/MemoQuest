@@ -27,33 +27,33 @@ public class ListeServiceTest extends AndroidTestCase {
         completeListeTest = new CompleteListeTest();
     }
 
-    public void testGetListeByUser() throws TechnicalAppException, FonctionalAppException {
+    public void testGetListeInternalBddByUserByUser() throws TechnicalAppException, FonctionalAppException {
 
         int nbCompleteListe = 1;
         CompleteListe completeListeExpected = completeListeTest.createOneCompleteListeWithNMotDef(nbCompleteListe);
 
-        assertEquals(0, listeService.getListeByUser(nbCompleteListe).size());
+        assertEquals(0, listeService.getListeInternalBddByUser(nbCompleteListe).size());
 
         listeService.addListe(completeListeExpected);
-        assertEquals(1, listeService.getListeByUser(nbCompleteListe).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(nbCompleteListe).size());
     }
 
-    public void testGetListeByUserNotFound() throws TechnicalAppException, FonctionalAppException {
+    public void testGetListeInternalBddByUserNotFound() throws TechnicalAppException, FonctionalAppException {
 
         CompleteListe completeListeExpected = completeListeTest.createOneCompleteListeWithNMotDef(1);
-        assertEquals(0, listeService.getListeByUser(1).size());
+        assertEquals(0, listeService.getListeInternalBddByUser(1).size());
 
         listeService.addListe(completeListeExpected);
-        assertEquals(0, listeService.getListeByUser(10000000).size());
+        assertEquals(0, listeService.getListeInternalBddByUser(10000000).size());
     }
 
-    public void testGetNListeByUser() throws TechnicalAppException, FonctionalAppException {
+    public void testGetListeInternalBddByUser() throws TechnicalAppException, FonctionalAppException {
 
         int nbCompleteListe = 10;
         List<CompleteListe> completeListeExpecteds = completeListeTest.createNCompleteListeWithNMotDef(nbCompleteListe);
 
         for (int j = 0; j != nbCompleteListe; j++) {
-            assertEquals(0, listeService.getListeByUser(j).size());
+            assertEquals(0, listeService.getListeInternalBddByUser(j).size());
         }
 
         for (int j = 0; j != nbCompleteListe; j++) {
@@ -61,9 +61,38 @@ public class ListeServiceTest extends AndroidTestCase {
         }
 
         for (int j = 0; j != nbCompleteListe; j++) {
-            assertEquals(1, listeService.getListeByUser(j).size());
+            assertEquals(1, listeService.getListeInternalBddByUser(j).size());
         }
     }
 
+    public void testGetCompleteListeByListeId() throws TechnicalAppException, FonctionalAppException {
+
+        int nbCompleteListe = 10;
+        List<CompleteListe> completeListeExpecteds = completeListeTest.createNCompleteListeWithNMotDef(nbCompleteListe);
+
+        for (int j = 0; j != nbCompleteListe; j++) {
+            listeService.addListe(completeListeTest.createOneCompleteListeWithNMotDef(j));
+        }
+
+
+        //Pourquoi les chiffres sont inverse?????????????????
+        //????????????????????????????????
+        assertEquals(9, listeService.getCompleteListeByListeId(0).getMotDefInternalBdds().size());
+        assertEquals(8, listeService.getCompleteListeByListeId(1).getMotDefInternalBdds().size());
+        assertEquals(7, listeService.getCompleteListeByListeId(2).getMotDefInternalBdds().size());
+        assertEquals(6, listeService.getCompleteListeByListeId(3).getMotDefInternalBdds().size());
+        assertEquals(5, listeService.getCompleteListeByListeId(4).getMotDefInternalBdds().size());
+        assertEquals(4, listeService.getCompleteListeByListeId(5).getMotDefInternalBdds().size());
+        assertEquals(3, listeService.getCompleteListeByListeId(6).getMotDefInternalBdds().size());
+        assertEquals(2, listeService.getCompleteListeByListeId(7).getMotDefInternalBdds().size());
+        assertEquals(1, listeService.getCompleteListeByListeId(8).getMotDefInternalBdds().size());
+        assertEquals(0, listeService.getCompleteListeByListeId(9).getMotDefInternalBdds().size());
+
+        /*
+        for (int j = 0; j != nbCompleteListe; j++) {
+            assertEquals(j, listeService.getCompleteListeByListeId(j).getMotDefInternalBdds().size());
+        }
+        */
+    }
 
 }

@@ -31,7 +31,13 @@ public class CompleteListeTest {
     public CompleteListe createOneCompleteListeWithNMotDef(int i){
         CompleteListe completeListe = new CompleteListe();
         completeListe.setListeInternalBdd(listeInternalBddTest.createOneListeInternalBdd(i));
-        completeListe.setMotDefInternalBdds(motDefInternalBddTest.createNMotDefInternalBdd(i));
+        List<MotDefInternalBdd> motDefInternalBdds = new ArrayList<MotDefInternalBdd>();
+
+        for(int j = 0; j != i; j++){
+            motDefInternalBdds.add(motDefInternalBddTest.createOneMotDefInternalBdd(j));
+        }
+        completeListe.setMotDefInternalBdds(motDefInternalBdds);
+
         return completeListe;
     }
 

@@ -14,18 +14,23 @@ import java.util.List;
 
 public class ListeService {
 
-    private UserService userService;
-    private ConnexionService connexionService;
+    private MotDefService motDefService;
     private SQLiteDatabaseManager db;
 
     public ListeService(Context context){
-        userService = new UserService();
+        motDefService = new MotDefService(context);
         db = new SQLiteDatabaseManager(context);
-        connexionService = new ConnexionService();
     }
 
-    public List<ListeInternalBdd> getListeByUser(int createUser) throws TechnicalAppException, FonctionalAppException {
+    public List<ListeInternalBdd> getListeInternalBddByUser(int createUser) throws TechnicalAppException, FonctionalAppException {
        return db.getListeInternalBddWithUser(createUser);
+    }
+
+    public CompleteListe getCompleteListeByListeId(int listeId) throws TechnicalAppException, FonctionalAppException {
+        CompleteListe completeListe = new CompleteListe();
+        completeListe.setListeInternalBdd(db.getListeInternalBddWithId(listeId));
+        completeListe.setMotDefInternalBdds(motDefService.getAllMotDefServiceForListe(listeId));
+        return completeListe;
     }
 
     public void addListe(CompleteListe completeList){
@@ -33,7 +38,7 @@ public class ListeService {
         db.addListeInternalBdd(completeList.getListeInternalBdd());
 
         for(MotDefInternalBdd motDef : completeList.getMotDefInternalBdds()){
-            db.addMotDefInternalBdd(motDef);
+            motDefService.addMotDefInternalBdd(motDef);
         }
     }
 
