@@ -14,7 +14,7 @@ public class ListeInternalBdd {
     private int id;
     private String nom;
     private String theme;
-    private String cathegory;
+    private String category;
     private Boolean shared;
     private Boolean mustDeleted;
     private int createUser;
@@ -23,6 +23,14 @@ public class ListeInternalBdd {
     private String updateTime;
 
     public ListeInternalBdd() {}
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public Integer getIdAi() {
         return idAi;
@@ -56,12 +64,12 @@ public class ListeInternalBdd {
         this.theme = theme;
     }
 
-    public String getCathegory() {
-        return cathegory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCathegory(String cathegory) {
-        this.cathegory = cathegory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Boolean getShared() {
@@ -104,14 +112,6 @@ public class ListeInternalBdd {
         this.updateUser = updateUser;
     }
 
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
     @Override
     public String toString(){
 
@@ -119,7 +119,7 @@ public class ListeInternalBdd {
                 "\nid:        " + this.getId() +
                 "\nnom:       " + this.getNom() +
                 "\ntheme:     " + this.getTheme() +
-                "\ncathegory: " + this.getCathegory() +
+                "\ncathegory: " + this.getCategory() +
                 "\n:shared "    + this.getShared() +
                 "\nmustDeleted: " + this.getMustDeleted().toString() +
                 "\n:createUser " + this.getCreateUser() +

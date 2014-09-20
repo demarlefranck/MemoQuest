@@ -25,7 +25,7 @@ public class SQLiteTableListeDao {
     private static final String KEY_LISTE_ID = "liste_id";
     private static final String KEY_LISTE_NOM = "liste_nom";
     private static final String KEY_LISTE_THEME = "liste_theme";
-    private static final String KEY_LISTE_CATHEGORY = "liste_cathegory";
+    private static final String KEY_LISTE_CATHEGORY = "liste_category";
     private static final String KEY_LISTE_SHARED = "liste_shared";
     private static final String KEY_LISTE_MUST_DELETED = "liste_must_deleted";
     private static final String KEY_CREATE_USER = "create_user";
@@ -58,7 +58,7 @@ public class SQLiteTableListeDao {
         values.put(KEY_LISTE_ID, listeInternalBdd.getId());
         values.put(KEY_LISTE_NOM, listeInternalBdd.getNom());
         values.put(KEY_LISTE_THEME, listeInternalBdd.getTheme());
-        values.put(KEY_LISTE_CATHEGORY, listeInternalBdd.getCathegory());
+        values.put(KEY_LISTE_CATHEGORY, listeInternalBdd.getCategory());
         values.put(KEY_LISTE_SHARED, listeInternalBdd.getShared());
         values.put(KEY_LISTE_MUST_DELETED, listeInternalBdd.getMustDeleted());
         values.put(KEY_CREATE_USER, listeInternalBdd.getCreateUser());
@@ -102,7 +102,7 @@ public class SQLiteTableListeDao {
                 listeInternalBdd.setId(cursor.getInt(1));
                 listeInternalBdd.setNom(cursor.getString(2));
                 listeInternalBdd.setTheme(cursor.getString(3));
-                listeInternalBdd.setCathegory(cursor.getString(4));
+                listeInternalBdd.setCategory(cursor.getString(4));
                 listeInternalBdd.setShared(cursor.getInt(5) > 0);
                 listeInternalBdd.setMustDeleted(cursor.getInt(6) > 0);
                 listeInternalBdd.setCreateUser(Integer.parseInt(cursor.getString(7)));
@@ -155,16 +155,12 @@ public class SQLiteTableListeDao {
         return convertListesToListeInternalBdd(listes, String.valueOf(id));
     }
 
-    public ListeInternalBdd getListeInternalBddWithName(SQLiteDatabase db, String name) throws TechnicalAppException, FonctionalAppException {
+    public List<ListeInternalBdd> getListeInternalBddWithUser(SQLiteDatabase db, int createUser) throws TechnicalAppException {
 
         String query = "SELECT * FROM " + NAME_TABLE_LISTE
-                + " WHERE " + KEY_LISTE_NOM + " = \"" + name + "\";";
+                + " WHERE " + KEY_CREATE_USER + " = " + createUser + ";";
 
-
-        List<ListeInternalBdd> listes = mapBddResultToListeInternalBdd(db, query);
-
-        return convertListesToListeInternalBdd(listes, name);
-
+        return mapBddResultToListeInternalBdd(db, query);
     }
 
     public boolean deleteListeInternalBddWithIdAi(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {

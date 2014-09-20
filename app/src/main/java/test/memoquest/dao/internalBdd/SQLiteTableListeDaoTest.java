@@ -60,7 +60,7 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         assertEquals(listeExpected.getId(), listeReality.getId());
         assertEquals(listeExpected.getNom(), listeReality.getNom());
         assertEquals(listeExpected.getTheme(), listeReality.getTheme());
-        assertEquals(listeExpected.getCathegory(), listeReality.getCathegory());
+        assertEquals(listeExpected.getCategory(), listeReality.getCategory());
         assertEquals(listeExpected.getShared(), listeReality.getShared());
         assertEquals(listeExpected.getMustDeleted(), listeReality.getMustDeleted());
         assertEquals(listeExpected.getCreateUser(), listeReality.getCreateUser());
@@ -72,7 +72,7 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
     public void testDeleteListeInternalBddWithIdAi() throws Exception {
         ListeInternalBdd listeExpected = addListeTest(1);
 
-        ListeInternalBdd listeReality = db.getListeInternalBddWithName(listeExpected.getNom());
+        ListeInternalBdd listeReality = db.getListeInternalBddWithId(listeExpected.getId());
         compareAttributesOfTwoListes(listeExpected, listeReality);
 
         db.deleteListeInternalBddWithIdAi(listeReality);
@@ -101,13 +101,16 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         assertEquals(0, db.getAllListeInternalBdd().size());
     }
 
-    public void testGetListeInternalBddWithName() throws Exception {
-        ListeInternalBdd listeExpected = addListeTest(1);
+    public void testGetListeInternalBddWithUser() throws Exception {
 
-        ListeInternalBdd listeReality = db.getListeInternalBddWithName(listeExpected.getNom());
-        compareAttributesOfTwoListes(listeExpected, listeReality);
+        assertEquals(0, db.getAllListeInternalBdd().size());
 
-        db.deleteListeInternalBddWithId(listeExpected);
+        addNListeTest(10);
+        for (int j = 0; j != 10; j++) {
+            assertEquals(1, db.getListeInternalBddWithUser(j).size());
+        }
+
+        db.deleteAllListeInternalBdd();
         assertEquals(0, db.getAllListeInternalBdd().size());
     }
 
@@ -125,7 +128,7 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
 
         listeModify.setNom("nomModify");
         listeModify.setTheme("themeModify");
-        listeModify.setCathegory("cathegoryMdify");
+        listeModify.setCategory("categoryMdify");
         listeModify.setUpdateUser(1000);
         listeModify.setUpdateTime(MyDateUtils.getDateTime());
         listeModify.setMustDeleted(true);

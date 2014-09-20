@@ -16,7 +16,8 @@ public class MotDefInternalBddTest {
         motDefInternalBdd.setId(-1);
         motDefInternalBdd.setMot("MotDefInternalBddMot" + i);
         motDefInternalBdd.setDefinition("MotDefInternalBddDefiniton" + i);
-//        motDefInternalBdd.setMustDeleted(false);
+        motDefInternalBdd.setMustDeleted(false);
+        motDefInternalBdd.setMotDefListId(i);
         motDefInternalBdd.setCreateUser(i);
         motDefInternalBdd.setCreateTime(MyDateUtils.getDateTime());
         motDefInternalBdd.setUpdateUser(i);

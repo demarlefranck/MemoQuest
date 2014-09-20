@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.memoquest.app.R;
 import com.memoquest.app.util.Alerte;
-import com.memoquest.exception.FonctionalAppException;
-import com.memoquest.model.ListeRest;
-import com.memoquest.service.ListeService;
 
 
 public class CreateNewListActivity extends Activity {
@@ -47,7 +44,7 @@ public class CreateNewListActivity extends Activity {
             public void onClick(View v) {
                 if(isValidate()){
 
-                    createListe();
+                   // createListe();
 
                     /*
                     CHANGER LA REDIRECTION VERS L'AFFICHAGE DES LISTES POUR ENSUITE AJOUTER DES MOTS / DEF
@@ -95,6 +92,8 @@ public class CreateNewListActivity extends Activity {
         return true;
     }
 
+    /*
+
     public void createListe(){
 
         ListeService listeService = new ListeService();
@@ -106,7 +105,7 @@ public class CreateNewListActivity extends Activity {
             Alerte.showAlertDialog("Probleme", e.getText(), this);
         }
     }
-
+*/
     @Override
     protected void onStop() {
         Log.i("","CreateNewListActivity.class: onStop()");

@@ -1,36 +1,34 @@
 package com.memoquest.model;
 
-import java.util.List;
-
+/**
+ * Created by franck on 20/09/2014.
+ */
 public class ListeRest {
 
-
-    private Integer id;
+    private int id;
     private String nom;
     private String theme;
     private String category;
+    private Boolean shared;
+    private int createUser;
+    private String createTime;
+    private int updateUser;
+    private String updateTime;
 
-    public ListeRest() {}
-
-    public ListeRest(String nom, String theme, String category) {
-        this.nom = nom;
-        this.theme = theme;
-        this.category = category;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public ListeRest(int idAi, String nom, String theme, String category) {
-        this.id = id;
-        this.nom = nom;
-        this.theme = theme;
-        this.category = category;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer idAi) {
-        this.id = idAi;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {
@@ -57,13 +55,35 @@ public class ListeRest {
         this.category = category;
     }
 
-    @Override
-    public String toString(){
+    public Boolean getShared() {
+        return shared;
+    }
 
-        return ("\nliste id:       " + this.getId() +
-                "\nliste nom:      " + this.getNom() +
-                "\nliste theme:    " + this.getTheme() +
-                "\nliste category: " + this.getCategory()
-               );
+    public void setShared(Boolean shared) {
+        this.shared = shared;
+    }
+
+    public int getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(int createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(int updateUser) {
+        this.updateUser = updateUser;
     }
 }

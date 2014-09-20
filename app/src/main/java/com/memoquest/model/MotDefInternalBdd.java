@@ -10,6 +10,7 @@ public class MotDefInternalBdd {
     private String mot;
     private String definition;
     private Boolean mustDeleted;
+    private Integer MotDefListId;
     private int createUser;
     private String createTime;
     private int updateUser;
@@ -53,6 +54,14 @@ public class MotDefInternalBdd {
 
     public void setMustDeleted(Boolean mustDeleted) {
         this.mustDeleted = mustDeleted;
+    }
+
+    public Integer getMotDefListId() {
+        return MotDefListId;
+    }
+
+    public void setMotDefListId(Integer motDefListId) {
+        MotDefListId = motDefListId;
     }
 
     public int getCreateUser() {

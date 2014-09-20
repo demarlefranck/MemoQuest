@@ -1,12 +1,11 @@
 package com.memoquest.app;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.memoquest.service.BddService;
 import com.memoquest.service.ConnexionService;
 
 
@@ -39,8 +38,8 @@ public class MainActivity extends ActionBarActivity{
         //verif authentification
 
         //si id de user
-            BddService bddService = new BddService();
-            bddService.reloadAllTables(this);
+          //  BddService bddService = new BddService();
+          //  bddService.reloadAllTables(this);
 
             Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(intentMenu);

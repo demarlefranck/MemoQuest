@@ -16,7 +16,7 @@ public class ListeInternalBddTest {
         listeInternalBdd.setId(-1);
         listeInternalBdd.setNom("listeInternalBddNom" + i);
         listeInternalBdd.setTheme("listeInternalBddTheme" + i);
-        listeInternalBdd.setCathegory("listeInternalBddCathegory" + i);
+        listeInternalBdd.setCategory("listeInternalBddCategory" + i);
         listeInternalBdd.setShared(false);
         listeInternalBdd.setMustDeleted(false);
         listeInternalBdd.setCreateUser(i);

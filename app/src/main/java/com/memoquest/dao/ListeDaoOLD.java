@@ -11,7 +11,7 @@ import com.memoquest.model.ListeRest;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ListeDao {
+public class ListeDaoOLD {
 
     public Boolean restPostListe(ListeRest liste, Integer userId) throws TechnicalAppException {
 

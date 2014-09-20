@@ -78,8 +78,9 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
     public ListeInternalBdd getListeInternalBddWithId(int id) throws TechnicalAppException, FonctionalAppException {
         return sqLiteTableListeDao.getListeInternalBddWithId(this.getWritableDatabase(), id);
     }
-    public ListeInternalBdd getListeInternalBddWithName(String name) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableListeDao.getListeInternalBddWithName(this.getWritableDatabase(), name);
+
+    public List<ListeInternalBdd> getListeInternalBddWithUser(Integer createUser) throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableListeDao.getListeInternalBddWithUser(this.getWritableDatabase(), createUser);
     }
 
     public void updateListeInternalBdd(ListeInternalBdd listeModify) {
@@ -113,6 +114,10 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
 
     public List<MotDefInternalBdd> getAllMotDefInternalBdd() throws TechnicalAppException {
         return sqLiteTableMotDefDao.getAllMotDefInternalBdd(this.getWritableDatabase());
+    }
+
+    public List<MotDefInternalBdd> getAllMotDefForListe(int liste_id) throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableMotDefDao.getAllMotDefForListe(this.getWritableDatabase(), liste_id);
     }
 
     public MotDefInternalBdd getMotDefInternalBddWithIdAi(int idAi) throws TechnicalAppException, FonctionalAppException {

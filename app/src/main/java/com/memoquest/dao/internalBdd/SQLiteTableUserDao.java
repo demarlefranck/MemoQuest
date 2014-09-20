@@ -14,6 +14,18 @@ import java.util.List;
 /**
  * Created by fdemarle on 18/09/2014.
  */
+
+/*
+SUREMENT DES AMELIORAION A FAIRE EN COPIANT SUR
+
+SQLiteTableListeDao
+
+et
+
+SQLiteTableMotDefDao
+
+ */
+
 public class SQLiteTableUserDao {
 
     private static final String NAME_TABLE_USER = "TableUser";

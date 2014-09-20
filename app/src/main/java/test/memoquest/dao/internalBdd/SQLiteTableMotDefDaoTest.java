@@ -20,8 +20,6 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
 
     private MotDefInternalBddTest motDefInternalBddTest;
 
-
-
     public void setUp(){
         RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), "test_");
         db = new SQLiteDatabaseManager(context);
@@ -35,12 +33,13 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         return motDefInternalBdd;
     }
 
-    public void addListMotDefTest(int i) throws Exception {
+    public List<MotDefInternalBdd> addListMotDefTest(int i) throws Exception {
         List<MotDefInternalBdd> motDefInternalBdds = new ArrayList<MotDefInternalBdd>();
 
         for (int j = 0; j != i; j++) {
             addMotDefTest(j);
         }
+        return motDefInternalBdds;
     }
 
     public void testGetAllMotDefInternalBdd() throws Exception {
@@ -48,6 +47,19 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
 
         addListMotDefTest(10);
         assertEquals(10, db.getAllMotDefInternalBdd().size());
+
+        db.deleteAllMotDefInternalBdd();
+        assertEquals(0, db.getAllMotDefInternalBdd().size());
+    }
+
+    public void testGetAllMotDefServiceForListe() throws Exception {
+        assertEquals(0, db.getAllMotDefInternalBdd().size());
+
+        addListMotDefTest(10);
+
+        for (int j = 0; j != 10; j++) {
+            assertEquals(1, db.getAllMotDefForListe(j).size());
+        }
 
         db.deleteAllMotDefInternalBdd();
         assertEquals(0, db.getAllMotDefInternalBdd().size());
@@ -61,7 +73,8 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         assertEquals(motDefExpected.getId(), motDefReality.getId());
         assertEquals(motDefExpected.getMot(), motDefReality.getMot());
         assertEquals(motDefExpected.getDefinition(), motDefReality.getDefinition());
-  //      assertEquals(motDefExpected.getMustDeleted(), motDefReality.getMustDeleted());
+        assertEquals(motDefExpected.getMustDeleted(), motDefReality.getMustDeleted());
+        assertEquals(motDefExpected.getMotDefListId(), motDefReality.getMotDefListId());
         assertEquals(motDefExpected.getCreateUser(), motDefReality.getCreateUser());
         assertEquals(motDefExpected.getCreateTime(), motDefReality.getCreateTime());
         assertEquals(motDefExpected.getUpdateUser(), motDefReality.getUpdateUser());
