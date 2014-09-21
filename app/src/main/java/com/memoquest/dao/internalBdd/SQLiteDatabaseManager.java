@@ -8,7 +8,7 @@ import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
-import com.memoquest.model.User;
+import com.memoquest.model.UserInternalBdd;
 
 import java.util.List;
 
@@ -139,24 +139,34 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
     /*
     TABLE USER
      */
-    public void addUser(User user) {
-        sqLiteTableUserDao.addUser(this.getWritableDatabase(), user);
+    public UserInternalBdd getUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableUserDao.getUserInternalBddActive(this.getWritableDatabase());
     }
 
-    public User getUser() throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableUserDao.getUser(this.getWritableDatabase());
+    public List<UserInternalBdd> getAllUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableUserDao.getAllUserInternalBdd(this.getWritableDatabase());
     }
+
+    public void addUserInternalBdd(UserInternalBdd user) {
+        sqLiteTableUserDao.addUserInternalBdd(this.getWritableDatabase(), user);
+    }
+
+    public void updateUserInternalBdd(UserInternalBdd user) {
+        sqLiteTableUserDao.updateUserInternalBdd(this.getWritableDatabase(), user);
+    }
+
+    public void deleteAllUserInternalBdd() {
+        sqLiteTableUserDao.deleteAllUserInternalBdd(this.getWritableDatabase());
+    }
+
 /*
     public void getAllUser() {
         sqLiteTableUserDao.getAllUser(this.getWritableDatabase());
     }
 
-   public void deleteUserWithIdAi(User user) {
+   public void deleteUserWithIdAi(UserInternalBdd user) {
         sqLiteTableUserDao.deleteUserWithIdAi(this.getWritableDatabase(), user);
     }
 
-    public void deleteAllUsers() {
-        sqLiteTableUserDao.deleteAllUsers(this.getWritableDatabase());
-    }
 */
 }

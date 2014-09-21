@@ -1,23 +1,65 @@
 package com.memoquest.service;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
+import com.memoquest.exception.FonctionalAppException;
+import com.memoquest.exception.TechnicalAppException;
+import com.memoquest.model.UserInternalBdd;
+
+import java.util.List;
+
 public class UserService {
 
-    private int id;
 
-    public int getId() {
+    private SQLiteDatabaseManager db;
 
-        /*
-        ALLER CHERCHER L ID DANS LA BDD INTERNE
-
-         OU SU LE SERVEUR SI IL N'Y A PAS
-         */
-
-        this.id = 4;
-
-        return id;
+    public UserService(Context context) {
+        db = new SQLiteDatabaseManager(context);
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public UserInternalBdd getUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
+        return db.getUserInternalBddActive();
+    }
+
+    public List<UserInternalBdd> getAllUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
+        return db.getAllUserInternalBdd();
+    }
+
+
+    public void updateAllUserInternalBddToNoActive() throws TechnicalAppException, FonctionalAppException {
+        List<UserInternalBdd> userInternalBdds = getAllUserInternalBdd();
+
+        for(UserInternalBdd userInternalBdd : userInternalBdds){
+            userInternalBdd.setActive(false);
+            updateUserInternalBdd(userInternalBdd);
+        }
+    }
+
+    public void updateUserInternalBdd(UserInternalBdd userInternalBdd) {
+        db.updateUserInternalBdd(userInternalBdd);
+    }
+
+
+
+    public void addUserInternalBddActive(UserInternalBdd userInternalBdd) throws TechnicalAppException, FonctionalAppException {
+
+        updateAllUserInternalBddToNoActive();
+
+        userInternalBdd.setActive(true);
+
+        Boolean find = false;
+        List<UserInternalBdd> userInternalBddList = getAllUserInternalBdd();
+        for(UserInternalBdd user : userInternalBddList){
+            if(user.getId() == userInternalBdd.getId()){
+                find = true;
+            }
+        }
+
+        if(find)
+            updateUserInternalBdd(userInternalBdd);
+        else
+            db.addUserInternalBdd(userInternalBdd);
     }
 }
