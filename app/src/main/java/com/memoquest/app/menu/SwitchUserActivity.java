@@ -1,40 +1,49 @@
-package com.memoquest.app.Liste;
+package com.memoquest.app.menu;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
 import com.memoquest.app.R;
+import com.memoquest.service.InternalBdd.UserService;
+
+public class SwitchUserActivity extends ActionBarActivity {
 
 
-public class ManageListActivity extends Activity {
-
-    private TextView createNewListText;
+    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_list);
+        setContentView(R.layout.activity_switch_user);
 
-        createNewListText = (TextView) this.findViewById(R.id.createNewListText);
-        createNewListText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ManageListActivity.this, CreateNewListActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+        UserService userService = new UserService(this);
+
+
+        /*
+
+        AFFICHGE DE :
+        userService.getAllUserInternalBdd();
+        POUR FAIRE UNE SELECTION
+        SUIVI D'UNE SAISIE PASSWORD
+
+        SINON
+        BOUTON NEW USER ET AFFICHAGE DE:
+        */
+
+        Intent intentConnexion = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
+        startActivity(intentConnexion);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
+        
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.manage_list, menu);
+        getMenuInflater().inflate(R.menu.switch_user, menu);
         return true;
     }
 

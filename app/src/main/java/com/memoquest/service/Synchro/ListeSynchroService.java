@@ -1,7 +1,10 @@
-package com.memoquest.service;
+package com.memoquest.service.Synchro;
+
+import android.content.Context;
 
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.ListeInternalBdd;
+import com.memoquest.service.InternalBdd.UserService;
 import com.memoquest.utils.MyDateUtils;
 
 import java.text.ParseException;
@@ -12,8 +15,16 @@ import java.util.Date;
  */
 public class ListeSynchroService {
 
+    private UserService userService;
+
+    public ListeSynchroService(Context context) {
+        userService = new UserService(context);
+    }
+
+
+
     //retourne la liste la plus recente
-    public ListeInternalBdd compareListes(ListeInternalBdd liste1, ListeInternalBdd liste2) throws TechnicalAppException {
+    public ListeInternalBdd getRecentListes(ListeInternalBdd liste1, ListeInternalBdd liste2) throws TechnicalAppException {
         Date date1;
         Date date2;
         try {
@@ -30,4 +41,7 @@ public class ListeSynchroService {
             return liste2;
     }
 
+    public void updateListe() {
+
+    }
 }

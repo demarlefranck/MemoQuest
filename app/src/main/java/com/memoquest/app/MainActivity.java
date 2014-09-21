@@ -6,12 +6,25 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.memoquest.app.menu.ConnectionActivity;
+import com.memoquest.app.menu.MenuActivity;
+import com.memoquest.app.menu.SwitchUserActivity;
+import com.memoquest.app.util.Alerte;
+import com.memoquest.exception.FonctionalAppException;
+import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.service.ConnexionService;
+import com.memoquest.service.InternalBdd.UserService;
+import com.memoquest.service.Synchro.ManagerSynchroService;
 
 
 public class MainActivity extends ActionBarActivity{
 //public class MainActivity extends Activity {
 
+
+    private ConnexionService connexionService;
+    private UserService userService;
+    private ManagerSynchroService managerSynchroService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +37,10 @@ public class MainActivity extends ActionBarActivity{
         Log.i("", "MainActivity.class: onStart()");
         super.onStart();
 
-        ConnexionService connexionService = new ConnexionService();
+        connexionService = new ConnexionService(this);
+        userService = new UserService(this);
+        managerSynchroService = new ManagerSynchroService();
+
         if(connexionService.isConnected(this))
             startWithConnection();
         else
@@ -33,29 +49,44 @@ public class MainActivity extends ActionBarActivity{
 
     public void startWithConnection(){
 
+       try {
+            //verif authentification
+           if(userService.isAuthentifiate()){
 
+                //lancement des synchro donnees
+                managerSynchroService.updateAllData(this);
 
-        //verif authentification
+                Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(intentMenu);
+           }
+            else{
+                Intent intentConnexion = new Intent(MainActivity.this, SwitchUserActivity.class);
+                startActivity(intentConnexion);
+            }
+        } catch (TechnicalAppException e) {
+            Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithConnection(): " + e.toString(), this);
+        } catch (FonctionalAppException e) {
+            Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithConnection(): " + e.toString(), this);
+        }
 
-        //si id de user
-          //  BddService bddService = new BddService();
-          //  bddService.reloadAllTables(this);
-
-            Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
-            startActivity(intentMenu);
-        //sinon
-           // Intent intentConnexion = new Intent(MainActivity.this, ConnectionActivity.class);
-           // startActivity(intentConnexion);
-            //this.startActivityForResult(intentConnexion, 1000);
+        //this.startActivityForResult(intentConnexion, 1000);
 
     }
-    public void startWithoutConnection(){
+    public void startWithoutConnection() {
 
-        //si id de user
-            Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
-            startActivity(intentMenu);
-        //sinon
-             //Alerte.showAlertDialog("Probleme de connexion", "Une connexion internet est requise", this);
+        try {
+            if (userService.isAuthentifiate()) {
+                Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(intentMenu);
+            }
+            else {
+                Alerte.showAlertDialog("Probleme de connexion", "Une connexion internet est requise", this);
+            }
+        } catch (TechnicalAppException e) {
+            Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithoutConnection(): " + e.toString(), this);
+        } catch (FonctionalAppException e) {
+            Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithoutConnection(): " + e.toString(), this);
+        }
     }
 
     @Override

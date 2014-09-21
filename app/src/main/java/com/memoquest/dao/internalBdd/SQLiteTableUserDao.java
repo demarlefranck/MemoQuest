@@ -86,15 +86,6 @@ public class SQLiteTableUserDao {
         return listes;
     }
 
-    public UserInternalBdd convertUsersToUserInternalBdd(List<UserInternalBdd> listes) throws TechnicalAppException, FonctionalAppException {
-        if(listes.size() > 1)
-            throw new TechnicalAppException("Plus d'un user a été trouvé");
-        else if(listes.size()== 0)
-            throw new FonctionalAppException("Aucun user n'a été trouvé");
-        else
-            return listes.get(0);
-    }
-
     public void addUserInternalBdd(SQLiteDatabase db, UserInternalBdd user) {
         db.insert(NAME_TABLE_USER, null, convertUserInternalBddToContentValues(user));
         db.close();
@@ -114,7 +105,15 @@ public class SQLiteTableUserDao {
         List<UserInternalBdd> users = new LinkedList<UserInternalBdd>();
         String query = "SELECT  * FROM " + NAME_TABLE_USER
                     + " WHERE " + KEY_USER_ACTIVE + " = " + 1 + ";";
-        return convertUsersToUserInternalBdd(mapBddResultToUserInternalBdd(db, query));
+
+        List<UserInternalBdd>  userInternalBddList = mapBddResultToUserInternalBdd(db, query);
+
+        if(userInternalBddList.size() > 1)
+            throw new TechnicalAppException("Plus d'un user a été trouvé");
+        else if(userInternalBddList.size()== 0)
+            return null;
+        else
+            return userInternalBddList.get(0);
     }
 
     public List<UserInternalBdd> getAllUserInternalBdd(SQLiteDatabase db) throws TechnicalAppException {

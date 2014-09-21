@@ -7,21 +7,23 @@ import android.util.Log;
 
 import com.memoquest.dao.rest.get.RestGetConnectionDao;
 import com.memoquest.exception.TechnicalAppException;
+import com.memoquest.service.InternalBdd.UserService;
 
 import java.util.concurrent.ExecutionException;
 
 public class ConnexionDao {
 
-    public Boolean isAuthentifiate(String loginTextStr, String passwordTextStr){
+
+    public Integer isAuthentifiateByServeur(String loginTextStr, String passwordTextStr){
 
 
-        //REMPLACER PAR SERVICE SOAP
+        //REMPLACER PAR SERVICE REST QUI RETOURNE L'ID DU USER
 
         if(loginTextStr.equals("toto") && passwordTextStr.equals("toto")){
-            return true;
+            return 4;
         }
         else{
-            return false;
+            return null;
         }
     }
 

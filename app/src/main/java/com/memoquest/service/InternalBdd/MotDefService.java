@@ -1,4 +1,4 @@
-package com.memoquest.service;
+package com.memoquest.service.InternalBdd;
 
 import android.content.Context;
 

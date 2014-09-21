@@ -1,4 +1,4 @@
-package test.memoquest.service;
+package test.memoquest.service.internalBdd;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
@@ -6,7 +6,7 @@ import android.test.RenamingDelegatingContext;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.CompleteListe;
-import com.memoquest.service.ListeService;
+import com.memoquest.service.InternalBdd.ListeService;
 
 import java.util.List;
 

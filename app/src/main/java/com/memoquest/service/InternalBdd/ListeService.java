@@ -1,4 +1,4 @@
-package com.memoquest.service;
+package com.memoquest.service.InternalBdd;
 
 import android.content.Context;
 
@@ -9,7 +9,6 @@ import com.memoquest.model.CompleteListe;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListeService {

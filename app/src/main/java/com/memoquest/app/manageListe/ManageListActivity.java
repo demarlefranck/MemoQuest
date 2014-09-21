@@ -1,4 +1,4 @@
-package com.memoquest.app;
+package com.memoquest.app.manageListe;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,22 +8,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.memoquest.app.Liste.ManageListActivity;
+import com.memoquest.app.R;
 
 
-public class MenuActivity extends Activity {
+public class ManageListActivity extends Activity {
 
-    private TextView manageListText;
+    private TextView createNewListText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_manage_list);
 
-        manageListText = (TextView) this.findViewById(R.id.manageListText);
-        manageListText.setOnClickListener(new View.OnClickListener() {
+        createNewListText = (TextView) this.findViewById(R.id.createNewListText);
+        createNewListText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ManageListActivity.class);
+                Intent intent = new Intent(ManageListActivity.this, CreateNewListActivity.class);
                 startActivity(intent);
             }
         });
@@ -34,7 +34,7 @@ public class MenuActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.manage_list, menu);
         return true;
     }
 

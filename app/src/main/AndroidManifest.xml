@@ -17,30 +17,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.memoquest.app.ConnectionActivity"
+            android:name="com.memoquest.app.menu.ConnectionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_connection"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.memoquest.app.MenuActivity"
+            android:name="com.memoquest.app.menu.MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name=".Liste.ManageListActivity"
+            android:name="com.memoquest.app.manageListe.ManageListActivity"
             android:label="@string/title_activity_manage_list" >
         </activity>
         <activity
-            android:name=".Liste.CreateNewListActivity"
+            android:name="com.memoquest.app.manageListe.CreateNewListActivity"
             android:label="@string/title_activity_create_new_list" >
         </activity>
         <activity
-            android:name="com.memoquest.app.AddWordDefActivity"
+            android:name="com.memoquest.app.manageListe.CreateNewListActivity$AddWordDefActivity"
             android:label="@string/title_activity_manage_list" >
         </activity>
         <activity
-            android:name=".Liste.ModifyListesActivity"
+            android:name="com.memoquest.app.manageListe.ModifyListesActivity"
             android:label="@string/title_activity_modify_listes" >
+        </activity>
+        <activity
+            android:name="com.memoquest.app.menu.SwitchUserActivity"
+            android:label="@string/title_activity_switch_user" >
         </activity>
     </application>
 

@@ -1,33 +1,33 @@
-package com.memoquest.app.Liste;
+package com.memoquest.app.menu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.memoquest.app.R;
+import com.memoquest.app.manageListe.ManageListActivity;
 
 
-public class ModifyListesActivity  extends Activity {
+public class MenuActivity extends Activity {
 
-    private TextView viewListes;
+    private TextView manageListText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modify_listes);
+        setContentView(R.layout.activity_menu);
 
-        viewListes = (TextView) this.findViewById(R.id.textViewListes);
-/*
-        ListeService listeService = new ListeService();
-
-        List<ListeRest> listes = listeService.getListes(this);
-
-        viewListes.setText(listes.toString());
-
-*/
-
+        manageListText = (TextView) this.findViewById(R.id.manageListText);
+        manageListText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, ManageListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -35,7 +35,7 @@ public class ModifyListesActivity  extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.manage_list, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -50,4 +50,5 @@ public class ModifyListesActivity  extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

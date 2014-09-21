@@ -1,4 +1,4 @@
-package com.memoquest.service;
+package com.memoquest.service.InternalBdd;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,17 +16,28 @@ public class UserService {
     private SQLiteDatabaseManager db;
 
     public UserService(Context context) {
+
         db = new SQLiteDatabaseManager(context);
     }
 
     public UserInternalBdd getUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
+
         return db.getUserInternalBddActive();
+    }
+
+    public Boolean isAuthentifiate() throws TechnicalAppException, FonctionalAppException {
+
+        if(getUserInternalBddActive() == null){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     public List<UserInternalBdd> getAllUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
         return db.getAllUserInternalBdd();
     }
-
 
     public void updateAllUserInternalBddToNoActive() throws TechnicalAppException, FonctionalAppException {
         List<UserInternalBdd> userInternalBdds = getAllUserInternalBdd();

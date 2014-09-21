@@ -1,29 +1,41 @@
-package com.memoquest.app;
+package com.memoquest.app.manageListe;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.memoquest.app.R;
 
 
-public class AddWordDefActivity extends Activity {
+public class ModifyListesActivity  extends Activity {
+
+    private TextView viewListes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_modify_listes);
 
+        viewListes = (TextView) this.findViewById(R.id.textViewListes);
+/*
+        ListeService listeService = new ListeService();
 
-        //       setContentView(R.layout.activity_create_new_list);
+        List<ListeRest> listes = listeService.getListes(this);
 
+        viewListes.setText(listes.toString());
 
+*/
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.create_new_list, menu);
+        getMenuInflater().inflate(R.menu.manage_list, menu);
         return true;
     }
 
@@ -38,5 +50,4 @@ public class AddWordDefActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

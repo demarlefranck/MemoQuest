@@ -1,18 +1,13 @@
-package test.memoquest.service;
+package test.memoquest.service.internalBdd;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.CompleteListe;
 import com.memoquest.model.UserInternalBdd;
-import com.memoquest.service.ListeService;
-import com.memoquest.service.UserService;
+import com.memoquest.service.InternalBdd.UserService;
 
-import java.util.List;
-
-import test.memoquest.model.CompleteListeTest;
 import test.memoquest.model.UserTest;
 
 /**

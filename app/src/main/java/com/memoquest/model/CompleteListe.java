@@ -1,7 +1,5 @@
 package com.memoquest.model;
 
-import com.memoquest.service.MotDefService;
-
 import java.util.List;
 
 /**
