@@ -1,5 +1,6 @@
 package com.memoquest.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -18,7 +19,7 @@ import com.memoquest.service.InternalBdd.UserService;
 import com.memoquest.service.Synchro.ManagerSynchroService;
 
 
-public class MainActivity extends ActionBarActivity{
+public class MainActivity extends Activity {
 //public class MainActivity extends Activity {
 
 
@@ -34,17 +35,22 @@ public class MainActivity extends ActionBarActivity{
 
     @Override
     protected void onStart() {
+
         Log.i("", "MainActivity.class: onStart()");
         super.onStart();
 
         connexionService = new ConnexionService(this);
         userService = new UserService(this);
         managerSynchroService = new ManagerSynchroService();
-
+/*
         if(connexionService.isConnected(this))
             startWithConnection();
         else
             startWithoutConnection();
+*/
+
+        Intent intentConnexion = new Intent(MainActivity.this, SwitchUserActivity.class);
+        startActivity(intentConnexion);
     }
 
     public void startWithConnection(){

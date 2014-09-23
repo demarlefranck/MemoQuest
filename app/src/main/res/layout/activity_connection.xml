@@ -10,12 +10,22 @@
     android:background="#ffffff">
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:background="@drawable/logo"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <RelativeLayout
+        android:layout_width="280dp"
         android:layout_height="300dp"
         android:background="@drawable/login_bg"
+        android:id="@+id/relativeLayout2"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/relativeLayout">
+        android:layout_marginBottom="50dp" >
 
         <EditText
             android:layout_width="match_parent"
@@ -27,7 +37,10 @@
             android:hint="Username"
             android:background="@drawable/round_corner"
             android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000"
+            android:maxLines="1"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -41,7 +54,10 @@
             android:layout_alignLeft="@+id/loginText"
             android:layout_alignStart="@+id/loginText"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:password="true"
+            android:textColor="#000000"
+            android:maxLines="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,15 +97,6 @@
             android:layout_marginLeft="20dp"
             android:onClick="onClick"
             android:clickable="false" />
-
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:background="@drawable/logo"
-        android:layout_above="@+id/relativeLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp"></RelativeLayout>
 
 </RelativeLayout>

@@ -10,12 +10,22 @@
 
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:background="@drawable/logo"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <RelativeLayout
+        android:layout_width="280dp"
         android:layout_height="300dp"
         android:background="@drawable/login_bg"
+        android:id="@+id/relativeLayout2"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/relativeLayout">
+        android:layout_marginBottom="50dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,13 +40,6 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:background="@drawable/logo"
-        android:layout_above="@+id/relativeLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp"></RelativeLayout>
 
 
 </RelativeLayout>
