@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="C:\Projects\AndroidStudio\MemoQuest\MemoQuest" />
+            <option value="C:\Projects\AndroidStudio\MemoQuest\MemoQuest\app" />
           </set>
         </option>
       </GradleProjectSettings>

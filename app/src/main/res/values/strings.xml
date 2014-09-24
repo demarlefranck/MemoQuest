@@ -25,8 +25,11 @@
     <string name="content_label">The Content is</string>
     <string name="content_value">[content]</string>
     <string name="action_refresh">Refresh</string>
->            <string name="title_activity_manage_listes">ManageListesActivity</string>
+>                        <string name="title_activity_manage_listes">ManageListesActivity</string>
     <string name="title_activity_modify_listes">ModifyListesActivity</string>
     <string name="title_activity_switch_user">SwitchUserActivity</string>
+    <string name="title_activity_play_select_list">PlaySelectListActivity</string>
+    <string name="title_activity_select_list">SelectListActivity</string>
+    <string name="title_activity_select_play">SelectPlayActivity</string>
 
 </resources>

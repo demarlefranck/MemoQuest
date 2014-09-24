@@ -38,6 +38,26 @@
             android:textColor="#ffffff"
             android:onClick="onClick" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Jouer"
+            android:id="@+id/playTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:textColor="#ffffff"
+            android:onClick="onClick" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageButtonPlay"
+            android:background="@drawable/manette"
+            android:layout_below="@+id/playTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="61dp" />
+
     </RelativeLayout>
 
 

@@ -17,58 +17,101 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.memoquest.app.R;
+import com.memoquest.app.util.Alerte;
+import com.memoquest.exception.FonctionalAppException;
+import com.memoquest.exception.TechnicalAppException;
+import com.memoquest.model.UserInternalBdd;
 import com.memoquest.service.InternalBdd.UserService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+/*
+Infos bulle
+
+Toast.makeText(getApplicationContext(), "Click ListItem Number " + position, Toast.LENGTH_LONG).show();
+*/
+
+
 public class SwitchUserActivity extends Activity {
+
+    private UserService userService;
+    private List<UserInternalBdd> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switch_user);
 
-        final ListView listview = (ListView) findViewById(R.id.listview);
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
+        userService = new UserService(this);
+        getAllUserInternalBdd();
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
+        if(users.size() == 0){
+            Intent intentMenu = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
+            startActivity(intentMenu);
         }
-        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-        listview.setAdapter(adapter);
+        else if(users.size() == 1){
+            Intent intentMenu = new Intent(SwitchUserActivity.this, MenuActivity.class);
+            startActivity(intentMenu);
+        }
+        else {
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-
-              /*
-                final String item = (String) parent.getItemAtPosition(position);
-                view.animate().setDuration(2000).alpha(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                list.remove(item);
-                                adapter.notifyDataSetChanged();
-                                view.setAlpha(1);
-                            }
-                        });
-            */
-
+            final ListView listView = (ListView) findViewById(R.id.userListview);
+            String[] values = getUserEmailListValues();
+            final ArrayList<String> list = new ArrayList<String>();
+            for (int i = 0; i < values.length; ++i) {
+                list.add(values[i]);
             }
+            final StableArrayAdapter adapter = new StableArrayAdapter(this,
+                    android.R.layout.simple_list_item_1, list);
+            listView.setAdapter(adapter);
 
-        });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    UserInternalBdd userInternalBdd = users.get(position);
+                    userInternalBdd.setActive(true);
+                    userService.updateUserInternalBdd(userInternalBdd);
+
+                    //verif authentification
+                    try {
+                        if (userService.isAuthentifiate()) {
+                            Intent intentMenu = new Intent(SwitchUserActivity.this, MenuActivity.class);
+                            startActivity(intentMenu);
+                        }
+                    } catch (TechnicalAppException e) {
+                        e.printStackTrace();
+                    } catch (FonctionalAppException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
+
+    private void getAllUserInternalBdd(){
+        try {
+
+            users = userService.getAllUserInternalBdd();
+
+        } catch (TechnicalAppException e) {
+            Alerte.showAlertDialog("Technical Problem", this.getClass().getSimpleName() + "getAllUserInternalBdd(): " + e.toString(), this);
+        } catch (FonctionalAppException e) {
+            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "getAllUserInternalBdd(): " + e.toString(), this);
+        }
+    }
+
+    private String[] getUserEmailListValues(){
+        List<String> emailList = new ArrayList<String>();
+
+        for(UserInternalBdd user : users){
+            emailList.add(user.getEmail())      ;
+        }
+
+        return emailList.toArray(new String[0]);
+     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
@@ -94,5 +137,4 @@ public class SwitchUserActivity extends Activity {
         }
 
     }
-
 }

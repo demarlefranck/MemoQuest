@@ -46,6 +46,14 @@
             android:name="com.memoquest.app.menu.SwitchUserActivity"
             android:label="@string/title_activity_switch_user" >
         </activity>
+        <activity
+            android:name="com.memoquest.app.play.SelectListActivity"
+            android:label="@string/title_activity_select_list" >
+        </activity>
+        <activity
+            android:name="com.memoquest.app.play.SelectPlayActivity"
+            android:label="@string/title_activity_select_play" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
