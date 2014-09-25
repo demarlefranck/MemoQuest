@@ -22,7 +22,6 @@ public class CreateNewListesActivity extends Activity {
     private EditText titreListText;
     private EditText themeListText;
     private EditText cathegoryListText;
-    private TextView cancelText;
     private TextView addListText;
 
     private String titreListTextStr;
@@ -42,7 +41,7 @@ public class CreateNewListesActivity extends Activity {
         themeListText = (EditText) this.findViewById(R.id.themeListText);
         cathegoryListText = (EditText) this.findViewById(R.id.cathegoryListText);
 
-        addListText = (TextView) this.findViewById(R.id.addListText);
+        addListText = (TextView) this.findViewById(R.id.addWordsAndDef);
         addListText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -61,13 +60,6 @@ public class CreateNewListesActivity extends Activity {
                 intent.putExtra("listeInternalBddIdAi", newListeId);
                 startActivity(intent);
             }
-            }
-        });
-
-        cancelText = (TextView) this.findViewById(R.id.cancelText);
-        cancelText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onStop();
             }
         });
     }
@@ -111,64 +103,4 @@ public class CreateNewListesActivity extends Activity {
         }
     }
 */
-    @Override
-    protected void onStop() {
-        Log.i("","CreateNewListesActivity.class: onStop()");
-        super.onStop();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.create_new_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public static class AddWordDefActivity extends Activity {
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-
-            //       setContentView(R.layout.activity_create_new_list);
-
-
-
-        }
-
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.create_new_list, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-            if (id == R.id.action_settings) {
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-
-    }
 }

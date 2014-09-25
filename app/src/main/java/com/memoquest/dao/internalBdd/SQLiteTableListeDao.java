@@ -42,7 +42,7 @@ public class SQLiteTableListeDao {
         return "CREATE TABLE " +  NAME_TABLE_LISTE + " ( " +
                 KEY_LISTE_ID_AI + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 KEY_LISTE_ID + " INTEGER, " +
-                KEY_LISTE_NOM + " TEXT UNIQUE, " +
+                KEY_LISTE_NOM + " TEXT, " +
                 KEY_LISTE_THEME + " TEXT, " +
                 KEY_LISTE_CATHEGORY + " TEXT, " +
                 KEY_LISTE_SHARED + " INTEGER, " +
@@ -71,25 +71,11 @@ public class SQLiteTableListeDao {
 
     public int addListe(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {
         long id = db.insert(NAME_TABLE_LISTE, null, convertListeInternalBddToContentValues(listeInternalBdd));
-
-
-        PROBLEME
-
-
-        Log.d("DEBG", "valeur de l'id de la liste insere: " + id);
-
-
-
-
-
-
-
         db.close();
         return (int) id;
     }
 
     public void updateListeInternalBdd(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {
-
 
         db.update(  NAME_TABLE_LISTE,
                     convertListeInternalBddToContentValues(listeInternalBdd),
@@ -190,11 +176,8 @@ public class SQLiteTableListeDao {
         db.close();
     }
 
-
-
     public static String getNameTableListe() {
         return NAME_TABLE_LISTE;
     }
-
 
 }

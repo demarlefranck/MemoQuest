@@ -2,95 +2,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.memoquest.app.manageListe.CreateNewListesActivity">
-
+    tools:context="com.memoquest.app.manageListe.CreateNewListesActivity"
+    android:background="#ffffff">
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:background="@drawable/logo"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <RelativeLayout
+        android:layout_width="280dp"
         android:layout_height="300dp"
         android:background="@drawable/login_bg"
+        android:id="@+id/relativeLayout2"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/relativeLayout">
+        android:layout_marginBottom="50dp" >
 
         <EditText
+            android:id="@+id/titreListText"
+            android:hint="Titre de la liste"
+            android:background="@drawable/round_corner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/titreListText"
             android:layout_marginTop="30dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:hint="Titre de la liste"
-            android:background="@drawable/round_corner"
             android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp" />
-
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000"
+            android:maxLines="1"
+            android:inputType="textEmailAddress" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
             android:id="@+id/cathegoryListText"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:hint="Cathégorie de la liste"
             android:background="@drawable/round_corner"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="90dp" />
-
-
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/themeListText"
+            android:layout_marginTop="90dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:hint="Thême de la liste"
-            android:background="@drawable/round_corner"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="150dp" />
+            android:textColor="#000000"
+            android:maxLines="1"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/themeListText"
+            android:hint="Thême de la liste"
+            android:background="@drawable/round_corner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000"
+            android:maxLines="1"
+            android:inputType="textEmailAddress" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ajout de la liste"
-            android:id="@+id/addListText"
-            android:textColor="#ffffff"
-            android:onClick="onClick"
-            android:layout_alignTop="@+id/cancelText"
-            android:layout_alignRight="@+id/titreListText"
-            android:layout_alignEnd="@+id/titreListText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Annuler"
-            android:id="@+id/cancelText"
+            android:text="Ajouter des mots et définitions"
+            android:id="@+id/addWordsAndDef"
             android:textColor="#ffffff"
             android:onClick="onClick"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/titreListText"
-            android:layout_alignStart="@+id/titreListText"
-            android:layout_marginBottom="43dp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp" />
 
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:background="@drawable/logo"
-        android:layout_above="@+id/relativeLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp">
-
-    </RelativeLayout>
-
-
 </RelativeLayout>
