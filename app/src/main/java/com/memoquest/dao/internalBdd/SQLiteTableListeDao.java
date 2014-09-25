@@ -3,6 +3,7 @@ package com.memoquest.dao.internalBdd;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
@@ -68,9 +69,23 @@ public class SQLiteTableListeDao {
         return values;
     }
 
-    public void addListe(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {
-        db.insert(NAME_TABLE_LISTE, null, convertListeInternalBddToContentValues(listeInternalBdd));
+    public int addListe(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {
+        long id = db.insert(NAME_TABLE_LISTE, null, convertListeInternalBddToContentValues(listeInternalBdd));
+
+
+        PROBLEME
+
+
+        Log.d("DEBG", "valeur de l'id de la liste insere: " + id);
+
+
+
+
+
+
+
         db.close();
+        return (int) id;
     }
 
     public void updateListeInternalBdd(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {

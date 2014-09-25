@@ -37,7 +37,7 @@ public class SQLiteTableUserDao {
                 KEY_USER_ID_AI + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_USER_ID + " INTEGER, " +
                 KEY_USER_EMAIL + " TEXT UNIQUE, " +
-                KEY_USER_PASSWORD + " TEXT UNIQUE, " +
+                KEY_USER_PASSWORD + " TEXT, " +
                 KEY_USER_ACTIVE + " INTEGER, " +
                 KEY_CREATE_USER + " INTEGER, " +
                 KEY_CREATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +

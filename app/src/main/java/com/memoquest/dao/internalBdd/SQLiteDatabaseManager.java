@@ -47,8 +47,8 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
     /*
     TABLE LISTE
      */
-    public void addListeInternalBdd(ListeInternalBdd listeInternalBdd) {
-        sqLiteTableListeDao.addListe(this.getWritableDatabase(), listeInternalBdd);
+    public int addListeInternalBdd(ListeInternalBdd listeInternalBdd) {
+        return sqLiteTableListeDao.addListe(this.getWritableDatabase(), listeInternalBdd);
     }
 
     public void addListListeInternalBdd(List<ListeInternalBdd> listes) {

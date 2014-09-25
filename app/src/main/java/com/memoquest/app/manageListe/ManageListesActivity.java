@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 import com.memoquest.app.R;
 
-
-public class ManageListActivity extends Activity {
+public class ManageListesActivity extends Activity {
 
     private TextView createNewListText;
 
@@ -23,7 +22,7 @@ public class ManageListActivity extends Activity {
         createNewListText = (TextView) this.findViewById(R.id.createNewListText);
         createNewListText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ManageListActivity.this, CreateNewListActivity.class);
+                Intent intent = new Intent(ManageListesActivity.this, CreateNewListesActivity.class);
                 startActivity(intent);
             }
         });

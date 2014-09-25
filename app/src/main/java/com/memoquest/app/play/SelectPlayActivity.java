@@ -25,7 +25,7 @@ public class SelectPlayActivity extends ActionBarActivity {
             listeInternalBddIdAi = this.getIntent().getIntExtra("listeInternalBddIdAi", -1);
         }else {
             //Erreur
-            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "getAllListeInternalBddByUser(): " + "Probleme d'identification de la liste", this);
+            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onCreate(): " + "Probleme d'identification de la liste", this);
         }
 
 

@@ -12,11 +12,12 @@ import android.widget.TextView;
 
 import com.memoquest.app.R;
 import com.memoquest.app.util.Alerte;
+import com.memoquest.model.CompleteListe;
+import com.memoquest.model.ListeInternalBdd;
+import com.memoquest.service.InternalBdd.ListeService;
 
 
-public class CreateNewListActivity extends Activity {
-
-
+public class CreateNewListesActivity extends Activity {
 
     private EditText titreListText;
     private EditText themeListText;
@@ -28,12 +29,14 @@ public class CreateNewListActivity extends Activity {
     private String themeListTextStr;
     private String cathegoryListTextStr;
 
+    private ListeService listeService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_list);
 
-
+        listeService = new ListeService(this);
 
         titreListText = (EditText) this.findViewById(R.id.titreListText);
         themeListText = (EditText) this.findViewById(R.id.themeListText);
@@ -42,20 +45,22 @@ public class CreateNewListActivity extends Activity {
         addListText = (TextView) this.findViewById(R.id.addListText);
         addListText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(isValidate()){
 
-                   // createListe();
+            if(isValidate()){
 
-                    /*
-                    CHANGER LA REDIRECTION VERS L'AFFICHAGE DES LISTES POUR ENSUITE AJOUTER DES MOTS / DEF
+                ListeInternalBdd listeInternalBdd = new ListeInternalBdd();
+                listeInternalBdd.setNom(titreListTextStr);
+                listeInternalBdd.setTheme(themeListTextStr);
+                listeInternalBdd.setCategory(cathegoryListTextStr);
 
-                    CAR NOUS NE RECUPERONS PAS L'ID DE LA LISTE CREEE
-                     */
+                CompleteListe completeListe = new CompleteListe();
+                completeListe.setListeInternalBdd(listeInternalBdd);
 
-
-                    Intent intent = new Intent(CreateNewListActivity.this, ModifyListesActivity.class);
-                    startActivity(intent);
-                }
+                int newListeId = listeService.addListe(completeListe);
+                Intent intent = new Intent(CreateNewListesActivity.this, ModifyListesActivity.class);
+                intent.putExtra("listeInternalBddIdAi", newListeId);
+                startActivity(intent);
+            }
             }
         });
 
@@ -108,7 +113,7 @@ public class CreateNewListActivity extends Activity {
 */
     @Override
     protected void onStop() {
-        Log.i("","CreateNewListActivity.class: onStop()");
+        Log.i("","CreateNewListesActivity.class: onStop()");
         super.onStop();
     }
 

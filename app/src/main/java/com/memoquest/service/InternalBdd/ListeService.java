@@ -32,13 +32,17 @@ public class ListeService {
         return completeListe;
     }
 
-    public void addListe(CompleteListe completeList){
+    public int addListe(CompleteListe completeList){
 
-        db.addListeInternalBdd(completeList.getListeInternalBdd());
+        int newListeId = db.addListeInternalBdd(completeList.getListeInternalBdd());
 
-        for(MotDefInternalBdd motDef : completeList.getMotDefInternalBdds()){
-            motDefService.addMotDefInternalBdd(motDef);
-        }
+        List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
+
+        if(motDefInternalBdd != null)
+            for(MotDefInternalBdd motDef : motDefInternalBdd){
+                motDefService.addMotDefInternalBdd(motDef);
+            }
+        return newListeId;
     }
 
 /*

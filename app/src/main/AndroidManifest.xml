@@ -27,15 +27,15 @@
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name="com.memoquest.app.manageListe.ManageListActivity"
+            android:name=".manageListe.ManageListesActivity"
             android:label="@string/title_activity_manage_list" >
         </activity>
         <activity
-            android:name="com.memoquest.app.manageListe.CreateNewListActivity"
+            android:name=".manageListe.CreateNewListesActivity"
             android:label="@string/title_activity_create_new_list" >
         </activity>
         <activity
-            android:name="com.memoquest.app.manageListe.CreateNewListActivity$AddWordDefActivity"
+            android:name=".manageListe.CreateNewListesActivity$AddWordDefActivity"
             android:label="@string/title_activity_manage_list" >
         </activity>
         <activity
