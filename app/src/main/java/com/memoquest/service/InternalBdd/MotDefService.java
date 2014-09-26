@@ -32,4 +32,8 @@ public class MotDefService {
     public void addMotDefInternalBdd(MotDefInternalBdd motDef) {
         db.addMotDefInternalBdd(motDef);
     }
+
+    public void deleteMotDefInternalBdd(MotDefInternalBdd motDefInternalBdd) {
+        db.deleteMotDefInternalBddWithIdAi(motDefInternalBdd);
+    }
 }

@@ -74,6 +74,7 @@ public class SwitchUserActivity extends Activity {
     private void showUserListview(){
         final ListView listView = (ListView) findViewById(R.id.userListview);
         String[] values = getUserEmailListValues();
+
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
             list.add(values[i]);
@@ -85,16 +86,20 @@ public class SwitchUserActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            UserInternalBdd userInternalBdd = users.get(position);
-            userInternalBdd.setActive(true);
-            userService.updateUserInternalBdd(userInternalBdd);
 
-            //verif authentification
-            try {
+                //verif authentification
+                try {
+                    UserInternalBdd userInternalBdd = users.get(position);
+                    userService.updateAllUserInternalBddToNoActive();
+                    userInternalBdd.setActive(true);
+                    userService.updateUserInternalBdd(userInternalBdd);
+
                 if (userService.isAuthentifiate()) {
+
                     Intent intentMenu = new Intent(SwitchUserActivity.this, MenuActivity.class);
                     startActivity(intentMenu);
                 }
+
             } catch (TechnicalAppException e) {
                 Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startMenuActivity(): " + e.toString(), getApplicationContext());
             } catch (FonctionalAppException e) {

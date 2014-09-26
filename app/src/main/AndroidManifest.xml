@@ -35,10 +35,6 @@
             android:label="@string/title_activity_create_new_list" >
         </activity>
         <activity
-            android:name=".manageListe.CreateNewListesActivity$AddWordDefActivity"
-            android:label="@string/title_activity_manage_list" >
-        </activity>
-        <activity
             android:name="com.memoquest.app.manageListe.ModifyListesActivity"
             android:label="@string/title_activity_modify_listes" >
         </activity>

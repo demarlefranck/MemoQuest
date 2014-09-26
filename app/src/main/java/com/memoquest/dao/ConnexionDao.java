@@ -19,22 +19,22 @@ public class ConnexionDao {
 
         //REMPLACER PAR SERVICE REST QUI RETOURNE L'ID DU USER
 
-        if(loginTextStr.equals("demarl_f") && passwordTextStr.equals("toto")){
+        if(loginTextStr.equals("demarl_f@etna-alternance.net") && passwordTextStr.equals("toto")){
             return 10;
         }
-        else if(loginTextStr.equals("dupe_j") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals("dupe_j@etna-alternance.net") && passwordTextStr.equals("toto")){
             return 11;
         }
-        else if(loginTextStr.equals("chave_k") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals("chave_k@etna-alternance.net") && passwordTextStr.equals("toto")){
             return 12;
         }
-        else if(loginTextStr.equals("fourni_c") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals("fourni_c@etna-alternance.net") && passwordTextStr.equals("toto")){
             return 13;
         }
-        else if(loginTextStr.equals("grosje_s") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals("grosje_s@etna-alternance.net") && passwordTextStr.equals("toto")){
             return 14;
         }
-        else if(loginTextStr.equals("devill_b") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals("devill_b@etna-alternance.net") && passwordTextStr.equals("toto")){
             return 15;
         }
         else{

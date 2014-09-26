@@ -28,13 +28,18 @@ public class CompleteListe {
 
     @Override
     public String toString() {
-        String result = "liste: \\n" +
-                        listeInternalBdd.toString() +
-                        "liste de motDef: \\n";
-        for(MotDefInternalBdd motDefInternalBdd : motDefInternalBdds) {
-            result = "motDef: \\n" +
-                    motDefInternalBdd.toString();
+        String result = "liste: \\n";
 
+        if(listeInternalBdd != null){
+            result = result + listeInternalBdd.toString();
+        }
+
+        result = result + "liste de motDef: \\n";
+
+        if(motDefInternalBdds != null) {
+            for (MotDefInternalBdd motDefInternalBdd : motDefInternalBdds) {
+                result = result + "motDef: \\n" + motDefInternalBdd.toString();
+            }
         }
         return result;
     }
