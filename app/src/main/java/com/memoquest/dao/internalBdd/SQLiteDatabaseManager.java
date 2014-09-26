@@ -71,22 +71,17 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
         return sqLiteTableListeDao.getAllListeInternalBdd(this.getWritableDatabase());
     }
 
-    public ListeInternalBdd getListeInternalBddWithIdAi(int idAi) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableListeDao.getListeInternalBddWithIdAi(this.getWritableDatabase(), idAi);
+    public List<ListeInternalBdd> getListeInternalBddByUser(int createUser) throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableListeDao.getListeInternalBddByUser(this.getWritableDatabase(), createUser);
     }
 
-    public ListeInternalBdd getListeInternalBddWithId(int id) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableListeDao.getListeInternalBddWithId(this.getWritableDatabase(), id);
-    }
-
-    public List<ListeInternalBdd> getListeInternalBddWithUser(Integer createUser) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableListeDao.getListeInternalBddWithUser(this.getWritableDatabase(), createUser);
+    public ListeInternalBdd getListeInternalBddById(int id) throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableListeDao.getListeInternalBddById(this.getWritableDatabase(), id);
     }
 
     public void updateListeInternalBdd(ListeInternalBdd listeModify) {
         sqLiteTableListeDao.updateListeInternalBdd(this.getWritableDatabase(), listeModify);
     }
-
 
 
     /*
@@ -100,35 +95,20 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
         sqLiteTableMotDefDao.addAllMotDef(this.getWritableDatabase(), motDefInternalBdds);
     }
 
-    public void deleteAllMotDefInternalBdd() {
-        sqLiteTableMotDefDao.deleteAllMotDef(this.getWritableDatabase());
-    }
-
-    public void deleteMotDefInternalBddWithIdAi(MotDefInternalBdd motDefInternalBdd) {
-        sqLiteTableMotDefDao.deleteMotDefInternalBddWithIdAi(this.getWritableDatabase(), motDefInternalBdd);
-    }
-
-    public void deleteMotDefInternalBddWithId(MotDefInternalBdd motDefInternalBdd) {
-        sqLiteTableMotDefDao.deleteMotDefInternalBddWithId(this.getWritableDatabase(), motDefInternalBdd);
+    public void deleteMotDefInternalBdd(MotDefInternalBdd motDefInternalBdd) {
+        sqLiteTableMotDefDao.deleteMotDefInternalBdd(this.getWritableDatabase(), motDefInternalBdd);
     }
 
     public List<MotDefInternalBdd> getAllMotDefInternalBdd() throws TechnicalAppException {
         return sqLiteTableMotDefDao.getAllMotDefInternalBdd(this.getWritableDatabase());
     }
 
-    public List<MotDefInternalBdd> getAllMotDefForListe(int liste_id) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableMotDefDao.getAllMotDefForListe(this.getWritableDatabase(), liste_id);
+    public List<MotDefInternalBdd> getAllMotDefByListeInternalBddId(int liste_id) throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableMotDefDao.getAllMotDefByListeInternalBddId(this.getWritableDatabase(), liste_id);
     }
 
-    public MotDefInternalBdd getMotDefInternalBddWithIdAi(int idAi) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableMotDefDao.getMotDefInternalBddWithIdAi(this.getWritableDatabase(), idAi);
-    }
-
-    public MotDefInternalBdd getMotDefInternalBddWithId(int id) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableMotDefDao.getMotDefInternalBddWithId(this.getWritableDatabase(), id);
-    }
-    public MotDefInternalBdd getMotDefInternalBddWithMot(String mot) throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableMotDefDao.getMotDefInternalBddWithMot(this.getWritableDatabase(), mot);
+    public MotDefInternalBdd getMotDefInternalBddById(int id) throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableMotDefDao.getMotDefInternalBddById(this.getWritableDatabase(), id);
     }
 
     public void updateMotDefInternalBdd(MotDefInternalBdd motDefInternalBdd) {
@@ -139,8 +119,8 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
     /*
     TABLE USER
      */
-    public UserInternalBdd getUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
-        return sqLiteTableUserDao.getUserInternalBddActive(this.getWritableDatabase());
+    public UserInternalBdd getUserInternalBddActif() throws TechnicalAppException, FonctionalAppException {
+        return sqLiteTableUserDao.getUserInternalBddActif(this.getWritableDatabase());
     }
 
     public List<UserInternalBdd> getAllUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
@@ -158,15 +138,4 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
     public void deleteAllUserInternalBdd() {
         sqLiteTableUserDao.deleteAllUserInternalBdd(this.getWritableDatabase());
     }
-
-/*
-    public void getAllUser() {
-        sqLiteTableUserDao.getAllUser(this.getWritableDatabase());
-    }
-
-   public void deleteUserWithIdAi(UserInternalBdd user) {
-        sqLiteTableUserDao.deleteUserWithIdAi(this.getWritableDatabase(), user);
-    }
-
-*/
 }

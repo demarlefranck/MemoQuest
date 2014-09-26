@@ -54,7 +54,7 @@ public class SwitchUserActivity extends Activity {
             Intent intentMenu = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
             startActivity(intentMenu);
         }
-        else if(users.size() == 1 && users.get(0).getActive()){
+        else if(users.size() == 1 && users.get(0).getActif()){
             Intent intentMenu = new Intent(SwitchUserActivity.this, MenuActivity.class);
             startActivity(intentMenu);
         }
@@ -91,7 +91,7 @@ public class SwitchUserActivity extends Activity {
                 try {
                     UserInternalBdd userInternalBdd = users.get(position);
                     userService.updateAllUserInternalBddToNoActive();
-                    userInternalBdd.setActive(true);
+                    userInternalBdd.setActif(true);
                     userService.updateUserInternalBdd(userInternalBdd);
 
                 if (userService.isAuthentifiate()) {

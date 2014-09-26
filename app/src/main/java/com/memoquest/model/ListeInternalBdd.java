@@ -10,42 +10,32 @@ import java.util.Date;
  */
 public class ListeInternalBdd {
 
-    private Integer idAi;
-    private int id;
+    private Integer id;
+    private Integer serverId;
     private String nom;
     private String theme;
     private String category;
     private Boolean shared;
     private Boolean mustDeleted;
-    private int createUser;
+    private Integer createUser;
     private String createTime;
-    private int updateUser;
+    private Integer updateUser;
     private String updateTime;
 
-    public ListeInternalBdd() {}
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getIdAi() {
-        return idAi;
-    }
-
-    public void setIdAi(Integer idAi) {
-        this.idAi = idAi;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(Integer serverId) {
+        this.serverId = serverId;
     }
 
     public String getNom() {
@@ -88,11 +78,11 @@ public class ListeInternalBdd {
         this.mustDeleted = mustDeleted;
     }
 
-    public int getCreateUser() {
+    public Integer getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(int createUser) {
+    public void setCreateUser(Integer createUser) {
         this.createUser = createUser;
     }
 
@@ -104,28 +94,36 @@ public class ListeInternalBdd {
         this.createTime = createTime;
     }
 
-    public int getUpdateUser() {
+    public Integer getUpdateUser() {
         return updateUser;
     }
 
-    public void setUpdateUser(int updateUser) {
+    public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
     public String toString(){
 
-        return ("\nidAi:    " + this.getIdAi() +
-                "\nid:        " + this.getId() +
-                "\nnom:       " + this.getNom() +
-                "\ntheme:     " + this.getTheme() +
-                "\ncathegory: " + this.getCategory() +
-                "\n:shared "    + this.getShared() +
+        return ("\nid:          " + this.getId() +
+                "\nserverId:    " + this.getServerId() +
+                "\nnom:         " + this.getNom() +
+                "\ntheme:       " + this.getTheme() +
+                "\ncathegory:   " + this.getCategory() +
+                "\n:shared:      " + this.getShared() +
                 "\nmustDeleted: " + this.getMustDeleted().toString() +
-                "\n:createUser " + this.getCreateUser() +
-                "\n:createTime " + this.getCreateTime()) +
-                "\n:updateUser " + this.getUpdateUser() +
-                "\n:updateTime " + this.getUpdateTime();
+                "\n:createUser: " + this.getCreateUser() +
+                "\n:createTime: " + this.getCreateTime()) +
+                "\n:updateUser: " + this.getUpdateUser() +
+                "\n:updateTime: " + this.getUpdateTime();
     }
 }
 

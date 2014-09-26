@@ -29,6 +29,7 @@ import com.memoquest.model.CompleteListe;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
 import com.memoquest.model.UserInternalBdd;
+import com.memoquest.service.CompleteListeService;
 import com.memoquest.service.InternalBdd.ListeService;
 import com.memoquest.service.InternalBdd.MotDefService;
 import com.memoquest.service.InternalBdd.UserService;
@@ -41,8 +42,7 @@ import java.util.List;
 
 public class ModifyListesActivity extends Activity {
 
-    private ListeService listeService;
-    private MotDefService motDefService;
+    private CompleteListeService completeListeService;
     private CompleteListe completeListe;
 
     private EditText wordTextValue;
@@ -69,8 +69,7 @@ public class ModifyListesActivity extends Activity {
         addWordsAndDefView = (TextView) this.findViewById(R.id.addWordsAndDef);
         saveWordsAndDefView = (TextView) this.findViewById(R.id.saveWordsAndDef);
 
-        listeService = new ListeService(this);
-        motDefService = new MotDefService(this);
+        completeListeService = new CompleteListeService(this);
 
         showListeComplete();
 
@@ -80,22 +79,10 @@ public class ModifyListesActivity extends Activity {
             public void onClick(View v) {
 
             if(isValidate()){
-
-                Log.d("IIIIINNNNNFFFFFFOOOOO" , "isValidate");
-
+/*
                 MotDefInternalBdd motDefInternalBdd = new MotDefInternalBdd();
-
                 motDefInternalBdd.setMot(wordTextStr);
-
-
-                Log.d("IIIIINNNNNFFFFFFOOOOO" , "wordTextStr:  "  + wordTextStr);
-
                 motDefInternalBdd.setDefinition(defTextStr);
-
-
-                Log.d("IIIIINNNNNFFFFFFOOOOO" , "defTextStr:  "  + defTextStr);
-
-
                 motDefInternalBdd.setMotDefListId(completeListe.getListeInternalBdd().getId());
 
 
@@ -109,7 +96,7 @@ public class ModifyListesActivity extends Activity {
 
                         car la on ne les retrouve pas
 
-
+*/
                 showListeComplete();
             }
             }
@@ -133,7 +120,7 @@ public class ModifyListesActivity extends Activity {
     private void showListeComplete() {
 
 
-        loadListeByInternalBddIdAi();
+        loadListeByInternalBddId();
 
         final ListView listView = (ListView) findViewById(R.id.listMotDefView);
 
@@ -150,34 +137,37 @@ public class ModifyListesActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+
+
+                /*
                 MotDefInternalBdd motDefInternalBdd = completeListe.getMotDefInternalBdds().get(position);
                 wordTextValue.setText(motDefInternalBdd.getMot());
                 defTextValue.setText(motDefInternalBdd.getDefinition());
 
                 motDefService.deleteMotDefInternalBdd(motDefInternalBdd);
-
+*/
             }
         });
     }
 
-    private void loadListeByInternalBddIdAi() {
+    private void loadListeByInternalBddId() {
 
-        int listeInternalBddIdAi = -1;
+        int listeInternalBddId = -1;
 
         Bundle objetbunble = this.getIntent().getExtras();
 
-        if (objetbunble != null && objetbunble.containsKey("listeInternalBddIdAi"))
-            listeInternalBddIdAi = this.getIntent().getIntExtra("listeInternalBddIdAi", -1);
+        if (objetbunble != null && objetbunble.containsKey("listeInternalBddId"))
+            listeInternalBddId = this.getIntent().getIntExtra("listeInternalBddId", -1);
         else
             Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onCreate(): " + "Probleme d'identification de la liste", this);
 
-        if (listeInternalBddIdAi == -1)
+        if (listeInternalBddId == -1)
             Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onCreate(): " + "Probleme d'identification de la liste", this);
         else {
             try {
 
-
-                completeListe = listeService.getCompleteListeByListeId(listeInternalBddIdAi);
+                completeListe = completeListeService.getCompleteListeByListeId(listeInternalBddId);
 
             } catch (TechnicalAppException e) {
                 Alerte.showAlertDialog("Technical Problem", this.getClass().getSimpleName() + "modifyListe(): " + "Probleme de recuperation de la liste", this);

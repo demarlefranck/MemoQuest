@@ -32,7 +32,7 @@ public class ConnexionService {
             userInternalBdd.setId(userId);
             userInternalBdd.setEmail(loginTextStr);
             userInternalBdd.setPassword(toMD5(passwordTextStr));
-            userInternalBdd.setActive(true);
+            userInternalBdd.setActif(true);
             userInternalBdd.setCreateUser(userId);
             userInternalBdd.setCreateTime(MyDateUtils.getDateTime());
             userInternalBdd.setCreateUser(userId);

@@ -13,11 +13,13 @@ public class MotDefInternalBddTest {
 
     public MotDefInternalBdd createOneMotDefInternalBdd(int i){
         MotDefInternalBdd motDefInternalBdd = new MotDefInternalBdd();
-        motDefInternalBdd.setId(-1);
+
+        motDefInternalBdd.setMotDefServerId(-1);
+        motDefInternalBdd.setMotDefListeInternalBddId(i);
+        motDefInternalBdd.setMotDefListeServerId(i);
         motDefInternalBdd.setMot("MotDefInternalBddMot" + i);
         motDefInternalBdd.setDefinition("MotDefInternalBddDefiniton" + i);
         motDefInternalBdd.setMustDeleted(false);
-        motDefInternalBdd.setMotDefListId(i);
         motDefInternalBdd.setCreateUser(i);
         motDefInternalBdd.setCreateTime(MyDateUtils.getDateTime());
         motDefInternalBdd.setUpdateUser(i);

@@ -22,7 +22,7 @@ public class UserService {
 
     public UserInternalBdd getUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
 
-        return db.getUserInternalBddActive();
+        return db.getUserInternalBddActif();
     }
 
     public Boolean isAuthentifiate() throws TechnicalAppException, FonctionalAppException {
@@ -43,7 +43,7 @@ public class UserService {
         List<UserInternalBdd> userInternalBdds = getAllUserInternalBdd();
 
         for(UserInternalBdd userInternalBdd : userInternalBdds){
-            userInternalBdd.setActive(false);
+            userInternalBdd.setActif(false);
             updateUserInternalBdd(userInternalBdd);
         }
     }
@@ -58,7 +58,7 @@ public class UserService {
 
         updateAllUserInternalBddToNoActive();
 
-        userInternalBdd.setActive(true);
+        userInternalBdd.setActif(true);
 
         Boolean find = false;
         List<UserInternalBdd> userInternalBddList = getAllUserInternalBdd();

@@ -48,7 +48,10 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         addListMotDefTest(10);
         assertEquals(10, db.getAllMotDefInternalBdd().size());
 
-        db.deleteAllMotDefInternalBdd();
+        for(MotDefInternalBdd motDef : db.getAllMotDefInternalBdd()){
+
+            db.deleteMotDefInternalBdd(motDef);
+        }
         assertEquals(0, db.getAllMotDefInternalBdd().size());
     }
 
@@ -58,10 +61,13 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         addListMotDefTest(10);
 
         for (int j = 0; j != 10; j++) {
-            assertEquals(1, db.getAllMotDefForListe(j).size());
+            assertEquals(1, db.getAllMotDefByListeInternalBddId(j).size());
         }
 
-        db.deleteAllMotDefInternalBdd();
+        for(MotDefInternalBdd motDef : db.getAllMotDefInternalBdd()){
+
+            db.deleteMotDefInternalBdd(motDef);
+        }
         assertEquals(0, db.getAllMotDefInternalBdd().size());
     }
 
@@ -69,57 +75,47 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         Ne compare pas IdAd car peut etre differents
      */
     public void compareAttributesOfTwoMotDef(MotDefInternalBdd motDefExpected, MotDefInternalBdd motDefReality){
-
-        assertEquals(motDefExpected.getId(), motDefReality.getId());
+        assertEquals(motDefExpected.getMotDefServerId(), motDefReality.getMotDefServerId());
+        assertEquals(motDefExpected.getMotDefListeInternalBddId(), motDefReality.getMotDefListeInternalBddId());
+        assertEquals(motDefExpected.getMotDefListeServerId(), motDefReality.getMotDefListeServerId());
         assertEquals(motDefExpected.getMot(), motDefReality.getMot());
         assertEquals(motDefExpected.getDefinition(), motDefReality.getDefinition());
         assertEquals(motDefExpected.getMustDeleted(), motDefReality.getMustDeleted());
-        assertEquals(motDefExpected.getMotDefListId(), motDefReality.getMotDefListId());
         assertEquals(motDefExpected.getCreateUser(), motDefReality.getCreateUser());
         assertEquals(motDefExpected.getCreateTime(), motDefReality.getCreateTime());
         assertEquals(motDefExpected.getUpdateUser(), motDefReality.getUpdateUser());
         assertEquals(motDefExpected.getUpdateTime(), motDefReality.getUpdateTime());
     }
 
-    public void testDeleteMotDefInternalBddWithIdAi() throws Exception {
-        MotDefInternalBdd motDefExpected = addMotDefTest(1);
-
-        MotDefInternalBdd motDefReality = db.getMotDefInternalBddWithMot(motDefExpected.getMot());
-        compareAttributesOfTwoMotDef(motDefExpected, motDefReality);
-
-        db.deleteMotDefInternalBddWithIdAi(motDefReality);
-        assertEquals(0, db.getAllMotDefInternalBdd().size());
-    }
-
-    public void testDeleteMotDefInternalBddWithId() throws Exception {
+    public void testDeleteMotDefInternalBddById() throws Exception {
 
         MotDefInternalBdd motDefExpected = addMotDefTest(1);
 
-        MotDefInternalBdd motDefReality = db.getMotDefInternalBddWithId(motDefExpected.getId());
-        compareAttributesOfTwoMotDef(motDefExpected, motDefReality);
+        List<MotDefInternalBdd> motDefRealitys = db.getAllMotDefByListeInternalBddId(motDefExpected.getMotDefListeInternalBddId());
+        compareAttributesOfTwoMotDef(motDefExpected, motDefRealitys.get(0));
 
-        db.deleteMotDefInternalBddWithId(motDefExpected);
+        db.deleteMotDefInternalBdd(motDefRealitys.get(0));
         assertEquals(0, db.getAllMotDefInternalBdd().size());
     }
 
 
-    public void testGetMotDefInternalBddWithId() throws Exception {
+    public void testGetMotDefInternalBddById() throws Exception {
         MotDefInternalBdd motDefExpected = addMotDefTest(1);
 
-        MotDefInternalBdd motDefReality = db.getMotDefInternalBddWithId(motDefExpected.getId());
-        compareAttributesOfTwoMotDef(motDefExpected, motDefReality);
+        List<MotDefInternalBdd> motDefRealitys = db.getAllMotDefByListeInternalBddId(motDefExpected.getMotDefListeInternalBddId());
+        compareAttributesOfTwoMotDef(motDefExpected, motDefRealitys.get(0));
 
-        db.deleteMotDefInternalBddWithId(motDefExpected);
+        db.deleteMotDefInternalBdd(motDefRealitys.get(0));
         assertEquals(0, db.getAllMotDefInternalBdd().size());
     }
 
-    public void testGetMotDefInternalBddWithName() throws Exception {
+    public void testGetMotDefInternalBddByName() throws Exception {
         MotDefInternalBdd motDefExpected = addMotDefTest(1);
 
-        MotDefInternalBdd motDefReality = db.getMotDefInternalBddWithMot(motDefExpected.getMot());
-        compareAttributesOfTwoMotDef(motDefExpected, motDefReality);
+        List<MotDefInternalBdd> motDefRealitys = db.getAllMotDefByListeInternalBddId(motDefExpected.getMotDefListeInternalBddId());
+        compareAttributesOfTwoMotDef(motDefExpected, motDefRealitys.get(0));
 
-        db.deleteMotDefInternalBddWithId(motDefExpected);
+        db.deleteMotDefInternalBdd(motDefRealitys.get(0));
         assertEquals(0, db.getAllMotDefInternalBdd().size());
     }
 
@@ -130,10 +126,10 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
     public void testUpdateMotDefInternalBdd() throws Exception {
         MotDefInternalBdd motDefExpected = addMotDefTest(1);
 
-        MotDefInternalBdd motDefReality = db.getMotDefInternalBddWithId(motDefExpected.getId());
-        compareAttributesOfTwoMotDef(motDefExpected, motDefReality);
+        List<MotDefInternalBdd> motDefRealitys = db.getAllMotDefByListeInternalBddId(motDefExpected.getMotDefListeInternalBddId());
+        compareAttributesOfTwoMotDef(motDefExpected, motDefRealitys.get(0));
 
-        MotDefInternalBdd motDefModify = motDefReality;
+        MotDefInternalBdd motDefModify = motDefRealitys.get(0);
         motDefModify.setMot("motModify");
         motDefModify.setDefinition("definitionModify");
         motDefModify.setUpdateUser(1000);
@@ -142,10 +138,10 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
 
         db.updateMotDefInternalBdd(motDefModify);
 
-        MotDefInternalBdd motDefReality2 = db.getMotDefInternalBddWithIdAi(motDefReality.getIdAi());
+        MotDefInternalBdd motDefReality2 = db.getMotDefInternalBddById(motDefRealitys.get(0).getId());
         compareAttributesOfTwoMotDef(motDefModify, motDefReality2);
 
-        db.deleteMotDefInternalBddWithId(motDefExpected);
+        db.deleteMotDefInternalBdd(motDefRealitys.get(0));
         assertEquals(0, db.getAllMotDefInternalBdd().size());
     }
 }

@@ -11,7 +11,7 @@ import com.memoquest.app.util.Alerte;
 
 public class SelectPlayActivity extends ActionBarActivity {
 
-    private int listeInternalBddIdAi;
+    private int listeInternalBddId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +21,14 @@ public class SelectPlayActivity extends ActionBarActivity {
         Bundle objetbunble  = this.getIntent().getExtras();
 
         //On récupère les données du Bundle
-        if (objetbunble != null && objetbunble.containsKey("listeInternalBddIdAi")) {
-            listeInternalBddIdAi = this.getIntent().getIntExtra("listeInternalBddIdAi", -1);
+        if (objetbunble != null && objetbunble.containsKey("listeInternalBddId")) {
+            listeInternalBddId = this.getIntent().getIntExtra("listeInternalBddId", -1);
         }else {
             //Erreur
             Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onCreate(): " + "Probleme d'identification de la liste", this);
         }
 
 
-        Toast.makeText(getApplicationContext(), "Click ListItem Number " + listeInternalBddIdAi, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Click ListItem Number " + listeInternalBddId, Toast.LENGTH_LONG).show();
     }
 }

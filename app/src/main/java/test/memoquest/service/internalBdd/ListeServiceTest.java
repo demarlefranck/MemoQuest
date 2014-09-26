@@ -34,7 +34,7 @@ public class ListeServiceTest extends AndroidTestCase {
 
         assertEquals(0, listeService.getListeInternalBddByUser(nbCompleteListe).size());
 
-        listeService.addListe(completeListeExpected);
+        listeService.addListeInternalBdd(completeListeExpected.getListeInternalBdd());
         assertEquals(1, listeService.getListeInternalBddByUser(nbCompleteListe).size());
     }
 
@@ -43,7 +43,7 @@ public class ListeServiceTest extends AndroidTestCase {
         CompleteListe completeListeExpected = completeListeTest.createOneCompleteListeWithNMotDef(1);
         assertEquals(0, listeService.getListeInternalBddByUser(1).size());
 
-        listeService.addListe(completeListeExpected);
+        listeService.addListeInternalBdd(completeListeExpected.getListeInternalBdd());
         assertEquals(0, listeService.getListeInternalBddByUser(10000000).size());
     }
 
@@ -57,7 +57,7 @@ public class ListeServiceTest extends AndroidTestCase {
         }
 
         for (int j = 0; j != nbCompleteListe; j++) {
-            listeService.addListe(completeListeTest.createOneCompleteListeWithNMotDef(j));
+            listeService.addListeInternalBdd(completeListeTest.createOneCompleteListeWithNMotDef(j).getListeInternalBdd());
         }
 
         for (int j = 0; j != nbCompleteListe; j++) {
@@ -71,28 +71,18 @@ public class ListeServiceTest extends AndroidTestCase {
         List<CompleteListe> completeListeExpecteds = completeListeTest.createNCompleteListeWithNMotDef(nbCompleteListe);
 
         for (int j = 0; j != nbCompleteListe; j++) {
-            listeService.addListe(completeListeTest.createOneCompleteListeWithNMotDef(j));
+            listeService.addListeInternalBdd(completeListeTest.createOneCompleteListeWithNMotDef(j).getListeInternalBdd());
         }
 
-
-        //Pourquoi les chiffres sont inverse?????????????????
-        //????????????????????????????????
-        assertEquals(9, listeService.getCompleteListeByListeId(0).getMotDefInternalBdds().size());
-        assertEquals(8, listeService.getCompleteListeByListeId(1).getMotDefInternalBdds().size());
-        assertEquals(7, listeService.getCompleteListeByListeId(2).getMotDefInternalBdds().size());
-        assertEquals(6, listeService.getCompleteListeByListeId(3).getMotDefInternalBdds().size());
-        assertEquals(5, listeService.getCompleteListeByListeId(4).getMotDefInternalBdds().size());
-        assertEquals(4, listeService.getCompleteListeByListeId(5).getMotDefInternalBdds().size());
-        assertEquals(3, listeService.getCompleteListeByListeId(6).getMotDefInternalBdds().size());
-        assertEquals(2, listeService.getCompleteListeByListeId(7).getMotDefInternalBdds().size());
-        assertEquals(1, listeService.getCompleteListeByListeId(8).getMotDefInternalBdds().size());
-        assertEquals(0, listeService.getCompleteListeByListeId(9).getMotDefInternalBdds().size());
-
-        /*
-        for (int j = 0; j != nbCompleteListe; j++) {
-            assertEquals(j, listeService.getCompleteListeByListeId(j).getMotDefInternalBdds().size());
-        }
-        */
+        assertEquals(1, listeService.getListeInternalBddByUser(0).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(1).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(2).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(3).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(4).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(5).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(6).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(7).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(8).size());
+        assertEquals(1, listeService.getListeInternalBddByUser(9).size());
     }
-
 }

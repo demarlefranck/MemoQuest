@@ -23,7 +23,7 @@ public class MotDefService {
 
     public List<MotDefInternalBdd> getAllMotDefServiceForListe(Integer liste_id) throws FonctionalAppException {
         try {
-            return db.getAllMotDefForListe(liste_id);
+            return db.getAllMotDefByListeInternalBddId(liste_id);
         } catch (TechnicalAppException e) {
             throw  new FonctionalAppException(this.getClass().getSimpleName() + "getAllMotDefServiceForListe(): probleme" + e.toString());
         }
@@ -34,6 +34,6 @@ public class MotDefService {
     }
 
     public void deleteMotDefInternalBdd(MotDefInternalBdd motDefInternalBdd) {
-        db.deleteMotDefInternalBddWithIdAi(motDefInternalBdd);
+        db.deleteMotDefInternalBdd(motDefInternalBdd);
     }
 }

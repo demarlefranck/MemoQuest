@@ -29,7 +29,7 @@ public class UserServiceTest extends AndroidTestCase {
         assertEquals(userExpected.getId(), userReality.getId());
         assertEquals(userExpected.getEmail(), userReality.getEmail());
         assertEquals(userExpected.getPassword(), userReality.getPassword());
-        assertEquals(userExpected.getActive(), userReality.getActive());
+        assertEquals(userExpected.getActif(), userReality.getActif());
         assertEquals(userExpected.getCreateUser(), userReality.getCreateUser());
         assertEquals(userExpected.getCreateTime(), userReality.getCreateTime());
         assertEquals(userExpected.getUpdateUser(), userReality.getUpdateUser());

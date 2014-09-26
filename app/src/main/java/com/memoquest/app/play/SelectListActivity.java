@@ -55,7 +55,7 @@ public class SelectListActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListeInternalBdd listeInternalBdd = listes.get(position);
                 Intent intent = new Intent(SelectListActivity.this, SelectPlayActivity.class);
-                intent.putExtra("listeInternalBddIdAi", listeInternalBdd.getIdAi());
+                intent.putExtra("listeInternalBddId", listeInternalBdd.getId());
                 startActivity(intent);
             }
         });

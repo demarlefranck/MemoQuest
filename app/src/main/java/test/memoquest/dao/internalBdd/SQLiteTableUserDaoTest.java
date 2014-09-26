@@ -33,7 +33,8 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         assertEquals(userExpected.getId(), userReality.getId());
         assertEquals(userExpected.getEmail(), userReality.getEmail());
         assertEquals(userExpected.getPassword(), userReality.getPassword());
-        assertEquals(userExpected.getActive(), userReality.getActive());
+        assertEquals(userExpected.getPseudo(), userReality.getPseudo());
+        assertEquals(userExpected.getActif(), userReality.getActif());
         assertEquals(userExpected.getCreateUser(), userReality.getCreateUser());
         assertEquals(userExpected.getCreateTime(), userReality.getCreateTime());
         assertEquals(userExpected.getUpdateUser(), userReality.getUpdateUser());
@@ -45,7 +46,7 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         assertEquals(0, db.getAllUserInternalBdd().size());
 
         UserInternalBdd userExpected = addUser(1);
-        UserInternalBdd userReality = db.getUserInternalBddActive();
+        UserInternalBdd userReality = db.getUserInternalBddActif();
 
         assertEquals(1, db.getAllUserInternalBdd().size());
 
@@ -59,14 +60,14 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         assertEquals(0, db.getAllUserInternalBdd().size());
 
         UserInternalBdd userExpected = addUser(1);
-        UserInternalBdd userReality = db.getUserInternalBddActive();
+        UserInternalBdd userReality = db.getUserInternalBddActif();
         assertEquals(1, db.getAllUserInternalBdd().size());
 
         UserInternalBdd userModify = userReality;
         userModify.setEmail("totototo@toto.fr");
         userModify.setPassword("passwordModif");
         db.updateUserInternalBdd(userModify);
-        UserInternalBdd userReality2 = db.getUserInternalBddActive();
+        UserInternalBdd userReality2 = db.getUserInternalBddActif();
         compareAttributesOfTwoUser(userModify, userReality2);
 
 

@@ -21,9 +21,8 @@ import java.util.List;
 public class SQLiteTableListeDao {
 
     private static final String NAME_TABLE_LISTE = "TableListe";
-
-    private static final String KEY_LISTE_ID_AI = "liste_id_ai";
     private static final String KEY_LISTE_ID = "liste_id";
+    private static final String KEY_LISTE_SERVER_ID = "liste_server_id";
     private static final String KEY_LISTE_NOM = "liste_nom";
     private static final String KEY_LISTE_THEME = "liste_theme";
     private static final String KEY_LISTE_CATHEGORY = "liste_category";
@@ -40,8 +39,8 @@ public class SQLiteTableListeDao {
     public String getCreateTableListeRequest(){
 
         return "CREATE TABLE " +  NAME_TABLE_LISTE + " ( " +
-                KEY_LISTE_ID_AI + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                KEY_LISTE_ID + " INTEGER, " +
+                KEY_LISTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                KEY_LISTE_SERVER_ID + " INTEGER, " +
                 KEY_LISTE_NOM + " TEXT, " +
                 KEY_LISTE_THEME + " TEXT, " +
                 KEY_LISTE_CATHEGORY + " TEXT, " +
@@ -57,6 +56,7 @@ public class SQLiteTableListeDao {
     public ContentValues convertListeInternalBddToContentValues(ListeInternalBdd listeInternalBdd){
         ContentValues values = new ContentValues();
         values.put(KEY_LISTE_ID, listeInternalBdd.getId());
+        values.put(KEY_LISTE_SERVER_ID, listeInternalBdd.getServerId());
         values.put(KEY_LISTE_NOM, listeInternalBdd.getNom());
         values.put(KEY_LISTE_THEME, listeInternalBdd.getTheme());
         values.put(KEY_LISTE_CATHEGORY, listeInternalBdd.getCategory());
@@ -79,7 +79,7 @@ public class SQLiteTableListeDao {
 
         db.update(  NAME_TABLE_LISTE,
                     convertListeInternalBddToContentValues(listeInternalBdd),
-                    KEY_LISTE_ID_AI + "=" + listeInternalBdd.getIdAi(), null);
+                    KEY_LISTE_ID + "=" + listeInternalBdd.getId(), null);
         db.close();
     }
 
@@ -99,8 +99,8 @@ public class SQLiteTableListeDao {
         {
             do {
                 listeInternalBdd = new ListeInternalBdd();
-                listeInternalBdd.setIdAi(cursor.getInt(0));
-                listeInternalBdd.setId(cursor.getInt(1));
+                listeInternalBdd.setId(cursor.getInt(0));
+                listeInternalBdd.setServerId(cursor.getInt(1));
                 listeInternalBdd.setNom(cursor.getString(2));
                 listeInternalBdd.setTheme(cursor.getString(3));
                 listeInternalBdd.setCategory(cursor.getString(4));
@@ -127,7 +127,7 @@ public class SQLiteTableListeDao {
     }
 
 
-    public ListeInternalBdd convertListesToListeInternalBdd(List<ListeInternalBdd> listes, String searchParam) throws TechnicalAppException, FonctionalAppException {
+    public ListeInternalBdd convertListesToListeInternalBdd(List<ListeInternalBdd> listes, int searchParam) throws TechnicalAppException, FonctionalAppException {
         if(listes.size() > 1)
             throw new TechnicalAppException("Plus d'une liste à été trouvée avec l'id: " + searchParam);
         else if(listes.size()== 0)
@@ -136,27 +136,17 @@ public class SQLiteTableListeDao {
             return listes.get(0);
     }
 
-    public ListeInternalBdd getListeInternalBddWithIdAi(SQLiteDatabase db, int idAi) throws TechnicalAppException, FonctionalAppException {
-
-        String query = "SELECT  * FROM " + NAME_TABLE_LISTE
-                + " WHERE " + KEY_LISTE_ID_AI + " = " + idAi  + ";";
-
-        List<ListeInternalBdd> listes = mapBddResultToListeInternalBdd(db, query);
-
-        return convertListesToListeInternalBdd(listes, String.valueOf(idAi));
-    }
-
-    public ListeInternalBdd getListeInternalBddWithId(SQLiteDatabase db, int id) throws TechnicalAppException, FonctionalAppException {
+    public ListeInternalBdd  getListeInternalBddById(SQLiteDatabase db, int id) throws TechnicalAppException, FonctionalAppException {
 
         String query = "SELECT  * FROM " + NAME_TABLE_LISTE
                         + " WHERE " + KEY_LISTE_ID + " = " + id  + ";";
 
         List<ListeInternalBdd> listes = mapBddResultToListeInternalBdd(db, query);
 
-        return convertListesToListeInternalBdd(listes, String.valueOf(id));
+        return convertListesToListeInternalBdd(listes, id);
     }
 
-    public List<ListeInternalBdd> getListeInternalBddWithUser(SQLiteDatabase db, int createUser) throws TechnicalAppException {
+    public List<ListeInternalBdd> getListeInternalBddByUser(SQLiteDatabase db, int createUser) throws TechnicalAppException {
 
         String query = "SELECT * FROM " + NAME_TABLE_LISTE
                 + " WHERE " + KEY_CREATE_USER + " = " + createUser + ";";
@@ -165,7 +155,7 @@ public class SQLiteTableListeDao {
     }
 
     public boolean deleteListeInternalBddWithIdAi(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {
-        return db.delete(NAME_TABLE_LISTE, KEY_LISTE_ID_AI + "=" + listeInternalBdd.getIdAi(), null) > 0;
+        return db.delete(NAME_TABLE_LISTE, KEY_LISTE_ID + "=" + listeInternalBdd.getId(), null) > 0;
     }
     public boolean deleteListeInternalBddWithId(SQLiteDatabase db, ListeInternalBdd listeInternalBdd) {
         return db.delete(NAME_TABLE_LISTE, KEY_LISTE_ID + "=" + listeInternalBdd.getId(), null) > 0;

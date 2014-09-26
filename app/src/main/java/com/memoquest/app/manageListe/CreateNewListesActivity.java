@@ -3,9 +3,6 @@ package com.memoquest.app.manageListe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,8 +11,7 @@ import com.memoquest.app.R;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.model.CompleteListe;
 import com.memoquest.model.ListeInternalBdd;
-import com.memoquest.service.InternalBdd.ListeService;
-
+import com.memoquest.service.CompleteListeService;
 
 public class CreateNewListesActivity extends Activity {
 
@@ -28,14 +24,14 @@ public class CreateNewListesActivity extends Activity {
     private String themeListTextStr;
     private String cathegoryListTextStr;
 
-    private ListeService listeService;
+    private CompleteListeService completeListeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_list);
 
-        listeService = new ListeService(this);
+        completeListeService = new CompleteListeService(this);
 
         titreListText = (EditText) this.findViewById(R.id.titreListText);
         themeListText = (EditText) this.findViewById(R.id.themeListText);
@@ -46,18 +42,9 @@ public class CreateNewListesActivity extends Activity {
             public void onClick(View v) {
 
             if(isValidate()){
-
-                ListeInternalBdd listeInternalBdd = new ListeInternalBdd();
-                listeInternalBdd.setNom(titreListTextStr);
-                listeInternalBdd.setTheme(themeListTextStr);
-                listeInternalBdd.setCategory(cathegoryListTextStr);
-
-                CompleteListe completeListe = new CompleteListe();
-                completeListe.setListeInternalBdd(listeInternalBdd);
-
-                int newListeId = listeService.addListe(completeListe);
+                int newListeId = createNewCompleteListe();
                 Intent intent = new Intent(CreateNewListesActivity.this, ModifyListesActivity.class);
-                intent.putExtra("listeInternalBddIdAi", newListeId);
+                intent.putExtra("listeInternalBddId", newListeId);
                 startActivity(intent);
             }
             }
@@ -89,18 +76,16 @@ public class CreateNewListesActivity extends Activity {
         return true;
     }
 
-    /*
+    public int createNewCompleteListe(){
 
-    public void createListe(){
+        ListeInternalBdd listeInternalBdd = new ListeInternalBdd();
+        listeInternalBdd.setNom(titreListTextStr);
+        listeInternalBdd.setTheme(themeListTextStr);
+        listeInternalBdd.setCategory(cathegoryListTextStr);
 
-        ListeService listeService = new ListeService();
-        ListeRest liste = new ListeRest(titreListTextStr, themeListTextStr, cathegoryListTextStr);
+        CompleteListe completeListe = new CompleteListe();
+        completeListe.setListeInternalBdd(listeInternalBdd);
 
-        try {
-            listeService.addListe(liste, this);
-        } catch (FonctionalAppException e) {
-            Alerte.showAlertDialog("Probleme", e.getText(), this);
-        }
+        return completeListeService.addCompleteListe(completeListe);
     }
-*/
 }

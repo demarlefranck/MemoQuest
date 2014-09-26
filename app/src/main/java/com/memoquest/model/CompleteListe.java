@@ -11,6 +11,7 @@ public class CompleteListe {
     private List<MotDefInternalBdd> motDefInternalBdds;
 
     public ListeInternalBdd getListeInternalBdd() {
+
         return listeInternalBdd;
     }
 
@@ -19,6 +20,7 @@ public class CompleteListe {
     }
 
     public List<MotDefInternalBdd> getMotDefInternalBdds() {
+
         return motDefInternalBdds;
     }
 

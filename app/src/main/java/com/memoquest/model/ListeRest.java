@@ -1,8 +1,5 @@
 package com.memoquest.model;
 
-/**
- * Created by franck on 20/09/2014.
- */
 public class ListeRest {
 
     private int id;
@@ -14,14 +11,6 @@ public class ListeRest {
     private String createTime;
     private int updateUser;
     private String updateTime;
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public int getId() {
         return id;
@@ -85,5 +74,13 @@ public class ListeRest {
 
     public void setUpdateUser(int updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

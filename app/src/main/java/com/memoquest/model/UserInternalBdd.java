@@ -5,31 +5,19 @@ package com.memoquest.model;
  */
 public class UserInternalBdd {
 
-    private Integer idAi;
     private Integer id;
+    private Integer serverId;
+    private String pseudo;
     private String email;
     private String password;
-    private Boolean active;
-    private int createUser;
+    private Boolean actif;
+    private Integer createUser;
     private String createTime;
-    private int updateUser;
+    private Integer updateUser;
     private String updateTime;
 
     public UserInternalBdd(){}
 
-    public UserInternalBdd(Integer idAi, String email, String password) {
-        this.idAi = idAi;
-        this.email = email;
-        this.password = password;
-    }
-
-    public Integer getIdAi() {
-        return idAi;
-    }
-
-    public void setIdAi(Integer idAi) {
-        this.idAi = idAi;
-    }
 
     public Integer getId() {
         return id;
@@ -37,6 +25,22 @@ public class UserInternalBdd {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(Integer serverId) {
+        this.serverId = serverId;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public String getEmail() {
@@ -55,19 +59,19 @@ public class UserInternalBdd {
         this.password = password;
     }
 
-    public Boolean getActive() {
-        return active;
+    public Boolean getActif() {
+        return actif;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setActif(Boolean actif) {
+        this.actif = actif;
     }
 
-    public int getCreateUser() {
+    public Integer getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(int createUser) {
+    public void setCreateUser(Integer createUser) {
         this.createUser = createUser;
     }
 
@@ -79,11 +83,11 @@ public class UserInternalBdd {
         this.createTime = createTime;
     }
 
-    public int getUpdateUser() {
+    public Integer getUpdateUser() {
         return updateUser;
     }
 
-    public void setUpdateUser(int updateUser) {
+    public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
     }
 
@@ -98,15 +102,16 @@ public class UserInternalBdd {
     @Override
     public String toString(){
 
-        return ("\nidAi:    " + this.getIdAi() +
-                "\nid:        " + this.getId() +
-                "\nemail:     " + this.getEmail() +
-                "\npassword: " + this.getPassword() +
-                "\nactive: " + this.getActive().toString() +
-                "\n:createUser " + this.getCreateUser() +
-                "\n:createTime " + this.getCreateTime()) +
-                "\n:updateUser " + this.getUpdateUser() +
-                "\n:updateTime " + this.getUpdateTime();
+        return ("\nid:          " + this.getId() +
+                "\nserverId:    " + this.getServerId() +
+                "\npseudo:      " + this.getEmail() +
+                "\nemail:       " + this.getEmail() +
+                "\npassword:    " + this.getPassword() +
+                "\nactif:       " + this.getActif().toString() +
+                "\n:createUser: " + this.getCreateUser() +
+                "\n:createTime: " + this.getCreateTime()) +
+                "\n:updateUser: " + this.getUpdateUser() +
+                "\n:updateTime: " + this.getUpdateTime();
     }
 }
 

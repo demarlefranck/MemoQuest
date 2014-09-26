@@ -13,7 +13,8 @@ public class UserTest {
         user.setId(i);
         user.setEmail("test@test.test" + i);
         user.setPassword("passwordTest" + i);
-        user.setActive(true);
+        user.setPseudo("pseudoTest" + i);
+        user.setActif(true);
         user.setCreateUser(i);
         user.setCreateTime(MyDateUtils.getDateTime());
         user.setUpdateUser(i);

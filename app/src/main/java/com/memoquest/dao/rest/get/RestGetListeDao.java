@@ -42,6 +42,7 @@ public class RestGetListeDao extends AsyncTask<Void, Void, ListeRest>{
         try {
             final String url = "http://memoquest.fr/MemoQuest/app_dev.php/api/users/" + this.userId + "/listes";
             RestTemplate restTemplate = new RestTemplate();
+
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
             ListeRest liste = restTemplate.getForObject(url, ListeRest.class);

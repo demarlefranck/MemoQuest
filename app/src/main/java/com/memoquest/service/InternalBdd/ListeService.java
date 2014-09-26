@@ -15,38 +15,35 @@ import java.util.List;
 
 public class ListeService {
 
-    private MotDefService motDefService;
     private SQLiteDatabaseManager db;
 
     public ListeService(Context context){
-        motDefService = new MotDefService(context);
         db = new SQLiteDatabaseManager(context);
     }
 
-    public List<ListeInternalBdd> getListeInternalBddByUser(int createUser) throws TechnicalAppException, FonctionalAppException {
-       return db.getListeInternalBddWithUser(createUser);
+    public List<ListeInternalBdd> getListeInternalBddByUser(int createUser) throws FonctionalAppException {
+
+        try {
+
+            return db.getListeInternalBddByUser(createUser);
+
+        } catch (TechnicalAppException e) {
+            throw  new FonctionalAppException(this.getClass().getSimpleName() + "getListeInternalBddByUser(): probleme" + e.toString());
+        }
     }
 
-    public CompleteListe getCompleteListeByListeId(int listeId) throws TechnicalAppException, FonctionalAppException {
-
-        CompleteListe completeListe = new CompleteListe();
-        completeListe.setListeInternalBdd(db.getListeInternalBddWithIdAi(listeId));
-        List<MotDefInternalBdd> motDefList = new ArrayList<MotDefInternalBdd>();
-        motDefList = motDefService.getAllMotDefServiceForListe(listeId);
-        completeListe.setMotDefInternalBdds(motDefList);
-        return completeListe;
+    public int addListeInternalBdd(ListeInternalBdd listeInternalBdd) {
+            return db.addListeInternalBdd(listeInternalBdd);
     }
 
-    public int addListe(CompleteListe completeList){
 
-        int newListeId = db.addListeInternalBdd(completeList.getListeInternalBdd());
+    public ListeInternalBdd getListeInternalBddById(int listeId) throws FonctionalAppException {
+        try {
 
-        List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
+            return db.getListeInternalBddById(listeId);
 
-        if(motDefInternalBdd != null)
-            for(MotDefInternalBdd motDef : motDefInternalBdd){
-                motDefService.addMotDefInternalBdd(motDef);
-            }
-        return newListeId;
+        } catch (TechnicalAppException e) {
+            throw  new FonctionalAppException(this.getClass().getSimpleName() + "getListeInternalBddById(): probleme" + e.toString());
+        }
     }
 }
