@@ -95,9 +95,8 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         assertEquals(0, db.getAllListeInternalBdd().size());
 
         addNListeTest(10);
-        for (int j = 0; j != 10; j++) {
-            assertEquals(1, db.getListeInternalBddByUser(j).size());
-        }
+
+        assertEquals(10, db.getListeInternalBddByUser(-1).size());
 
         db.deleteAllListeInternalBdd();
         assertEquals(0, db.getAllListeInternalBdd().size());

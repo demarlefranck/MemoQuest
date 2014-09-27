@@ -1,4 +1,4 @@
-package test.memoquest.service.internalBdd;
+package test.memoquest.service;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;

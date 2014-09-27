@@ -7,6 +7,7 @@ import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.UserInternalBdd;
+import com.memoquest.utils.MyDateUtils;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class UserService {
     }
 
     public List<UserInternalBdd> getAllUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
+
         return db.getAllUserInternalBdd();
     }
 
@@ -48,29 +50,31 @@ public class UserService {
         }
     }
 
-    public void updateUserInternalBdd(UserInternalBdd userInternalBdd) {
+    public void updateUserInternalBdd(UserInternalBdd userInternalBdd) throws FonctionalAppException {
+        userInternalBdd.setUpdateUser(-1);
+        userInternalBdd.setCreateTime(MyDateUtils.getDateTime());
         db.updateUserInternalBdd(userInternalBdd);
     }
 
-
-
-    public void addUserInternalBddActive(UserInternalBdd userInternalBdd) throws TechnicalAppException, FonctionalAppException {
+    public Integer addUserInternalBddActive(UserInternalBdd userInternalBdd) throws TechnicalAppException, FonctionalAppException {
 
         updateAllUserInternalBddToNoActive();
 
+        userInternalBdd.setCreateUser(-1);
+        userInternalBdd.setCreateTime(MyDateUtils.getDateTime());
+        userInternalBdd.setUpdateUser(-1);
+        userInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
         userInternalBdd.setActif(true);
 
-        Boolean find = false;
-        List<UserInternalBdd> userInternalBddList = getAllUserInternalBdd();
-        for(UserInternalBdd user : userInternalBddList){
-            if(user.getId() == userInternalBdd.getId()){
-                find = true;
-            }
-        }
+        return db.addUserInternalBdd(userInternalBdd);
+    }
 
-        if(find)
-            updateUserInternalBdd(userInternalBdd);
-        else
-            db.addUserInternalBdd(userInternalBdd);
+    public Integer getCurrentUserId() throws FonctionalAppException {
+        try {
+            return getUserInternalBddActive().getServerId();
+        }
+        catch (TechnicalAppException e) {
+            throw  new FonctionalAppException(this.getClass().getSimpleName() + "getCurrentUserId(): probleme" + e.toString());
+        }
     }
 }

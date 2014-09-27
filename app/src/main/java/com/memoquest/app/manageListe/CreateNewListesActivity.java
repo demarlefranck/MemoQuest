@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import com.memoquest.app.R;
 import com.memoquest.app.util.Alerte;
+import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.model.CompleteListe;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.service.CompleteListeService;
+import com.memoquest.service.InternalBdd.UserService;
+import com.memoquest.utils.MyDateUtils;
 
 public class CreateNewListesActivity extends Activity {
 
@@ -76,16 +79,24 @@ public class CreateNewListesActivity extends Activity {
         return true;
     }
 
-    public int createNewCompleteListe(){
+    public Integer createNewCompleteListe(){
 
         ListeInternalBdd listeInternalBdd = new ListeInternalBdd();
         listeInternalBdd.setNom(titreListTextStr);
         listeInternalBdd.setTheme(themeListTextStr);
         listeInternalBdd.setCategory(cathegoryListTextStr);
+        listeInternalBdd.setShared(false);
 
         CompleteListe completeListe = new CompleteListe();
         completeListe.setListeInternalBdd(listeInternalBdd);
 
-        return completeListeService.addCompleteListe(completeListe);
+        try {
+
+            return completeListeService.addCompleteListe(completeListe);
+
+        } catch (FonctionalAppException e) {
+            Alerte.showAlertDialog("Problème technique", "Une erreur s'est produite lors de la création de la liste", this);
+        }
+        return null;
     }
 }

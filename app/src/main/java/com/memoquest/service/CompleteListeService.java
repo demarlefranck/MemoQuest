@@ -9,6 +9,8 @@ import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
 import com.memoquest.service.InternalBdd.ListeService;
 import com.memoquest.service.InternalBdd.MotDefService;
+import com.memoquest.service.InternalBdd.UserService;
+import com.memoquest.utils.MyDateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +29,6 @@ public class CompleteListeService {
         listeService = new ListeService(context);
     }
 
-
-
-
-
-
-
-
     public CompleteListe getCompleteListeByListeId(int listeId) throws TechnicalAppException, FonctionalAppException {
 
         CompleteListe completeListe = new CompleteListe();
@@ -45,7 +40,9 @@ public class CompleteListeService {
     }
 
 
-    public int addCompleteListe(CompleteListe completeList){
+    public int addCompleteListe(CompleteListe completeList) throws FonctionalAppException {
+
+        completeList.getListeInternalBdd().setMustDeleted(false);
 
         int newListeId = listeService.addListeInternalBdd(completeList.getListeInternalBdd());
 

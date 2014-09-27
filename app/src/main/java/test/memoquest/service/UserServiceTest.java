@@ -1,4 +1,4 @@
-package test.memoquest.service.internalBdd;
+package test.memoquest.service;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
@@ -26,9 +26,12 @@ public class UserServiceTest extends AndroidTestCase {
     }
 
     public void compareAttributesOfTwoUser(UserInternalBdd userExpected, UserInternalBdd userReality){
-        assertEquals(userExpected.getId(), userReality.getId());
+
+        //pas de comparaison de id car auto incremente de Sqlite
+        assertEquals(userExpected.getServerId(), userReality.getServerId());
         assertEquals(userExpected.getEmail(), userReality.getEmail());
         assertEquals(userExpected.getPassword(), userReality.getPassword());
+        assertEquals(userExpected.getPseudo(), userReality.getPseudo());
         assertEquals(userExpected.getActif(), userReality.getActif());
         assertEquals(userExpected.getCreateUser(), userReality.getCreateUser());
         assertEquals(userExpected.getCreateTime(), userReality.getCreateTime());
@@ -36,24 +39,32 @@ public class UserServiceTest extends AndroidTestCase {
         assertEquals(userExpected.getUpdateTime(), userReality.getUpdateTime());
     }
 
-    public void testGetUserActive() throws TechnicalAppException, FonctionalAppException {
+    public void AllTestUserService() throws TechnicalAppException, FonctionalAppException {
 
 
         assertEquals(0, userService.getAllUserInternalBdd().size());
 
         UserInternalBdd userInternalBdd = userTest.createOneUser(1);
-        userService.addUserInternalBddActive(userInternalBdd);
+        Integer id = userService.addUserInternalBddActive(userInternalBdd);
         assertEquals(1, userService.getAllUserInternalBdd().size());
+
+
+        assertEquals(id, userService.getCurrentUserId());
 
         UserInternalBdd userInternalBdd2 = userTest.createOneUser(2);
         userService.addUserInternalBddActive(userInternalBdd2);
         assertEquals(2, userService.getAllUserInternalBdd().size());
         compareAttributesOfTwoUser(userInternalBdd2, userService.getUserInternalBddActive());
 
+        assertTrue(userService.isAuthentifiate());
+
 
         UserInternalBdd userInternalBdd3 = userTest.createOneUser(3);
         userService.addUserInternalBddActive(userInternalBdd3);
         assertEquals(3, userService.getAllUserInternalBdd().size());
         compareAttributesOfTwoUser(userInternalBdd3, userService.getUserInternalBddActive());
+
+        userService.updateAllUserInternalBddToNoActive();
+        assertFalse(userService.isAuthentifiate());
     }
 }

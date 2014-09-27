@@ -91,9 +91,10 @@ public class SQLiteTableUserDao {
         return listes;
     }
 
-    public void addUserInternalBdd(SQLiteDatabase db, UserInternalBdd user) {
-        db.insert(NAME_TABLE_USER, null, convertUserInternalBddToContentValues(user));
+    public int addUserInternalBdd(SQLiteDatabase db, UserInternalBdd user) {
+        long id = db.insert(NAME_TABLE_USER, null, convertUserInternalBddToContentValues(user));
         db.close();
+        return (int) id;
     }
 
 

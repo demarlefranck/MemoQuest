@@ -42,18 +42,17 @@ public class MainActivity extends Activity {
         connexionService = new ConnexionService(this);
         userService = new UserService(this);
         managerSynchroService = new ManagerSynchroService();
-/*
+
         if(connexionService.isConnected(this))
             startWithConnection();
         else
             startWithoutConnection();
-*/
-
-        Intent intentConnexion = new Intent(MainActivity.this, SwitchUserActivity.class);
-        startActivity(intentConnexion);
     }
 
     public void startWithConnection(){
+
+
+        Log.d("DEBUG", "MainActivity.class: startWithConnection()");
 
        try {
             //verif authentification
@@ -79,6 +78,9 @@ public class MainActivity extends Activity {
 
     }
     public void startWithoutConnection() {
+
+
+        Log.d("DEBUG", "MainActivity.class: startWithoutConnection()");
 
         try {
             if (userService.isAuthentifiate()) {

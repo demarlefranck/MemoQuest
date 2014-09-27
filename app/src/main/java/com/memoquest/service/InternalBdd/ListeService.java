@@ -9,6 +9,7 @@ import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.CompleteListe;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
+import com.memoquest.utils.MyDateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,11 @@ import java.util.List;
 public class ListeService {
 
     private SQLiteDatabaseManager db;
+    private UserService userService;
 
     public ListeService(Context context){
         db = new SQLiteDatabaseManager(context);
+        userService = new UserService(context);
     }
 
     public List<ListeInternalBdd> getListeInternalBddByUser(int createUser) throws FonctionalAppException {
@@ -32,8 +35,14 @@ public class ListeService {
         }
     }
 
-    public int addListeInternalBdd(ListeInternalBdd listeInternalBdd) {
-            return db.addListeInternalBdd(listeInternalBdd);
+    public int addListeInternalBdd(ListeInternalBdd listeInternalBdd) throws FonctionalAppException {
+
+        listeInternalBdd.setCreateUser(userService.getCurrentUserId());
+        listeInternalBdd.setCreateTime(MyDateUtils.getDateTime());
+        listeInternalBdd.setUpdateUser(userService.getCurrentUserId());
+        listeInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
+
+        return db.addListeInternalBdd(listeInternalBdd);
     }
 
 

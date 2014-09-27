@@ -127,8 +127,8 @@ public class SQLiteDatabaseManager extends SQLiteOpenHelper {
         return sqLiteTableUserDao.getAllUserInternalBdd(this.getWritableDatabase());
     }
 
-    public void addUserInternalBdd(UserInternalBdd user) {
-        sqLiteTableUserDao.addUserInternalBdd(this.getWritableDatabase(), user);
+    public Integer addUserInternalBdd(UserInternalBdd user) {
+        return sqLiteTableUserDao.addUserInternalBdd(this.getWritableDatabase(), user);
     }
 
     public void updateUserInternalBdd(UserInternalBdd user) {
