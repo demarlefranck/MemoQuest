@@ -26,18 +26,6 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         userTest = new UserInternalBddTest();
     }
 
-    public void compareAttributesOfTwoUser(UserInternalBdd userExpected, UserInternalBdd userReality){
-        assertEquals(userExpected.getId(), userReality.getId());
-        assertEquals(userExpected.getEmail(), userReality.getEmail());
-        assertEquals(userExpected.getPassword(), userReality.getPassword());
-        assertEquals(userExpected.getPseudo(), userReality.getPseudo());
-        assertEquals(userExpected.getActif(), userReality.getActif());
-        assertEquals(userExpected.getCreateUser(), userReality.getCreateUser());
-        assertEquals(userExpected.getCreateTime(), userReality.getCreateTime());
-        assertEquals(userExpected.getUpdateUser(), userReality.getUpdateUser());
-        assertEquals(userExpected.getUpdateTime(), userReality.getUpdateTime());
-    }
-
     public void testAddUserInternalBdd() throws TechnicalAppException {
         assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
 
@@ -61,7 +49,7 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         userExpected.setId(id);
 
         UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActifById(db.getWritableDatabase(), id);
-        compareAttributesOfTwoUser(userExpected, userResult1);
+        userTest.compareAttributesOfTwoUser(userExpected, userResult1);
 
         db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
@@ -75,7 +63,7 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         userExpected.setId(id);
 
         UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActifById(db.getWritableDatabase(), id);
-        compareAttributesOfTwoUser(userExpected, userResult1);
+        userTest.compareAttributesOfTwoUser(userExpected, userResult1);
 
         UserInternalBdd userModify = userResult1;
         userModify.setPassword("PasswordModify");
@@ -87,7 +75,7 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         db.getSqLiteTableUserDao().updateUserInternalBdd(db.getWritableDatabase(), userModify);
 
         UserInternalBdd userResult2 = db.getSqLiteTableUserDao().getUserInternalBddActifById(db.getWritableDatabase(), id);
-        compareAttributesOfTwoUser(userModify, userResult2);
+        userTest.compareAttributesOfTwoUser(userModify, userResult2);
 
         db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
@@ -111,7 +99,7 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         assertEquals(nbUser + 1, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
 
         UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActif(db.getWritableDatabase());
-        compareAttributesOfTwoUser(userExpected2, userResult1);
+        userTest.compareAttributesOfTwoUser(userExpected2, userResult1);
 
         db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
@@ -126,7 +114,7 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         userExpected.setId(id);
 
         UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActif(db.getWritableDatabase());
-        compareAttributesOfTwoUser(userExpected, userResult1);
+        userTest.compareAttributesOfTwoUser(userExpected, userResult1);
 
         db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());

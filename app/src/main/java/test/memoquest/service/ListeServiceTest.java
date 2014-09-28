@@ -26,7 +26,6 @@ public class ListeServiceTest extends AndroidTestCase {
     private ListeService listeService;
     private UserService userService;
     private UserInternalBddTest userInternalBddTest;
-    private UserInternalBdd userInternalBdd;
     private ListeInternalBddTest listeInternalBddTest;
 
     public void setUp() throws TechnicalAppException, FonctionalAppException {
@@ -36,23 +35,9 @@ public class ListeServiceTest extends AndroidTestCase {
         db = new SQLiteDatabaseManager(context);
         userService = new UserService(context);
         userInternalBddTest = new UserInternalBddTest();
-        userInternalBdd = userInternalBddTest.createOneUser(1);
-        userService.addUserInternalBddActif(userInternalBdd);
+        userService.addUserInternalBddActif(userInternalBddTest.createOneUser(1));
     }
 
-    public void compareAttributesOfTwoListes(ListeInternalBdd listeExpected, ListeInternalBdd listeReality){
-        assertEquals(listeExpected.getId(), listeReality.getId());
-        assertEquals(listeExpected.getServerId(), listeReality.getServerId());
-        assertEquals(listeExpected.getNom(), listeReality.getNom());
-        assertEquals(listeExpected.getTheme(), listeReality.getTheme());
-        assertEquals(listeExpected.getCategory(), listeReality.getCategory());
-        assertEquals(listeExpected.getShared(), listeReality.getShared());
-        assertEquals(listeExpected.getMustDeleted(), listeReality.getMustDeleted());
-        assertEquals(listeExpected.getCreateUser(), listeReality.getCreateUser());
-        assertEquals(listeExpected.getCreateTime(), listeReality.getCreateTime());
-        assertEquals(listeExpected.getUpdateUser(), listeReality.getUpdateUser());
-        assertEquals(listeExpected.getUpdateTime(), listeReality.getUpdateTime());
-    }
 
     public void testGetListeInternalBddById() throws TechnicalAppException, FonctionalAppException {
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
@@ -62,7 +47,7 @@ public class ListeServiceTest extends AndroidTestCase {
         listeExpected.setId(id);
 
         ListeInternalBdd listeResult = listeService.getListeInternalBddById(id);
-        compareAttributesOfTwoListes(listeExpected, listeResult);
+        listeInternalBddTest.compareAttributesOfTwoListes(listeExpected, listeResult);
 
         db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
@@ -89,7 +74,7 @@ public class ListeServiceTest extends AndroidTestCase {
         listeExpected.setId(id);
 
         ListeInternalBdd listeResult1 = listeService.getListeInternalBddById(id);
-        compareAttributesOfTwoListes(listeExpected, listeResult1);
+        listeInternalBddTest.compareAttributesOfTwoListes(listeExpected, listeResult1);
 
 
         ListeInternalBdd listeModify = listeResult1;
@@ -102,7 +87,7 @@ public class ListeServiceTest extends AndroidTestCase {
         listeService.updateListeInternalBdd(listeModify);
 
         ListeInternalBdd listeReality2 = listeService.getListeInternalBddById(id);
-        compareAttributesOfTwoListes(listeModify, listeReality2);
+        listeInternalBddTest.compareAttributesOfTwoListes(listeModify, listeReality2);
 
         db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());

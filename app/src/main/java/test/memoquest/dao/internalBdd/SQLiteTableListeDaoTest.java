@@ -28,20 +28,6 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         listeInternalBddTest = new ListeInternalBddTest();
     }
 
-    public void compareAttributesOfTwoListes(ListeInternalBdd listeExpected, ListeInternalBdd listeReality){
-        assertEquals(listeExpected.getId(), listeReality.getId());
-        assertEquals(listeExpected.getServerId(), listeReality.getServerId());
-        assertEquals(listeExpected.getNom(), listeReality.getNom());
-        assertEquals(listeExpected.getTheme(), listeReality.getTheme());
-        assertEquals(listeExpected.getCategory(), listeReality.getCategory());
-        assertEquals(listeExpected.getShared(), listeReality.getShared());
-        assertEquals(listeExpected.getMustDeleted(), listeReality.getMustDeleted());
-        assertEquals(listeExpected.getCreateUser(), listeReality.getCreateUser());
-        assertEquals(listeExpected.getCreateTime(), listeReality.getCreateTime());
-        assertEquals(listeExpected.getUpdateUser(), listeReality.getUpdateUser());
-        assertEquals(listeExpected.getUpdateTime(), listeReality.getUpdateTime());
-    }
-
     public void testAddListeInternalBdd() throws TechnicalAppException {
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
 
@@ -65,7 +51,7 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         listeExpected.setId(id);
 
         ListeInternalBdd listeResult1 = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), id);
-        compareAttributesOfTwoListes(listeExpected, listeResult1);
+        listeInternalBddTest.compareAttributesOfTwoListes(listeExpected, listeResult1);
 
         ListeInternalBdd listeModify = listeResult1;
         listeModify.setNom("nomModify");
@@ -77,7 +63,7 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         db.getSqLiteTableListeDao().updateListeInternalBdd(db.getWritableDatabase(), listeModify);
 
         ListeInternalBdd listeReality2 = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), id);
-        compareAttributesOfTwoListes(listeModify, listeReality2);
+        listeInternalBddTest.compareAttributesOfTwoListes(listeModify, listeReality2);
 
         db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
@@ -123,7 +109,7 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         listeExpected.setId(id);
 
         ListeInternalBdd listeReality = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), listeExpected.getId());
-        compareAttributesOfTwoListes(listeExpected, listeReality);
+        listeInternalBddTest.compareAttributesOfTwoListes(listeExpected, listeReality);
 
         db.getSqLiteTableListeDao().deleteListeInternalBddById(db.getWritableDatabase(), listeExpected);
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
@@ -135,7 +121,7 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         listeExpected.setId(id);
 
         ListeInternalBdd listeReality = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), listeExpected.getId());
-        compareAttributesOfTwoListes(listeExpected, listeReality);
+        listeInternalBddTest.compareAttributesOfTwoListes(listeExpected, listeReality);
 
         db.getSqLiteTableListeDao().deleteListeInternalBddById(db.getWritableDatabase(), listeExpected);
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());

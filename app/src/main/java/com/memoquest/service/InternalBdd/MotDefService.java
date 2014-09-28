@@ -21,7 +21,7 @@ public class MotDefService {
         db = new SQLiteDatabaseManager(context);
     }
 
-    public List<MotDefInternalBdd> getAllMotDefServiceForListe(Integer liste_id) throws FonctionalAppException {
+    public List<MotDefInternalBdd> getAllMotDefServiceByListe(Integer liste_id) throws FonctionalAppException {
         try {
             return db.getSqLiteTableMotDefDao().getAllMotDefInternalBddByListeId(db.getWritableDatabase(), liste_id);
         } catch (TechnicalAppException e) {
@@ -29,8 +29,20 @@ public class MotDefService {
         }
     }
 
-    public void addMotDefInternalBdd(MotDefInternalBdd motDef) {
-        db.getSqLiteTableMotDefDao().addMotDefToInternalBdd(db.getWritableDatabase(), motDef);
+    public MotDefInternalBdd getMotDefInternalBddById(Integer motDefId) throws FonctionalAppException {
+        try {
+            return db.getSqLiteTableMotDefDao().getMotDefInternalBddById(db.getWritableDatabase(), motDefId);
+        } catch (TechnicalAppException e) {
+            throw  new FonctionalAppException(this.getClass().getSimpleName() + "getMotDefInternalBddById(): probleme" + e.toString());
+        }
+    }
+
+    public Integer addMotDefInternalBdd(MotDefInternalBdd motDef) {
+        return db.getSqLiteTableMotDefDao().addMotDefToInternalBdd(db.getWritableDatabase(), motDef);
+    }
+
+    public void updateMotDefInternalBdd(MotDefInternalBdd motDefInternalBdd) {
+        db.getSqLiteTableMotDefDao().updateMotDefToInternalBdd(db.getWritableDatabase(), motDefInternalBdd);
     }
 
     public void deleteMotDefInternalBdd(MotDefInternalBdd motDefInternalBdd) {

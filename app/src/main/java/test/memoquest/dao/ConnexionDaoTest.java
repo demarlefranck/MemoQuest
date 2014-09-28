@@ -1,7 +1,14 @@
 package test.memoquest.dao;
 
-import android.test.InstrumentationTestCase;
+/*
 
-public class ConnexionDaoTest  extends InstrumentationTestCase {
-    //A faire
+public class ConnexionDaoTest  extends AndroidTestCase {
+
+    public void setUp(){
+    }
+
+    public void test() {
+        //A faire
+    }
 }
+*/
