@@ -1,9 +1,13 @@
 package test.memoquest.dao.internalBdd;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
 import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
+import com.memoquest.dao.internalBdd.SQLiteTableListeDao;
+import com.memoquest.exception.FonctionalAppException;
+import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.utils.MyDateUtils;
 
@@ -16,10 +20,7 @@ import test.memoquest.model.ListeInternalBddTest;
 public class SQLiteTableListeDaoTest extends AndroidTestCase {
 
     private SQLiteDatabaseManager db;
-
     private ListeInternalBddTest listeInternalBddTest;
-
-
 
     public void setUp(){
         RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), "test_");
@@ -27,37 +28,9 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         listeInternalBddTest = new ListeInternalBddTest();
     }
 
-    public ListeInternalBdd addListeTest(int i) throws Exception {
-
-        ListeInternalBdd listeInternalBdd = listeInternalBddTest.createOneListeInternalBdd(i);
-        db.addListeInternalBdd(listeInternalBdd);
-        return listeInternalBdd;
-    }
-
-    public void addNListeTest(int i) throws Exception {
-        List<ListeInternalBdd> listeInternalBdds = new ArrayList<ListeInternalBdd>();
-
-        for (int j = 0; j != i; j++) {
-            addListeTest(j);
-        }
-    }
-
-    public void testGetAllListeInternalBdd() throws Exception {
-        assertEquals(0, db.getAllListeInternalBdd().size());
-
-        addNListeTest(10);
-        assertEquals(10, db.getAllListeInternalBdd().size());
-
-        db.deleteAllListeInternalBdd();
-        assertEquals(0, db.getAllListeInternalBdd().size());
-    }
-
-    /*
-        Ne compare pas IdAd car peut etre differents
-     */
     public void compareAttributesOfTwoListes(ListeInternalBdd listeExpected, ListeInternalBdd listeReality){
-
         assertEquals(listeExpected.getId(), listeReality.getId());
+        assertEquals(listeExpected.getServerId(), listeReality.getServerId());
         assertEquals(listeExpected.getNom(), listeReality.getNom());
         assertEquals(listeExpected.getTheme(), listeReality.getTheme());
         assertEquals(listeExpected.getCategory(), listeReality.getCategory());
@@ -69,65 +42,103 @@ public class SQLiteTableListeDaoTest extends AndroidTestCase {
         assertEquals(listeExpected.getUpdateTime(), listeReality.getUpdateTime());
     }
 
-    public void testDeleteListeInternalBddId() throws Exception {
-        ListeInternalBdd listeExpected = addListeTest(1);
+    public void testAddListeInternalBdd() throws TechnicalAppException {
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
 
-        ListeInternalBdd listeReality = db.getListeInternalBddById(listeExpected.getId());
-        compareAttributesOfTwoListes(listeExpected, listeReality);
+        int nbListes = 10;
+        for (int i = 0; i != nbListes; i++) {
+            ListeInternalBdd listeExpected = listeInternalBddTest.createOneListeInternalBdd(i);
+            Integer id = db.getSqLiteTableListeDao().addListeInternalBdd(db.getWritableDatabase(), listeExpected);
+        }
 
-        db.deleteListeInternalBddWithIdAi(listeReality);
-        assertEquals(0, db.getAllListeInternalBdd().size());
+        assertEquals(nbListes, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
+
+        db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
     }
 
+    public void testUpdateListeInternalBdd() throws TechnicalAppException, FonctionalAppException {
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
 
-    public void testGetListeInternalBddById() throws Exception {
-        ListeInternalBdd listeExpected = addListeTest(1);
+        ListeInternalBdd listeExpected = listeInternalBddTest.createOneListeInternalBdd(1);
+        Integer id = db.getSqLiteTableListeDao().addListeInternalBdd(db.getWritableDatabase(), listeExpected);
+        listeExpected.setId(id);
 
-        ListeInternalBdd listeReality = db.getListeInternalBddById(listeExpected.getId());
-        compareAttributesOfTwoListes(listeExpected, listeReality);
+        ListeInternalBdd listeResult1 = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), id);
+        compareAttributesOfTwoListes(listeExpected, listeResult1);
 
-        db.deleteListeInternalBddWithId(listeExpected);
-        assertEquals(0, db.getAllListeInternalBdd().size());
-    }
-
-    public void testGetListeInternalBddByUser() throws Exception {
-
-        assertEquals(0, db.getAllListeInternalBdd().size());
-
-        addNListeTest(10);
-
-        assertEquals(10, db.getListeInternalBddByUser(-1).size());
-
-        db.deleteAllListeInternalBdd();
-        assertEquals(0, db.getAllListeInternalBdd().size());
-    }
-
-    public void testDeleteAllListe() throws Exception {
-        testGetAllListeInternalBdd();
-    }
-
-    public void testUpdateListeInternalBdd() throws Exception {
-        ListeInternalBdd listeExpected = addListeTest(1);
-
-        ListeInternalBdd listeReality = db.getListeInternalBddById(listeExpected.getId());
-        compareAttributesOfTwoListes(listeExpected, listeReality);
-
-        ListeInternalBdd listeModify = listeReality;
-
+        ListeInternalBdd listeModify = listeResult1;
         listeModify.setNom("nomModify");
         listeModify.setTheme("themeModify");
         listeModify.setCategory("categoryMdify");
         listeModify.setUpdateUser(1000);
         listeModify.setUpdateTime(MyDateUtils.getDateTime());
         listeModify.setMustDeleted(true);
+        db.getSqLiteTableListeDao().updateListeInternalBdd(db.getWritableDatabase(), listeModify);
 
-        db.updateListeInternalBdd(listeModify);
-
-        ListeInternalBdd listeReality2 = db.getListeInternalBddById(listeReality.getId());
+        ListeInternalBdd listeReality2 = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), id);
         compareAttributesOfTwoListes(listeModify, listeReality2);
 
-        db.deleteListeInternalBddWithId(listeExpected);
-        assertEquals(0, db.getAllListeInternalBdd().size());
+        db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
+    }
+
+    public void testGetListeInternalBddByUser() throws Exception {
+
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
+
+        int nbListes = 10;
+        for (int i = 0; i != nbListes; i++) {
+            ListeInternalBdd listeExpected = listeInternalBddTest.createOneListeInternalBdd(i);
+            Integer id = db.getSqLiteTableListeDao().addListeInternalBdd(db.getWritableDatabase(), listeExpected);
+        }
+        for (int i = 0; i != nbListes; i++) {
+            assertEquals(1, db.getSqLiteTableListeDao().getListeInternalBddByUser(db.getWritableDatabase(), i).size());
+        }
+
+        db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
+    }
+
+    public void testGetListeInternalBddByUser2() throws Exception {
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
+
+        int nbListes = 10;
+        int userId = 42;
+        for (int i = 0; i != nbListes; i++) {
+            ListeInternalBdd listeExpected = listeInternalBddTest.createOneListeInternalBdd(userId);
+            Integer id = db.getSqLiteTableListeDao().addListeInternalBdd(db.getWritableDatabase(), listeExpected);
+        }
+        for (int i = 0; i != nbListes; i++) {
+            assertEquals(nbListes, db.getSqLiteTableListeDao().getListeInternalBddByUser(db.getWritableDatabase(), userId).size());
+        }
+
+        db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
+    }
+
+    public void testGetListeInternalBddById() throws Exception {
+        ListeInternalBdd listeExpected = listeInternalBddTest.createOneListeInternalBdd(1);
+        Integer id = db.getSqLiteTableListeDao().addListeInternalBdd(db.getWritableDatabase(), listeExpected);
+        listeExpected.setId(id);
+
+        ListeInternalBdd listeReality = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), listeExpected.getId());
+        compareAttributesOfTwoListes(listeExpected, listeReality);
+
+        db.getSqLiteTableListeDao().deleteListeInternalBddById(db.getWritableDatabase(), listeExpected);
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
+    }
+
+    public void testDeleteListeInternalBddById() throws Exception {
+        ListeInternalBdd listeExpected = listeInternalBddTest.createOneListeInternalBdd(1);
+        Integer id = db.getSqLiteTableListeDao().addListeInternalBdd(db.getWritableDatabase(), listeExpected);
+        listeExpected.setId(id);
+
+        ListeInternalBdd listeReality = db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), listeExpected.getId());
+        compareAttributesOfTwoListes(listeExpected, listeReality);
+
+        db.getSqLiteTableListeDao().deleteListeInternalBddById(db.getWritableDatabase(), listeExpected);
+        assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
     }
 }
 

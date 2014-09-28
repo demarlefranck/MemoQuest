@@ -37,7 +37,7 @@ public class ConnexionService {
             userInternalBdd.setCreateTime(MyDateUtils.getDateTime());
             userInternalBdd.setCreateUser(userId);
             userInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
-            userService.addUserInternalBddActive(userInternalBdd);
+            userService.addUserInternalBddActif(userInternalBdd);
 
             return true;
         }

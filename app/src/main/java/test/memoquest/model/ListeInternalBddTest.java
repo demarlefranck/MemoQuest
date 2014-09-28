@@ -25,13 +25,4 @@ public class ListeInternalBddTest {
         listeInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
         return listeInternalBdd;
     }
-
-    public List<ListeInternalBdd> createNListeInternalBdd(int i){
-        List<ListeInternalBdd> listeInternalBdds = new ArrayList<ListeInternalBdd>();
-
-        for(int j = 0; j != i; j++){
-            listeInternalBdds.add(createOneListeInternalBdd(j));
-        }
-        return listeInternalBdds;
-    }
 }

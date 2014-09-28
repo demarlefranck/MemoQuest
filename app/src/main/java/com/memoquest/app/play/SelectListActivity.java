@@ -63,7 +63,7 @@ public class SelectListActivity extends Activity {
 
     private void getAllListeInternalBddByUser(){
         try {
-            int userId = userService.getUserInternalBddActive().getId();
+            int userId = userService.getUserInternalBddActif().getId();
             listes = listeService.getListeInternalBddByUser(userId);
 
         } catch (TechnicalAppException e) {

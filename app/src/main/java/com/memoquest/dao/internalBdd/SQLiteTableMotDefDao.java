@@ -30,12 +30,9 @@ public class SQLiteTableMotDefDao {
     private static final String KEY_UPDATE_USER = "update_user";
     private static final String KEY_UPDATE_TIME = "update_time";
 
-    public SQLiteTableMotDefDao() {
-    }
+    public SQLiteTableMotDefDao() {}
 
     public String getCreateTableMotDefRequest(){
-
-
         return "CREATE TABLE " +  NAME_TABLE_MOT_DEF + " ( " +
                 KEY_MOT_DEF_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_MOT_DEF_SERVER_ID + " INTEGER, " +
@@ -48,7 +45,6 @@ public class SQLiteTableMotDefDao {
                 KEY_CREATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 KEY_UPDATE_USER + " INTEGER, " +
                 KEY_UPDATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
-
     }
 
     public ContentValues convertMotDefInternalBddToContentValues(MotDefInternalBdd motDefInternalBdd){
@@ -67,31 +63,10 @@ public class SQLiteTableMotDefDao {
         return values;
     }
 
-    public int addMotDefToInternalBdd(SQLiteDatabase db, MotDefInternalBdd motDefInternalBdd){
-        long id = db.insert(NAME_TABLE_MOT_DEF, null, convertMotDefInternalBddToContentValues(motDefInternalBdd));
-        db.close();
-        return (int) id;
-    }
-
-    public void updateMotDefToInternalBdd(SQLiteDatabase db, MotDefInternalBdd motDefInternalBdd){
-        db.update(NAME_TABLE_MOT_DEF,
-                convertMotDefInternalBddToContentValues(motDefInternalBdd),
-                KEY_MOT_DEF_ID + "=" + motDefInternalBdd.getId(), null);
-        db.close();
-    }
-
-    public void addAllMotDef(SQLiteDatabase db, List<MotDefInternalBdd> motDefInternalBdds){
-
-        for(MotDefInternalBdd motDef : motDefInternalBdds){
-            addMotDefToInternalBdd(db, motDef);
-        }
-    }
-
     public List<MotDefInternalBdd> mapBddResultToMotDefInternalBdd(SQLiteDatabase db, String query) throws TechnicalAppException {
         List<MotDefInternalBdd> listes = new LinkedList<MotDefInternalBdd>();
         MotDefInternalBdd motDefInternalBdd = null;
         Cursor cursor = db.rawQuery(query, null);
-
         if (cursor.moveToFirst())
         {
             do {
@@ -112,14 +87,7 @@ public class SQLiteTableMotDefDao {
         }
         cursor.close();
         db.close();
-
         return listes;
-    }
-
-    public List<MotDefInternalBdd> getAllMotDefInternalBdd(SQLiteDatabase db) throws TechnicalAppException {
-
-        String query = "SELECT * FROM " + NAME_TABLE_MOT_DEF;
-        return mapBddResultToMotDefInternalBdd(db, query);
     }
 
     public MotDefInternalBdd convertMotDefsToMotDefInternalBdd(List<MotDefInternalBdd> listes, String searchParam) throws TechnicalAppException, FonctionalAppException {
@@ -131,26 +99,40 @@ public class SQLiteTableMotDefDao {
             return listes.get(0);
     }
 
-    public List<MotDefInternalBdd> getAllMotDefByListeInternalBddId(SQLiteDatabase db, Integer liste_id) throws TechnicalAppException, FonctionalAppException {
+    public int addMotDefToInternalBdd(SQLiteDatabase db, MotDefInternalBdd motDefInternalBdd){
+        long id = db.insert(NAME_TABLE_MOT_DEF, null, convertMotDefInternalBddToContentValues(motDefInternalBdd));
+        db.close();
+        return (int) id;
+    }
 
-        String query = "SELECT * FROM " + NAME_TABLE_MOT_DEF
-                + " WHERE " + KEY_MOT_DEF_LISTE_ID + " = " + liste_id  + ";";
+    public void updateMotDefToInternalBdd(SQLiteDatabase db, MotDefInternalBdd motDefInternalBdd){
+        db.update(  NAME_TABLE_MOT_DEF, convertMotDefInternalBddToContentValues(motDefInternalBdd),
+                    KEY_MOT_DEF_ID + "=" + motDefInternalBdd.getId(), null);
+        db.close();
+    }
 
+    public List<MotDefInternalBdd> getAllMotDefInternalBddByListeId(SQLiteDatabase db, Integer liste_id) throws TechnicalAppException, FonctionalAppException {
+        String query = "SELECT * FROM " + NAME_TABLE_MOT_DEF + " WHERE " + KEY_MOT_DEF_LISTE_ID + " = " + liste_id  + ";";
         return mapBddResultToMotDefInternalBdd(db, query);
     }
 
     public MotDefInternalBdd getMotDefInternalBddById(SQLiteDatabase db, int id) throws TechnicalAppException, FonctionalAppException {
-
-        String query = "SELECT * FROM " + NAME_TABLE_MOT_DEF
-                        + " WHERE " + KEY_MOT_DEF_ID + " = " + id  + ";";
-
+        String query = "SELECT * FROM " + NAME_TABLE_MOT_DEF + " WHERE " + KEY_MOT_DEF_ID + " = " + id  + ";";
         List<MotDefInternalBdd> listes = mapBddResultToMotDefInternalBdd(db, query);
-
         return convertMotDefsToMotDefInternalBdd(listes, String.valueOf(id));
     }
 
-    public boolean deleteMotDefInternalBdd(SQLiteDatabase db, MotDefInternalBdd motDefInternalBdd){
+    public boolean deleteMotDefInternalBddById(SQLiteDatabase db, MotDefInternalBdd motDefInternalBdd){
         return db.delete(NAME_TABLE_MOT_DEF, KEY_MOT_DEF_ID + "=" + motDefInternalBdd.getId(), null) > 0;
+    }
+
+    public boolean deleteAllMotDefInternalBdd(SQLiteDatabase db){
+        return db.delete(NAME_TABLE_MOT_DEF, null, null) > 0;
+    }
+
+    public List<MotDefInternalBdd> getAllMotDefInternalBdd(SQLiteDatabase db) throws TechnicalAppException {
+        String query = "SELECT * FROM " + NAME_TABLE_MOT_DEF;
+        return mapBddResultToMotDefInternalBdd(db, query);
     }
 
     public static String getNameTableMotDef() {

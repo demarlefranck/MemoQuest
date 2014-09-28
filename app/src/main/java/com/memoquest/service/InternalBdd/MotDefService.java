@@ -23,17 +23,17 @@ public class MotDefService {
 
     public List<MotDefInternalBdd> getAllMotDefServiceForListe(Integer liste_id) throws FonctionalAppException {
         try {
-            return db.getAllMotDefByListeInternalBddId(liste_id);
+            return db.getSqLiteTableMotDefDao().getAllMotDefInternalBddByListeId(db.getWritableDatabase(), liste_id);
         } catch (TechnicalAppException e) {
             throw  new FonctionalAppException(this.getClass().getSimpleName() + "getAllMotDefServiceForListe(): probleme" + e.toString());
         }
     }
 
     public void addMotDefInternalBdd(MotDefInternalBdd motDef) {
-        db.addMotDefInternalBdd(motDef);
+        db.getSqLiteTableMotDefDao().addMotDefToInternalBdd(db.getWritableDatabase(), motDef);
     }
 
     public void deleteMotDefInternalBdd(MotDefInternalBdd motDefInternalBdd) {
-        db.deleteMotDefInternalBdd(motDefInternalBdd);
+        db.getSqLiteTableMotDefDao().deleteMotDefInternalBddById(db.getWritableDatabase(), motDefInternalBdd);
     }
 }

@@ -13,8 +13,7 @@ public class MotDefInternalBddTest {
 
     public MotDefInternalBdd createOneMotDefInternalBdd(int i){
         MotDefInternalBdd motDefInternalBdd = new MotDefInternalBdd();
-
-        motDefInternalBdd.setMotDefServerId(-1);
+        motDefInternalBdd.setMotDefServerId(i);
         motDefInternalBdd.setMotDefListeInternalBddId(i);
         motDefInternalBdd.setMotDefListeServerId(i);
         motDefInternalBdd.setMot("MotDefInternalBddMot" + i);
@@ -25,14 +24,5 @@ public class MotDefInternalBddTest {
         motDefInternalBdd.setUpdateUser(i);
         motDefInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
         return motDefInternalBdd;
-    }
-
-    public List<MotDefInternalBdd> createNMotDefInternalBdd(int i){
-        List<MotDefInternalBdd> motDefInternalBdds = new ArrayList<MotDefInternalBdd>();
-
-        for(int j = 0; j != i; j++){
-            motDefInternalBdds.add(createOneMotDefInternalBdd(j));
-        }
-        return motDefInternalBdds;
     }
 }

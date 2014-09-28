@@ -21,14 +21,14 @@ public class UserService {
         db = new SQLiteDatabaseManager(context);
     }
 
-    public UserInternalBdd getUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
+    public UserInternalBdd getUserInternalBddActif() throws TechnicalAppException, FonctionalAppException {
 
-        return db.getUserInternalBddActif();
+        return db.getSqLiteTableUserDao().getUserInternalBddActif(db.getWritableDatabase());
     }
 
     public Boolean isAuthentifiate() throws TechnicalAppException, FonctionalAppException {
 
-        if(getUserInternalBddActive() == null){
+        if(getUserInternalBddActif() == null){
             return false;
         }
         else{
@@ -38,10 +38,10 @@ public class UserService {
 
     public List<UserInternalBdd> getAllUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
 
-        return db.getAllUserInternalBdd();
+        return db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase());
     }
 
-    public void updateAllUserInternalBddToNoActive() throws TechnicalAppException, FonctionalAppException {
+    public void updateAllUserInternalBddToNoActif() throws TechnicalAppException, FonctionalAppException {
         List<UserInternalBdd> userInternalBdds = getAllUserInternalBdd();
 
         for(UserInternalBdd userInternalBdd : userInternalBdds){
@@ -53,12 +53,12 @@ public class UserService {
     public void updateUserInternalBdd(UserInternalBdd userInternalBdd) throws FonctionalAppException {
         userInternalBdd.setUpdateUser(-1);
         userInternalBdd.setCreateTime(MyDateUtils.getDateTime());
-        db.updateUserInternalBdd(userInternalBdd);
+        db.getSqLiteTableUserDao().updateUserInternalBdd(db.getWritableDatabase(), userInternalBdd);
     }
 
-    public Integer addUserInternalBddActive(UserInternalBdd userInternalBdd) throws TechnicalAppException, FonctionalAppException {
+    public Integer addUserInternalBddActif(UserInternalBdd userInternalBdd) throws TechnicalAppException, FonctionalAppException {
 
-        updateAllUserInternalBddToNoActive();
+        updateAllUserInternalBddToNoActif();
 
         userInternalBdd.setCreateUser(-1);
         userInternalBdd.setCreateTime(MyDateUtils.getDateTime());
@@ -66,15 +66,6 @@ public class UserService {
         userInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
         userInternalBdd.setActif(true);
 
-        return db.addUserInternalBdd(userInternalBdd);
-    }
-
-    public Integer getCurrentUserId() throws FonctionalAppException {
-        try {
-            return getUserInternalBddActive().getServerId();
-        }
-        catch (TechnicalAppException e) {
-            throw  new FonctionalAppException(this.getClass().getSimpleName() + "getCurrentUserId(): probleme" + e.toString());
-        }
+        return db.getSqLiteTableUserDao().addUserInternalBdd(db.getWritableDatabase(), userInternalBdd);
     }
 }

@@ -1,32 +1,29 @@
 package test.memoquest.dao.internalBdd;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
-import android.util.Log;
 
 import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.ListeInternalBdd;
+import com.memoquest.model.MotDefInternalBdd;
 import com.memoquest.model.UserInternalBdd;
+import com.memoquest.utils.MyDateUtils;
 
-import test.memoquest.model.UserTest;
+import java.util.List;
+
+import test.memoquest.model.UserInternalBddTest;
 
 public class SQLiteTableUserDaoTest extends AndroidTestCase {
 
     private SQLiteDatabaseManager db;
-    private UserTest userTest;
+    private UserInternalBddTest userTest;
 
     public void setUp() {
         RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), "test_");
         db = new SQLiteDatabaseManager(context);
-        userTest = new UserTest();
-    }
-
-    public UserInternalBdd addUser(int i) {
-        UserInternalBdd user = userTest.createOneUser(i);
-        db.addUserInternalBdd(user);
-        return user;
+        userTest = new UserInternalBddTest();
     }
 
     public void compareAttributesOfTwoUser(UserInternalBdd userExpected, UserInternalBdd userReality){
@@ -41,36 +38,97 @@ public class SQLiteTableUserDaoTest extends AndroidTestCase {
         assertEquals(userExpected.getUpdateTime(), userReality.getUpdateTime());
     }
 
-    public void testGetUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
+    public void testAddUserInternalBdd() throws TechnicalAppException {
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
 
-        assertEquals(0, db.getAllUserInternalBdd().size());
+        int nbUser = 10;
+        for (int i = 0; i != nbUser; i++) {
+            UserInternalBdd userExpected = userTest.createOneUser(i);
+            Integer id = db.getSqLiteTableUserDao().addUserInternalBdd(db.getWritableDatabase(), userExpected);
+        }
 
-        UserInternalBdd userExpected = addUser(1);
-        UserInternalBdd userReality = db.getUserInternalBddActif();
+        assertEquals(nbUser, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
 
-        assertEquals(1, db.getAllUserInternalBdd().size());
-
-        compareAttributesOfTwoUser(userExpected, userReality);
-
-        db.deleteAllListeInternalBdd();
+        db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
     }
 
-    public void testUpdateUserInternalBddActive() throws TechnicalAppException, FonctionalAppException {
+    public void testGetUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
 
-        assertEquals(0, db.getAllUserInternalBdd().size());
+        UserInternalBdd userExpected = userTest.createOneUser(1);
+        Integer id = db.getSqLiteTableUserDao().addUserInternalBdd(db.getWritableDatabase(), userExpected);
+        userExpected.setId(id);
 
-        UserInternalBdd userExpected = addUser(1);
-        UserInternalBdd userReality = db.getUserInternalBddActif();
-        assertEquals(1, db.getAllUserInternalBdd().size());
+        UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActifById(db.getWritableDatabase(), id);
+        compareAttributesOfTwoUser(userExpected, userResult1);
 
-        UserInternalBdd userModify = userReality;
-        userModify.setEmail("totototo@toto.fr");
-        userModify.setPassword("passwordModif");
-        db.updateUserInternalBdd(userModify);
-        UserInternalBdd userReality2 = db.getUserInternalBddActif();
-        compareAttributesOfTwoUser(userModify, userReality2);
+        db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
+    }
 
+    public void testUpdateUserInternalBdd() throws TechnicalAppException, FonctionalAppException {
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
 
-//        db.deleteUser
+        UserInternalBdd userExpected = userTest.createOneUser(1);
+        Integer id = db.getSqLiteTableUserDao().addUserInternalBdd(db.getWritableDatabase(), userExpected);
+        userExpected.setId(id);
+
+        UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActifById(db.getWritableDatabase(), id);
+        compareAttributesOfTwoUser(userExpected, userResult1);
+
+        UserInternalBdd userModify = userResult1;
+        userModify.setPassword("PasswordModify");
+        userModify.setPseudo("PseudoModify");
+        userModify.setEmail("EmailModify");
+        userModify.setActif(false);
+        userModify.setServerId(1200);
+        userModify.setUpdateTime(MyDateUtils.getDateTime());
+        db.getSqLiteTableUserDao().updateUserInternalBdd(db.getWritableDatabase(), userModify);
+
+        UserInternalBdd userResult2 = db.getSqLiteTableUserDao().getUserInternalBddActifById(db.getWritableDatabase(), id);
+        compareAttributesOfTwoUser(userModify, userResult2);
+
+        db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
+    }
+
+    public void testGetUserInternalBddActif2() throws Exception {
+
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
+
+        int nbUser = 10;
+        for (int i = 0; i != nbUser; i++) {
+            UserInternalBdd userExpected = userTest.createOneUser(i);
+            userExpected.setActif(false);
+            db.getSqLiteTableUserDao().addUserInternalBdd(db.getWritableDatabase(), userExpected);
+        }
+
+        UserInternalBdd userExpected2 = userTest.createOneUser(nbUser + 1);
+        Integer id = db.getSqLiteTableUserDao().addUserInternalBdd(db.getWritableDatabase(), userExpected2);
+        userExpected2.setId(id);
+
+        assertEquals(nbUser + 1, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
+
+        UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActif(db.getWritableDatabase());
+        compareAttributesOfTwoUser(userExpected2, userResult1);
+
+        db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
+    }
+
+    public void testGetUserInternalBddActif() throws Exception {
+
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
+
+        UserInternalBdd userExpected = userTest.createOneUser(1);
+        Integer id = db.getSqLiteTableUserDao().addUserInternalBdd(db.getWritableDatabase(), userExpected);
+        userExpected.setId(id);
+
+        UserInternalBdd userResult1 = db.getSqLiteTableUserDao().getUserInternalBddActif(db.getWritableDatabase());
+        compareAttributesOfTwoUser(userExpected, userResult1);
+
+        db.getSqLiteTableUserDao().deleteAllUserInternalBdd(db.getWritableDatabase());
+        assertEquals(0, db.getSqLiteTableUserDao().getAllUserInternalBdd(db.getWritableDatabase()).size());
     }
 }

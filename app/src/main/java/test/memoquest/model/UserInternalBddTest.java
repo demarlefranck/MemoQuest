@@ -10,10 +10,11 @@ import java.util.List;
 /**
  * Created by fdemarle on 19/09/2014.
  */
-public class UserTest {
+public class UserInternalBddTest {
 
-    public UserInternalBdd createOneUser(int i){
+    public UserInternalBdd createOneUser(Integer i){
         UserInternalBdd user = new UserInternalBdd();
+
         //pas de set id car auto incremente de Sqlite
         user.setServerId(i);
         user.setEmail("test@test.test" + i);

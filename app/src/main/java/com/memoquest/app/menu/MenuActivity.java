@@ -63,7 +63,7 @@ public class MenuActivity extends Activity {
 
 
     private void startSwitchUserActivity(){
-        try {
+ /*       try {
 
             userService.updateAllUserInternalBddToNoActive();
 
@@ -74,5 +74,5 @@ public class MenuActivity extends Activity {
         }
         Intent intent = new Intent(MenuActivity.this, SwitchUserActivity.class);
         startActivity(intent);
-    }
+*/    }
 }

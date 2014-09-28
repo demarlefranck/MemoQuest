@@ -44,7 +44,14 @@ public class CompleteListeService {
 
         completeList.getListeInternalBdd().setMustDeleted(false);
 
-        int newListeId = listeService.addListeInternalBdd(completeList.getListeInternalBdd());
+        int newListeId = 0;
+        try {
+
+            newListeId = listeService.addListeInternalBdd(completeList.getListeInternalBdd());
+
+        } catch (TechnicalAppException e) {
+            throw  new FonctionalAppException(this.getClass().getSimpleName() + "addCompleteListe(): probleme" + e.toString());
+        }
 
         List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
 

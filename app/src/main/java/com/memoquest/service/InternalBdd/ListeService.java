@@ -24,35 +24,34 @@ public class ListeService {
         userService = new UserService(context);
     }
 
-    public List<ListeInternalBdd> getListeInternalBddByUser(int createUser) throws FonctionalAppException {
+    public List<ListeInternalBdd> getListeInternalBddByUser(Integer createUser) throws FonctionalAppException {
 
         try {
-
-            return db.getListeInternalBddByUser(createUser);
-
+            return db.getSqLiteTableListeDao().getListeInternalBddByUser(db.getWritableDatabase(), createUser);
         } catch (TechnicalAppException e) {
             throw  new FonctionalAppException(this.getClass().getSimpleName() + "getListeInternalBddByUser(): probleme" + e.toString());
         }
     }
 
-    public int addListeInternalBdd(ListeInternalBdd listeInternalBdd) throws FonctionalAppException {
-
-        listeInternalBdd.setCreateUser(userService.getCurrentUserId());
-        listeInternalBdd.setCreateTime(MyDateUtils.getDateTime());
-        listeInternalBdd.setUpdateUser(userService.getCurrentUserId());
-        listeInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
-
-        return db.addListeInternalBdd(listeInternalBdd);
-    }
-
-
     public ListeInternalBdd getListeInternalBddById(int listeId) throws FonctionalAppException {
         try {
-
-            return db.getListeInternalBddById(listeId);
-
+            return db.getSqLiteTableListeDao().getListeInternalBddById(db.getWritableDatabase(), listeId);
         } catch (TechnicalAppException e) {
             throw  new FonctionalAppException(this.getClass().getSimpleName() + "getListeInternalBddById(): probleme" + e.toString());
         }
+    }
+
+    public int addListeInternalBdd(ListeInternalBdd listeInternalBdd) throws FonctionalAppException, TechnicalAppException {
+        listeInternalBdd.setCreateUser(userService.getUserInternalBddActif().getId());
+        listeInternalBdd.setCreateTime(MyDateUtils.getDateTime());
+        listeInternalBdd.setUpdateUser(userService.getUserInternalBddActif().getId());
+        listeInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
+        return db.getSqLiteTableListeDao().addListeInternalBdd(db.getWritableDatabase(), listeInternalBdd);
+    }
+
+    public void updateListeInternalBdd(ListeInternalBdd listeInternalBdd) throws FonctionalAppException, TechnicalAppException {
+        listeInternalBdd.setUpdateUser(userService.getUserInternalBddActif().getId());
+        listeInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
+        db.getSqLiteTableListeDao().updateListeInternalBdd(db.getWritableDatabase(), listeInternalBdd);
     }
 }

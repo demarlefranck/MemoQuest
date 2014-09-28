@@ -90,7 +90,7 @@ public class SwitchUserActivity extends Activity {
                 //verif authentification
                 try {
                     UserInternalBdd userInternalBdd = users.get(position);
-                    userService.updateAllUserInternalBddToNoActive();
+                    userService.updateAllUserInternalBddToNoActif();
                     userInternalBdd.setActif(true);
                     userService.updateUserInternalBdd(userInternalBdd);
 
