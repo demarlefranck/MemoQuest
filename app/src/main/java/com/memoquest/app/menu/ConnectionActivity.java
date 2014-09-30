@@ -46,7 +46,6 @@ public class ConnectionActivity extends Activity {
             }
             }
         });
-
     }
 
     private Boolean isAuthentifiate(View v) {

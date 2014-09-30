@@ -29,16 +29,4 @@ public class UserInternalBddTest {
         user.setUpdateTime(MyDateUtils.getDateTime());
         return user;
     }
-
-    public void compareAttributesOfTwoUser(UserInternalBdd userExpected, UserInternalBdd userReality){
-        assertEquals(userExpected.getId(), userReality.getId());
-        assertEquals(userExpected.getEmail(), userReality.getEmail());
-        assertEquals(userExpected.getPassword(), userReality.getPassword());
-        assertEquals(userExpected.getPseudo(), userReality.getPseudo());
-        assertEquals(userExpected.getActif(), userReality.getActif());
-        assertEquals(userExpected.getCreateUser(), userReality.getCreateUser());
-        assertEquals(userExpected.getCreateTime(), userReality.getCreateTime());
-        assertEquals(userExpected.getUpdateUser(), userReality.getUpdateUser());
-        assertEquals(userExpected.getUpdateTime(), userReality.getUpdateTime());
-    }
 }

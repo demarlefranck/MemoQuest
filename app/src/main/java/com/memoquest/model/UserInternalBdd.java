@@ -18,7 +18,6 @@ public class UserInternalBdd {
 
     public UserInternalBdd(){}
 
-
     public Integer getId() {
         return id;
     }
@@ -112,6 +111,48 @@ public class UserInternalBdd {
                 "\n:createTime: " + this.getCreateTime()) +
                 "\n:updateUser: " + this.getUpdateUser() +
                 "\n:updateTime: " + this.getUpdateTime();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserInternalBdd that = (UserInternalBdd) o;
+
+        if (actif != null ? !actif.equals(that.actif) : that.actif != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null)
+            return false;
+        if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null)
+            return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null)
+            return false;
+        if (pseudo != null ? !pseudo.equals(that.pseudo) : that.pseudo != null) return false;
+        if (serverId != null ? !serverId.equals(that.serverId) : that.serverId != null)
+            return false;
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null)
+            return false;
+        if (updateUser != null ? !updateUser.equals(that.updateUser) : that.updateUser != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (serverId != null ? serverId.hashCode() : 0);
+        result = 31 * result + (pseudo != null ? pseudo.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (actif != null ? actif.hashCode() : 0);
+        result = 31 * result + (createUser != null ? createUser.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (updateUser != null ? updateUser.hashCode() : 0);
+        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        return result;
     }
 }
 

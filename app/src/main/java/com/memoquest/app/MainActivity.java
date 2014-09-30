@@ -73,10 +73,8 @@ public class MainActivity extends Activity {
         } catch (FonctionalAppException e) {
             Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithConnection(): " + e.toString(), this);
         }
-
-        //this.startActivityForResult(intentConnexion, 1000);
-
     }
+
     public void startWithoutConnection() {
 
 

@@ -12,6 +12,8 @@ import com.memoquest.service.InternalBdd.ListeService;
 import com.memoquest.service.InternalBdd.UserService;
 import com.memoquest.utils.MyDateUtils;
 
+import junit.framework.Assert;
+
 import java.util.List;
 
 import test.memoquest.model.ListeInternalBddTest;
@@ -47,7 +49,7 @@ public class ListeServiceTest extends AndroidTestCase {
         listeExpected.setId(id);
 
         ListeInternalBdd listeResult = listeService.getListeInternalBddById(id);
-        listeInternalBddTest.compareAttributesOfTwoListes(listeExpected, listeResult);
+        assertEquals(listeExpected, listeResult);
 
         db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());
@@ -74,7 +76,7 @@ public class ListeServiceTest extends AndroidTestCase {
         listeExpected.setId(id);
 
         ListeInternalBdd listeResult1 = listeService.getListeInternalBddById(id);
-        listeInternalBddTest.compareAttributesOfTwoListes(listeExpected, listeResult1);
+        Assert.assertEquals(listeExpected, listeResult1);
 
 
         ListeInternalBdd listeModify = listeResult1;
@@ -83,11 +85,10 @@ public class ListeServiceTest extends AndroidTestCase {
         listeModify.setCategory("categoryMdify");
         listeModify.setUpdateUser(1000);
         listeModify.setUpdateTime(MyDateUtils.getDateTime());
-        listeModify.setMustDeleted(true);
         listeService.updateListeInternalBdd(listeModify);
 
-        ListeInternalBdd listeReality2 = listeService.getListeInternalBddById(id);
-        listeInternalBddTest.compareAttributesOfTwoListes(listeModify, listeReality2);
+        ListeInternalBdd listeResult2 = listeService.getListeInternalBddById(id);
+        Assert.assertEquals(listeModify, listeResult2);
 
         db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableListeDao().getAllListeInternalBdd(db.getWritableDatabase()).size());

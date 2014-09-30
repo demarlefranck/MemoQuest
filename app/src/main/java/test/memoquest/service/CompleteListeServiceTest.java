@@ -7,18 +7,15 @@ import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.CompleteListe;
-import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
-import com.memoquest.model.UserInternalBdd;
 import com.memoquest.service.CompleteListeService;
-import com.memoquest.service.InternalBdd.ListeService;
 import com.memoquest.service.InternalBdd.UserService;
-import com.memoquest.utils.MyDateUtils;
+
+import junit.framework.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import test.memoquest.model.CompleteListeTest;
 import test.memoquest.model.ListeInternalBddTest;
 import test.memoquest.model.MotDefInternalBddTest;
 import test.memoquest.model.UserInternalBddTest;
@@ -34,7 +31,6 @@ public class CompleteListeServiceTest extends AndroidTestCase {
     private UserInternalBddTest userInternalBddTest;
     private ListeInternalBddTest listeInternalBddTest;
     private MotDefInternalBddTest motDefInternalBddTest;
-    private CompleteListeTest completeListeTest;
 
     public void setUp() throws TechnicalAppException, FonctionalAppException {
         RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), "test_");
@@ -42,7 +38,6 @@ public class CompleteListeServiceTest extends AndroidTestCase {
         userInternalBddTest = new UserInternalBddTest();
         motDefInternalBddTest = new MotDefInternalBddTest();
         listeInternalBddTest = new ListeInternalBddTest();
-        completeListeTest = new CompleteListeTest();
         completeListeService = new CompleteListeService(context);
         userService = new UserService(context);
         userService.addUserInternalBddActif(userInternalBddTest.createOneUser(1));
@@ -68,11 +63,10 @@ public class CompleteListeServiceTest extends AndroidTestCase {
         CompleteListe completeListeResult = completeListeService.getCompleteListeByListeId(id);
 
         assertEquals(completeListeExpected.getMotDefInternalBdds().size(), completeListeResult.getMotDefInternalBdds().size());
-        listeInternalBddTest.compareAttributesOfTwoListes(completeListeExpected.getListeInternalBdd(), completeListeResult.getListeInternalBdd());
+        Assert.assertEquals(completeListeExpected.getListeInternalBdd(), completeListeResult.getListeInternalBdd());
 
         for (int i = 0; i != nbMotDef; i++) {
-            completeListeTest.compareAttributesOfTwoMotDef( completeListeExpected.getMotDefInternalBdds().get(i),
-                                                            completeListeResult.getMotDefInternalBdds().get(i));
+            Assert.assertEquals(completeListeExpected.getMotDefInternalBdds().get(i), completeListeResult.getMotDefInternalBdds().get(i));
         }
 
         db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());
@@ -100,11 +94,10 @@ public class CompleteListeServiceTest extends AndroidTestCase {
 
         CompleteListe completeListeResult = completeListeService.getCompleteListeByListeId(id);
         assertEquals(completeListeExpected.getMotDefInternalBdds().size(), completeListeResult.getMotDefInternalBdds().size());
-        listeInternalBddTest.compareAttributesOfTwoListes(completeListeExpected.getListeInternalBdd(), completeListeResult.getListeInternalBdd());
+        Assert.assertEquals(completeListeExpected.getListeInternalBdd(), completeListeResult.getListeInternalBdd());
 
         for (int i = 0; i != nbMotDef; i++) {
-            completeListeTest.compareAttributesOfTwoMotDef( completeListeExpected.getMotDefInternalBdds().get(i),
-                                                            completeListeResult.getMotDefInternalBdds().get(i));
+            Assert.assertEquals(completeListeExpected.getMotDefInternalBdds().get(i), completeListeResult.getMotDefInternalBdds().get(i));
         }
 
         /*
@@ -122,11 +115,10 @@ public class CompleteListeServiceTest extends AndroidTestCase {
 
         CompleteListe completeListeResult2 = completeListeService.getCompleteListeByListeId(id);
         assertEquals(completeListeExpected2.getMotDefInternalBdds().size(), completeListeResult2.getMotDefInternalBdds().size());
-        listeInternalBddTest.compareAttributesOfTwoListes(completeListeExpected2.getListeInternalBdd(), completeListeResult2.getListeInternalBdd());
+        Assert.assertEquals(completeListeExpected2.getListeInternalBdd(), completeListeResult2.getListeInternalBdd());
 
         for (int i = 0; i != nbMotDef; i++) {
-            completeListeTest.compareAttributesOfTwoMotDef( completeListeExpected.getMotDefInternalBdds().get(i),
-                                                            completeListeResult2.getMotDefInternalBdds().get(i));
+            Assert.assertEquals(completeListeExpected.getMotDefInternalBdds().get(i), completeListeResult2.getMotDefInternalBdds().get(i));
         }
 
         db.getSqLiteTableListeDao().deleteAllListeInternalBdd(db.getWritableDatabase());

@@ -46,7 +46,7 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         motDefExpected.setId(id);
 
         MotDefInternalBdd motDefResult1 = db.getSqLiteTableMotDefDao().getMotDefInternalBddById(db.getWritableDatabase(), id);
-        motDefInternalBddTest.compareAttributesOfTwoMotDef(motDefExpected, motDefResult1);
+        assertEquals(motDefExpected, motDefResult1);
 
         MotDefInternalBdd motDefModify = motDefResult1;
         motDefModify.setMot("motModify");
@@ -58,7 +58,7 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         db.getSqLiteTableMotDefDao().updateMotDefToInternalBdd(db.getWritableDatabase(), motDefModify);
 
         MotDefInternalBdd motDefReality2 = db.getSqLiteTableMotDefDao().getMotDefInternalBddById(db.getWritableDatabase(), id);
-        motDefInternalBddTest.compareAttributesOfTwoMotDef(motDefModify, motDefReality2);
+        assertEquals(motDefModify, motDefReality2);
 
         db.getSqLiteTableMotDefDao().deleteAllMotDefInternalBdd(db.getWritableDatabase());
         assertEquals(0, db.getSqLiteTableMotDefDao().getAllMotDefInternalBdd(db.getWritableDatabase()).size());
@@ -104,7 +104,7 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         motDefExpected.setId(id);
 
         MotDefInternalBdd motDefReality = db.getSqLiteTableMotDefDao().getMotDefInternalBddById(db.getWritableDatabase(), motDefExpected.getId());
-        motDefInternalBddTest.compareAttributesOfTwoMotDef(motDefExpected, motDefReality);
+        assertEquals(motDefExpected, motDefReality);
 
         db.getSqLiteTableMotDefDao().deleteMotDefInternalBddById(db.getWritableDatabase(), motDefExpected);
         assertEquals(0, db.getSqLiteTableMotDefDao().getAllMotDefInternalBdd(db.getWritableDatabase()).size());
@@ -116,7 +116,7 @@ public class SQLiteTableMotDefDaoTest extends AndroidTestCase {
         motDefExpected.setId(id);
 
         MotDefInternalBdd motDefReality = db.getSqLiteTableMotDefDao().getMotDefInternalBddById(db.getWritableDatabase(), motDefExpected.getId());
-        motDefInternalBddTest.compareAttributesOfTwoMotDef(motDefExpected, motDefReality);
+        assertEquals(motDefExpected, motDefReality);
 
         db.getSqLiteTableMotDefDao().deleteMotDefInternalBddById(db.getWritableDatabase(), motDefExpected);
         assertEquals(0, db.getSqLiteTableMotDefDao().getAllMotDefInternalBdd(db.getWritableDatabase()).size());

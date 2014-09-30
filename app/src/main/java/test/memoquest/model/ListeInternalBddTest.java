@@ -28,18 +28,4 @@ public class ListeInternalBddTest {
         listeInternalBdd.setUpdateTime(MyDateUtils.getDateTime());
         return listeInternalBdd;
     }
-
-    public void compareAttributesOfTwoListes(ListeInternalBdd listeExpected, ListeInternalBdd listeReality){
-        assertEquals(listeExpected.getId(), listeReality.getId());
-        assertEquals(listeExpected.getServerId(), listeReality.getServerId());
-        assertEquals(listeExpected.getNom(), listeReality.getNom());
-        assertEquals(listeExpected.getTheme(), listeReality.getTheme());
-        assertEquals(listeExpected.getCategory(), listeReality.getCategory());
-        assertEquals(listeExpected.getShared(), listeReality.getShared());
-        assertEquals(listeExpected.getMustDeleted(), listeReality.getMustDeleted());
-        assertEquals(listeExpected.getCreateUser(), listeReality.getCreateUser());
-        assertEquals(listeExpected.getCreateTime(), listeReality.getCreateTime());
-        assertEquals(listeExpected.getUpdateUser(), listeReality.getUpdateUser());
-        assertEquals(listeExpected.getUpdateTime(), listeReality.getUpdateTime());
-    }
 }

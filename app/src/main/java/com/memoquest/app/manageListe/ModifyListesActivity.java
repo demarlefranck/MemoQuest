@@ -1,7 +1,9 @@
 package com.memoquest.app.manageListe;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,6 +44,10 @@ import java.util.List;
 
 public class ModifyListesActivity extends Activity {
 
+
+
+    final Context context = this;
+
     private CompleteListeService completeListeService;
     private CompleteListe completeListe;
 
@@ -62,10 +68,10 @@ public class ModifyListesActivity extends Activity {
         setContentView(R.layout.activity_modify_listes);
 
         titleListeView = (TextView) this.findViewById(R.id.titleListeTextView);
-
+/*
         wordTextValue = (EditText) this.findViewById(R.id.wordText);
         defTextValue = (EditText) this.findViewById(R.id.defText);
-
+*/
         addWordsAndDefView = (TextView) this.findViewById(R.id.addWordsAndDef);
         saveWordsAndDefView = (TextView) this.findViewById(R.id.saveWordsAndDef);
 
@@ -76,31 +82,64 @@ public class ModifyListesActivity extends Activity {
         titleListeView.setText(completeListe.getListeInternalBdd().getNom());
 
         addWordsAndDefView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
-            if(isValidate()){
+
+       //     if(isValidate()){
 /*
                 MotDefInternalBdd motDefInternalBdd = new MotDefInternalBdd();
                 motDefInternalBdd.setMot(wordTextStr);
                 motDefInternalBdd.setDefinition(defTextStr);
                 motDefInternalBdd.setMotDefListId(completeListe.getListeInternalBdd().getId());
-
-
-                Log.d("IIIIINNNNNFFFFFFOOOOO" , "setMotDefListId:  "  + completeListe.getListeInternalBdd().getId());
-
-                motDefService.addMotDefInternalBdd(motDefInternalBdd);
-
-
-
-                Il faut ajouter les motDefInternalBdd avec listeIdAi
-
-                        car la on ne les retrouve pas
-
 */
-                showListeComplete();
-            }
-            }
-        });
+@Override
+			public void onClick(View arg0) {
+
+				// get prompts.xml view
+				LayoutInflater li = LayoutInflater.from(context);
+				View promptsView = li.inflate(R.layout.word_def_edit_alerte_box, null);
+
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
+
+				// set prompts.xml to alertdialog builder
+				alertDialogBuilder.setView(promptsView);
+
+				final EditText userInput = (EditText) promptsView
+						.findViewById(R.id.editTextDialogUserInput);
+
+				// set dialog message
+				alertDialogBuilder
+					.setCancelable(false)
+					.setPositiveButton("OK",
+					  new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog,int id) {
+						// get user input and set it to result
+						// edit text
+
+
+						//result.setText(userInput.getText());
+					    }
+					  })
+					.setNegativeButton("Cancel",
+					  new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog,int id) {
+						dialog.cancel();
+					    }
+					  });
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
+			}
+		});
+              //  motDefService.addMotDefInternalBdd(motDefInternalBdd);
+
+
+                //showListeComplete();
+
 
         saveWordsAndDefView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -140,7 +179,7 @@ public class ModifyListesActivity extends Activity {
 
 
 
-                /*
+            /*
                 MotDefInternalBdd motDefInternalBdd = completeListe.getMotDefInternalBdds().get(position);
                 wordTextValue.setText(motDefInternalBdd.getMot());
                 defTextValue.setText(motDefInternalBdd.getDefinition());
@@ -231,110 +270,3 @@ public class ModifyListesActivity extends Activity {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-    private void displayListView() {
-
-        //Array list of products
-        ArrayList<MotDefInternalBdd> wordDefList = new ArrayList<MotDefInternalBdd>();
-        MotDefInternalBdd motDef = new MotDefInternalBdd();
-        motDef.setMot("mot1");
-        motDef.setDefinition("definition1");
-        wordDefList.add(motDef);
-        motDef = new MotDefInternalBdd();
-        motDef.setMot("mot2");
-        motDef.setDefinition("definition2");
-        wordDefList.add(motDef);
-        motDef = new MotDefInternalBdd();
-        motDef.setMot("mot3");
-        motDef.setDefinition("definition3");
-        wordDefList.add(motDef);
-        motDef = new MotDefInternalBdd();
-        motDef.setMot("mot4");
-        motDef.setDefinition("definition4");
-        wordDefList.add(motDef);
-        motDef = new MotDefInternalBdd();
-        motDef.setMot("mot4");
-        motDef.setDefinition("definition4");
-        wordDefList.add(motDef);
-        motDef = new MotDefInternalBdd();
-        motDef.setMot("mot4");
-        motDef.setDefinition("definition4");
-        wordDefList.add(motDef);
-        motDef = new MotDefInternalBdd();
-        motDef.setMot("mot4");
-        motDef.setDefinition("definition4");
-        wordDefList.add(motDef);
-        motDef = new MotDefInternalBdd();
-        motDef.setMot("mot4");
-        motDef.setDefinition("definition4");
-        wordDefList.add(motDef);
-
-
-        //create an ArrayAdaptar from the String Array
-        dataAdapter = new MotDefAdapter(this, R.layout.word_def_row, wordDefList);
-        ListView listView = (ListView) findViewById(R.id.listView1);
-        // Assign adapter to ListView
-        listView.setAdapter(dataAdapter);
-
-    }
-*/
-
-/*
-public class ModifyListesActivity  extends Activity {
-
-    private ListeService listeService;
-    private CompleteListe completeListe;
-
-
-
-    private TextView viewListes;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modify_listes);
-
-        listeService = new ListeService(this);
-
-    //    loadListeInternalBddIdAi();
-
-
-
-
-
-
-
-        //  viewListes = (TextView) this.findViewById(R.id.textViewListes);
-
-//        Toast.makeText(getApplicationContext(), "Click ListItem Number " + listeInternalBddIdAi, Toast.LENGTH_LONG).show();
-
-
-
-        ListeService listeService = new ListeService();
-
-        List<ListeRest> listes = listeService.getListes(this);
-
-        viewListes.setText(listes.toString());
-*/
