@@ -3,6 +3,8 @@ package com.memoquest.app.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +38,7 @@ public class ConnectionActivity extends Activity {
         connexionText = (TextView) this.findViewById(R.id.connexionText);
         signinText = (TextView) this.findViewById(R.id.signinText);
         passwordForbidText = (TextView) this.findViewById(R.id.passwordForbidText);
+
         connexionService = new ConnexionService(this);
 
         connexionText.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +47,20 @@ public class ConnectionActivity extends Activity {
                 Intent intent = new Intent(ConnectionActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
+            }
+        });
+
+        signinText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            signinText.setText(Html.fromHtml("<a href=http://memoquest.fr/register.php> memoquest"));
+            signinText.setMovementMethod(LinkMovementMethod.getInstance());
+            }
+        });
+
+        passwordForbidText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            passwordForbidText.setText(Html.fromHtml("<a href=http://memoquest.fr/register.php> memoquest"));
+            passwordForbidText.setMovementMethod(LinkMovementMethod.getInstance());
             }
         });
     }
