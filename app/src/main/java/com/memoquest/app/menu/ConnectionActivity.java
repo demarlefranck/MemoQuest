@@ -52,16 +52,16 @@ public class ConnectionActivity extends Activity {
 
         signinText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            signinText.setText(Html.fromHtml("<a href=http://memoquest.fr/register.php> memoquest"));
-            signinText.setMovementMethod(LinkMovementMethod.getInstance());
+            if (signinText != null)
+                signinText.setMovementMethod(LinkMovementMethod.getInstance());
             }
         });
 
         passwordForbidText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            passwordForbidText.setText(Html.fromHtml("<a href=http://memoquest.fr/register.php> memoquest"));
-            passwordForbidText.setMovementMethod(LinkMovementMethod.getInstance());
-            }
+            if (passwordForbidText != null)
+                passwordForbidText.setMovementMethod(LinkMovementMethod.getInstance());
+           }
         });
     }
 

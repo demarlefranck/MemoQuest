@@ -18,5 +18,7 @@
     <string name="title_activity_play_select_list">PlaySelectListActivity</string>
     <string name="title_activity_select_list">SelectListActivity</string>
     <string name="title_activity_select_play">SelectPlayActivity</string>
+    <string name="signin_link"><a href="http://memoquest.fr/register.php">S\'inscrire sur MemoQuest</a></string>
+    <string name="pwdforgotten_link"><a href="http://memoquest.fr/pwdforgotten.php">Mot de passe oublié ?</a></string>
 
 </resources>
