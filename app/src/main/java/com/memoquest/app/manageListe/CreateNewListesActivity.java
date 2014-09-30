@@ -18,6 +18,8 @@ import com.memoquest.utils.MyDateUtils;
 
 public class CreateNewListesActivity extends Activity {
 
+
+
     private EditText titreListText;
     private EditText themeListText;
     private EditText cathegoryListText;
@@ -27,6 +29,8 @@ public class CreateNewListesActivity extends Activity {
     private String themeListTextStr;
     private String cathegoryListTextStr;
 
+    private Integer listeId;
+
     private CompleteListeService completeListeService;
 
     @Override
@@ -34,20 +38,32 @@ public class CreateNewListesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_list);
 
+        listeId = null;
+
         completeListeService = new CompleteListeService(this);
 
         titreListText = (EditText) this.findViewById(R.id.titreListText);
         themeListText = (EditText) this.findViewById(R.id.themeListText);
         cathegoryListText = (EditText) this.findViewById(R.id.cathegoryListText);
 
+
+        /*
+         Recuperer bundle de l'activitée precedente (ManageListesActivity et SelectListesActivity)
+
+          si null => rien faire
+          si id    => mettre les valeur dans les input
+                et listeId = id
+          */
+
         addListText = (TextView) this.findViewById(R.id.addWordsAndDef);
         addListText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
             if(isValidate()){
-                int newListeId = createNewCompleteListe();
+                if (listeId == null)
+                    listeId = createNewCompleteListe();
                 Intent intent = new Intent(CreateNewListesActivity.this, ModifyListesActivity.class);
-                intent.putExtra("listeInternalBddId", newListeId);
+                intent.putExtra("listeInternalBddId", listeId);
                 startActivity(intent);
             }
             }
