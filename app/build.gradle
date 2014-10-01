@@ -1,4 +1,5 @@
 apply plugin: 'android'
+apply plugin: "sonar"
 
 buildscript {
     repositories {
@@ -7,10 +8,23 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:0.5.+'
     }
+
 }
 
 repositories {
     mavenCentral()
+}
+
+sonar {
+    server {
+        url = "http://localhost"
+    }
+    database {
+        url = "jdbc:mysql://localhost/sonar"
+        driverClassName = "com.mysql.jdbc.Driver"
+        username = "sonar"
+        password = "sonar"
+    }
 }
 
 
