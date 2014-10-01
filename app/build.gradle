@@ -17,7 +17,7 @@ repositories {
 
 sonar {
     server {
-        url = "http://localhost:9000"
+        url = "http://127.0.0.1:9000"
     }
     database {
         url = "jdbc:mysql://localhost/sonar"

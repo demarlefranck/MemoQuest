@@ -51,7 +51,9 @@ public class ConnexionService {
 
 
 
-    //Pris de epimarket A VOIR si utilise
+    /*
+        Permet de crypter le mot de passe en MD5
+     */
     private String toMD5( String password ){
 
         MessageDigest messageDigest;
@@ -78,7 +80,9 @@ public class ConnexionService {
 
             }
         }
-        catch ( NoSuchAlgorithmException e )	{	System.out.println("CustomersService.class: \t 	toMD5():\t     NoSuchAlgorithmException: "	+	e.toString());	e.printStackTrace();	}
+        catch ( NoSuchAlgorithmException e )	{
+            new TechnicalAppException("ConnexionService.class: toMD5(): Probleme lors de l'encryptage du mot de passe: " + e.toString());
+    	}
 
         return stringBuffer.toString();
     }
