@@ -7,19 +7,36 @@
     android:padding="10dp" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/labelWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type Your Message : "
+        android:text="Saisie du mot:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/editTextDialogUserInput"
+        android:id="@+id/editTextWord"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="wrap_content"
+        android:hint="mot"
+        android:textColor="#000000"
+        android:inputType="text" />
         <requestFocus />
 
-    </EditText>
 
+    <TextView
+        android:id="@+id/labelDef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saisie de la définition:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editTextDef"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="définition"
+        android:textColor="#000000"
+        android:inputType="textMultiLine">
+
+    </EditText>
 </LinearLayout>

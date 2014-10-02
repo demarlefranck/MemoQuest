@@ -29,7 +29,6 @@ import java.util.List;
 public class SelectListActivity extends Activity {
 
     private ListeService listeService;
-    private UserService userService;
     private List<ListeInternalBdd> listes;
 
     @Override
@@ -38,7 +37,6 @@ public class SelectListActivity extends Activity {
         setContentView(R.layout.activity_switch_user);
 
         listeService = new ListeService(this);
-        userService = new UserService(this);
         getAllListeInternalBddByUser();
 
         final ListView listView = (ListView) findViewById(R.id.userListview);
@@ -63,11 +61,9 @@ public class SelectListActivity extends Activity {
 
     private void getAllListeInternalBddByUser(){
         try {
-            int userId = userService.getUserInternalBddActif().getId();
-            listes = listeService.getListeInternalBddByUser(userId);
 
-        } catch (TechnicalAppException e) {
-            Alerte.showAlertDialog("Technical Problem", this.getClass().getSimpleName() + "getAllListeInternalBddByUser(): " + e.toString(), this);
+            listes = listeService.getListeInternalBddByUser();
+
         } catch (FonctionalAppException e) {
             Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "getAllListeInternalBddByUser(): " + e.toString(), this);
         }

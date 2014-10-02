@@ -114,7 +114,7 @@ public class MotDefInternalBdd {
                 "\nMotDefListeServerId:     "   + this.getMotDefListeServerId() +
                 "\nmot:                     "   + this.getMot() +
                 "\n:definition              "   + this.getDefinition() +
-                "\nmustDeleted:             "   + this.getMustDeleted().toString() +
+                "\nmustDeleted:             "   + this.getMustDeleted() +
                 "\n:createUser:             "   + this.getCreateUser() +
                 "\n:createTime:             "   + this.getCreateTime()) +
                 "\n:updateUser:             "   + this.getUpdateUser() +

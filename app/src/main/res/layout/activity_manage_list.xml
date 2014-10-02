@@ -14,25 +14,49 @@ android:background="#ffffff">
     android:layout_centerHorizontal="true"
     android:layout_marginTop="40dp" />
 
-<RelativeLayout
-    android:layout_width="280dp"
-    android:layout_height="300dp"
-    android:background="@drawable/login_bg"
-    android:id="@+id/relativeLayout2"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="50dp" >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Créer une nouvelle Liste"
-        android:id="@+id/createNewListText"
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="300dp"
+        android:background="@drawable/login_bg"
+        android:id="@+id/relativeLayout2"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:textColor="#ffffff"
-        android:onClick="onClick" />
+        android:layout_marginBottom="50dp" >
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Créer une nouvelle Liste"
+            android:id="@+id/createNewListText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textColor="#ffffff"
+            android:onClick="onClick" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Modification d'une Liste"
+            android:id="@+id/modifyListText"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#ffffff"
+            android:onClick="onClick" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Suppression d'une Liste"
+            android:id="@+id/deleteListText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="250dp"
+            android:textColor="#ffffff"
+            android:onClick="onClick" />
+
+    </RelativeLayout>
 </RelativeLayout>

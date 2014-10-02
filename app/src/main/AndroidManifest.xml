@@ -27,11 +27,11 @@
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name=".manageListe.ManageListesActivity"
+            android:name="com.memoquest.app.manageListe.ManageListesActivity"
             android:label="@string/title_activity_manage_list" >
         </activity>
         <activity
-            android:name=".manageListe.CreateNewListesActivity"
+            android:name="com.memoquest.app.manageListe.CreateNewListesActivity"
             android:label="@string/title_activity_create_new_list" >
         </activity>
         <activity
@@ -49,6 +49,10 @@
         <activity
             android:name="com.memoquest.app.play.SelectPlayActivity"
             android:label="@string/title_activity_select_play" >
+        </activity>
+        <activity
+            android:name="com.memoquest.app.manageListe.SelectOrDeleteListesActivity"
+            android:label="@string/title_activity_select_or_delete_listes" >
         </activity>
     </application>
 

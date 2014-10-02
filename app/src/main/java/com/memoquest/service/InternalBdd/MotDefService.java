@@ -7,6 +7,7 @@ import com.memoquest.dao.internalBdd.SQLiteTableMotDefDao;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.MotDefInternalBdd;
+import com.memoquest.utils.MyDateUtils;
 
 import java.util.List;
 
@@ -16,9 +17,11 @@ import java.util.List;
 public class MotDefService {
 
     SQLiteDatabaseManager db;
+    private UserService userService;
 
     public MotDefService(Context context){
         db = new SQLiteDatabaseManager(context);
+        userService = new UserService(context);
     }
 
     public List<MotDefInternalBdd> getAllMotDefServiceByListe(Integer liste_id) throws FonctionalAppException {
@@ -37,7 +40,22 @@ public class MotDefService {
         }
     }
 
-    public Integer addMotDefInternalBdd(MotDefInternalBdd motDef) {
+    public Integer addMotDefInternalBdd(MotDefInternalBdd motDef) throws TechnicalAppException, FonctionalAppException {
+
+
+
+
+        motDef.setMustDeleted(false);
+
+
+
+
+        motDef.setCreateUser(userService.getUserInternalBddActif().getId());
+        motDef.setCreateTime(MyDateUtils.getDateTime());
+        motDef.setUpdateUser(userService.getUserInternalBddActif().getId());
+        motDef.setUpdateTime(MyDateUtils.getDateTime());
+
+
         return db.getSqLiteTableMotDefDao().addMotDefToInternalBdd(db.getWritableDatabase(), motDef);
     }
 

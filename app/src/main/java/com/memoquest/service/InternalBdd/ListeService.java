@@ -24,10 +24,12 @@ public class ListeService {
         userService = new UserService(context);
     }
 
-    public List<ListeInternalBdd> getListeInternalBddByUser(Integer createUser) throws FonctionalAppException {
+    public List<ListeInternalBdd> getListeInternalBddByUser() throws FonctionalAppException {
 
         try {
-            return db.getSqLiteTableListeDao().getListeInternalBddByUser(db.getWritableDatabase(), createUser);
+            Integer userId = userService.getUserInternalBddActif().getId();
+
+            return db.getSqLiteTableListeDao().getListeInternalBddByUser(db.getWritableDatabase(), userId);
         } catch (TechnicalAppException e) {
             throw  new FonctionalAppException(this.getClass().getSimpleName() + "getListeInternalBddByUser(): probleme" + e.toString());
         }

@@ -47,21 +47,22 @@ public class CompleteListeService {
         }
         else{
             completeList.getListeInternalBdd().setMustDeleted(false);
+            List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
 
             try {
 
                 newListeId = listeService.addListeInternalBdd(completeList.getListeInternalBdd());
 
+
+                if(motDefInternalBdd != null) {
+                    for (MotDefInternalBdd motDef : motDefInternalBdd) {
+                        motDef.setMotDefListeInternalBddId(completeList.getListeInternalBdd().getId());
+                        motDefService.addMotDefInternalBdd(motDef);
+                    }
+                }
+
             } catch (TechnicalAppException e) {
                 throw  new FonctionalAppException(this.getClass().getSimpleName() + "addCompleteListe(): probleme" + e.toString());
-            }
-
-            List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
-
-            if(motDefInternalBdd != null) {
-                for (MotDefInternalBdd motDef : motDefInternalBdd) {
-                    motDefService.addMotDefInternalBdd(motDef);
-                }
             }
         }
         return newListeId;
@@ -69,27 +70,29 @@ public class CompleteListeService {
 
 
     public void updateCompleteListe(CompleteListe completeList) throws FonctionalAppException {
+
+        List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
+
         try {
 
             listeService.updateListeInternalBdd(completeList.getListeInternalBdd());
 
+            if (motDefInternalBdd != null) {
+                for (MotDefInternalBdd motDef : motDefInternalBdd) {
+
+                    if(motDef.getId() == null){
+                        motDef.setMotDefListeInternalBddId(completeList.getListeInternalBdd().getId());
+                        motDefService.addMotDefInternalBdd(motDef);
+                    }
+                    else{
+                        motDefService.updateMotDefInternalBdd(motDef);
+                    }
+
+                }
+            }
+
         } catch (TechnicalAppException e) {
             throw new FonctionalAppException(this.getClass().getSimpleName() + "addCompleteListe(): probleme" + e.toString());
-        }
-
-        List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
-
-        if (motDefInternalBdd != null) {
-            for (MotDefInternalBdd motDef : motDefInternalBdd) {
-
-                if(motDef.getId() == null){
-                    motDefService.addMotDefInternalBdd(motDef);
-                }
-                else{
-                    motDefService.updateMotDefInternalBdd(motDef);
-                }
-
-            }
         }
     }
 }

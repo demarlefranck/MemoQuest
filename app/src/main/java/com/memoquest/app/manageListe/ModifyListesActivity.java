@@ -42,25 +42,17 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class ModifyListesActivity extends Activity {
-
-
+public class ModifyListesActivity extends Activity implements View.OnClickListener {
 
     final Context context = this;
 
     private CompleteListeService completeListeService;
+    private MotDefService motDefService;
     private CompleteListe completeListe;
-
-    private EditText wordTextValue;
-    private EditText defTextValue;
 
     private TextView titleListeView;
     private TextView addWordsAndDefView;
     private TextView saveWordsAndDefView;
-
-    private String wordTextStr;
-    private String defTextStr;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,96 +60,36 @@ public class ModifyListesActivity extends Activity {
         setContentView(R.layout.activity_modify_listes);
 
         titleListeView = (TextView) this.findViewById(R.id.titleListeTextView);
-/*
-        wordTextValue = (EditText) this.findViewById(R.id.wordText);
-        defTextValue = (EditText) this.findViewById(R.id.defText);
-*/
+
         addWordsAndDefView = (TextView) this.findViewById(R.id.addWordsAndDef);
+        addWordsAndDefView.setOnClickListener(this);
+
         saveWordsAndDefView = (TextView) this.findViewById(R.id.saveWordsAndDef);
+        saveWordsAndDefView.setOnClickListener(this);
 
         completeListeService = new CompleteListeService(this);
+        motDefService = new MotDefService(this);
 
         showListeComplete();
 
         titleListeView.setText(completeListe.getListeInternalBdd().getNom());
-
-        addWordsAndDefView.setOnClickListener(new View.OnClickListener() {
-
-
-       //     if(isValidate()){
-/*
-                MotDefInternalBdd motDefInternalBdd = new MotDefInternalBdd();
-                motDefInternalBdd.setMot(wordTextStr);
-                motDefInternalBdd.setDefinition(defTextStr);
-                motDefInternalBdd.setMotDefListId(completeListe.getListeInternalBdd().getId());
-*/
-@Override
-			public void onClick(View arg0) {
-
-				// get prompts.xml view
-				LayoutInflater li = LayoutInflater.from(context);
-				View promptsView = li.inflate(R.layout.word_def_edit_alerte_box, null);
-
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						context);
-
-				// set prompts.xml to alertdialog builder
-				alertDialogBuilder.setView(promptsView);
-
-				final EditText userInput = (EditText) promptsView
-						.findViewById(R.id.editTextDialogUserInput);
-
-				// set dialog message
-				alertDialogBuilder
-					.setCancelable(false)
-					.setPositiveButton("OK",
-					  new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog,int id) {
-						// get user input and set it to result
-						// edit text
-
-
-						//result.setText(userInput.getText());
-					    }
-					  })
-					.setNegativeButton("Cancel",
-					  new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog,int id) {
-						dialog.cancel();
-					    }
-					  });
-
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-
-				// show it
-				alertDialog.show();
-
-			}
-		});
-              //  motDefService.addMotDefInternalBdd(motDefInternalBdd);
-
-
-                //showListeComplete();
-
-
-        saveWordsAndDefView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-
-                Intent intent = new Intent(ModifyListesActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
     }
 
+    public void onClick(View v) {
 
+        switch (v.getId()) {
+            case R.id.addWordsAndDef:
+                showAlertBoxWordAndDef(null);
+            break;
 
+            case R.id.saveWordsAndDef:
+                Intent intent = new Intent(ModifyListesActivity.this, MenuActivity.class);
+                startActivity(intent);
+            break;
+        }
+    }
 
     private void showListeComplete() {
-
 
         loadListeByInternalBddId();
 
@@ -175,21 +107,16 @@ public class ModifyListesActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-
-            /*
                 MotDefInternalBdd motDefInternalBdd = completeListe.getMotDefInternalBdds().get(position);
-                wordTextValue.setText(motDefInternalBdd.getMot());
-                defTextValue.setText(motDefInternalBdd.getDefinition());
-
-                motDefService.deleteMotDefInternalBdd(motDefInternalBdd);
-*/
+                showAlertBoxWordAndDef(motDefInternalBdd);
             }
         });
     }
 
+    /*
+        Recuperation de la liste grace a son id
+        passé par l'activité prédente
+     */
     private void loadListeByInternalBddId() {
 
         int listeInternalBddId = -1;
@@ -216,24 +143,8 @@ public class ModifyListesActivity extends Activity {
         }
     }
 
-    private String[] getWordListValues() {
-        List<String> worlList = new ArrayList<String>();
 
-        for (MotDefInternalBdd mot : completeListe.getMotDefInternalBdds()) {
-            worlList.add(mot.getMot());
-        }
-
-        return worlList.toArray(new String[0]);
-    }
-
-    public Boolean isValidate(){
-
-        wordTextStr = "";
-        defTextStr = "";
-
-        wordTextStr = String.valueOf(wordTextValue.getText());
-        defTextStr = String.valueOf(defTextValue.getText());
-
+    public Boolean isValidate(String wordTextStr, String defTextStr){
         if(wordTextStr.equals("")){
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir un mot", this);
             return false;
@@ -245,12 +156,23 @@ public class ModifyListesActivity extends Activity {
         return true;
     }
 
+
+    private String[] getWordListValues() {
+        List<String> worlList = new ArrayList<String>();
+
+        for (MotDefInternalBdd mot : completeListe.getMotDefInternalBdds()) {
+            worlList.add(mot.getMot());
+        }
+
+        return worlList.toArray(new String[0]);
+    }
+
+
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
+        public StableArrayAdapter(Context context, int textViewResourceId, List<String> objects) {
             super(context, textViewResourceId, objects);
             for (int i = 0; i < objects.size(); ++i) {
                 mIdMap.put(objects.get(i), i);
@@ -267,6 +189,81 @@ public class ModifyListesActivity extends Activity {
         public boolean hasStableIds() {
             return true;
         }
+    }
 
+
+    /*
+        Fenetre de dialogue permettant la saisie d'un mot et de sa definition
+     */
+    private void showAlertBoxWordAndDef(final MotDefInternalBdd motDef_in) {
+
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.word_def_edit_alerte_box, null);
+
+        final EditText editWordText = (EditText) promptsView.findViewById(R.id.editTextWord);
+        final EditText editDefText = (EditText) promptsView.findViewById(R.id.editTextDef);
+
+        if(motDef_in != null){
+            editWordText.setText(motDef_in.getMot());
+            editDefText.setText(motDef_in.getDefinition());
+        }
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder.setView(promptsView);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setTitle("Mot / Définition");
+        alertDialogBuilder.setIcon(R.drawable.ic_launcher);
+
+        alertDialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            }
+        );
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                    String wordTextStr = "";
+                    String defTextStr = "";
+
+                    wordTextStr =String.valueOf(editWordText.getText());
+                    defTextStr = String.valueOf(editDefText.getText());
+
+                    if (isValidate(wordTextStr, defTextStr)) {
+
+                        MotDefInternalBdd motDef = null;
+
+                        if(motDef_in != null){
+                            motDef_in.setMot(wordTextStr);
+                            motDef_in.setDefinition(defTextStr);
+                            motDef = motDef_in;
+
+                            //motDefService.updateMotDefInternalBdd(motDef_in);
+                        }
+                        else {
+                            motDef = new MotDefInternalBdd();
+                            motDef.setMot(wordTextStr);
+                            motDef.setDefinition(defTextStr);
+                        }
+
+                        completeListe.getMotDefInternalBdds().add(motDef);
+
+                        try {
+                            completeListeService.updateCompleteListe(completeListe);
+
+                        } catch (FonctionalAppException e) {
+                            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "showAlertBoxWordAndDef(): " + "Probleme d'enregistrement de la liste", context);
+                        }
+
+                        showListeComplete();
+                    }
+                }
+            }
+        );
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
     }
 }
