@@ -28,7 +28,7 @@ public class CompleteListeService {
         listeService = new ListeService(context);
     }
 
-    public CompleteListe getCompleteListeByListeId(int listeId) throws TechnicalAppException, FonctionalAppException {
+    public CompleteListe getCompleteListeByListeId(int listeId) throws FonctionalAppException {
         CompleteListe completeListe = new CompleteListe();
         completeListe.setListeInternalBdd(listeService.getListeInternalBddById(listeId));
         List<MotDefInternalBdd> motDefList = new ArrayList<MotDefInternalBdd>();

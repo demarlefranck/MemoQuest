@@ -128,25 +128,37 @@ public class MotDefInternalBdd {
 
         MotDefInternalBdd that = (MotDefInternalBdd) o;
 
-        if (MotDefListeInternalBddId != null ? !MotDefListeInternalBddId.equals(that.MotDefListeInternalBddId) : that.MotDefListeInternalBddId != null)
+        if (MotDefListeInternalBddId != null ? !MotDefListeInternalBddId.equals(that.MotDefListeInternalBddId) : that.MotDefListeInternalBddId != null){
             return false;
-        if (MotDefListeServerId != null ? !MotDefListeServerId.equals(that.MotDefListeServerId) : that.MotDefListeServerId != null)
+        }
+        if (MotDefListeServerId != null ? !MotDefListeServerId.equals(that.MotDefListeServerId) : that.MotDefListeServerId != null){
             return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null)
+        }
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null){
             return false;
-        if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null)
+        }
+        if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null){
             return false;
-        if (definition != null ? !definition.equals(that.definition) : that.definition != null)
+        }
+        if (definition != null ? !definition.equals(that.definition) : that.definition != null){
             return false;
+        }
         //if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (mot != null ? !mot.equals(that.mot) : that.mot != null) return false;
-        if (motDefServerId != null ? !motDefServerId.equals(that.motDefServerId) : that.motDefServerId != null)
+        if (mot != null ? !mot.equals(that.mot) : that.mot != null){
             return false;
-        if (mustDeleted != null ? !mustDeleted.equals(that.mustDeleted) : that.mustDeleted != null)
+        }
+        if (motDefServerId != null ? !motDefServerId.equals(that.motDefServerId) : that.motDefServerId != null){
             return false;
-        if (!updateTime.equals(that.updateTime)) return false;
-        if (updateUser != null ? !updateUser.equals(that.updateUser) : that.updateUser != null)
+        }
+        if (mustDeleted != null ? !mustDeleted.equals(that.mustDeleted) : that.mustDeleted != null){
             return false;
+        }
+        if (!updateTime.equals(that.updateTime)){
+            return false;
+        }
+        if (updateUser != null ? !updateUser.equals(that.updateUser) : that.updateUser != null){
+            return false;
+        }
 
         return true;
     }

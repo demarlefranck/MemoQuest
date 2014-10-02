@@ -19,27 +19,33 @@ public class ConnexionDao {
 
         //REMPLACER PAR SERVICE REST QUI RETOURNE L'ID DU USER
 
-        if(loginTextStr.equals("demarl_f@etna-alternance.net") && passwordTextStr.equals("toto")){
+        String password = "toto";
+        String login10 = "demarl_f@etna-alternance.net";
+        String login11 = "dupe_j@etna-alternance.net";
+        String login12 = "chave_k@etna-alternance.net";
+        String login13 = "fourni_c@etna-alternance.net";
+        String login14 = "grosje_s@etna-alternance.net";
+        String login15 = "devill_b@etna-alternance.net";
+
+        if(loginTextStr.equals(login10) && passwordTextStr.equals(password)){
             return 10;
         }
-        else if(loginTextStr.equals("dupe_j@etna-alternance.net") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals(login11) && passwordTextStr.equals(password)){
             return 11;
         }
-        else if(loginTextStr.equals("chave_k@etna-alternance.net") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals(login12) && passwordTextStr.equals(password)){
             return 12;
         }
-        else if(loginTextStr.equals("fourni_c@etna-alternance.net") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals(login13) && passwordTextStr.equals(password)){
             return 13;
         }
-        else if(loginTextStr.equals("grosje_s@etna-alternance.net") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals(login14) && passwordTextStr.equals(password)){
             return 14;
         }
-        else if(loginTextStr.equals("devill_b@etna-alternance.net") && passwordTextStr.equals("toto")){
+        else if(loginTextStr.equals(login15) && passwordTextStr.equals(password)){
             return 15;
         }
-        else{
-            return null;
-        }
+        return null;
     }
 
     public Boolean checkInternetConenction(Context context){
@@ -67,16 +73,17 @@ public class ConnexionDao {
                 Log.e("INFO", "ServerConenction OK");
                 return true;
             }
-        } catch (InterruptedException e) {
+        }
+        catch (ExecutionException e) {
             new TechnicalAppException("ConnexionDaoTest.class: checkServerConnection(): Probleme de connection: " + e.toString());
-        } catch (ExecutionException e) {
+        }
+        catch (InterruptedException e) {
             new TechnicalAppException("ConnexionDaoTest.class: checkServerConnection(): Probleme de connection: " + e.toString());
         }
         return false;
     }
 
     public Boolean isConnected(Context context) {
-
         return checkInternetConenction(context);
     }
 }

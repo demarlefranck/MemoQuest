@@ -6,37 +6,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.memoquest.app.R;
-import com.memoquest.app.menu.ConnectionActivity;
 import com.memoquest.app.menu.MenuActivity;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
-import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.CompleteListe;
-import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
-import com.memoquest.model.UserInternalBdd;
 import com.memoquest.service.CompleteListeService;
-import com.memoquest.service.InternalBdd.ListeService;
-import com.memoquest.service.InternalBdd.MotDefService;
-import com.memoquest.service.InternalBdd.UserService;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +29,9 @@ import java.util.List;
 
 public class ModifyListesActivity extends Activity implements View.OnClickListener {
 
-    final Context context = this;
+    Context context = this;
 
     private CompleteListeService completeListeService;
-    private MotDefService motDefService;
     private CompleteListe completeListe;
 
     private TextView titleListeView;
@@ -68,7 +52,6 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
         saveWordsAndDefView.setOnClickListener(this);
 
         completeListeService = new CompleteListeService(this);
-        motDefService = new MotDefService(this);
 
         showListeComplete();
 
@@ -85,6 +68,10 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
             case R.id.saveWordsAndDef:
                 Intent intent = new Intent(ModifyListesActivity.this, MenuActivity.class);
                 startActivity(intent);
+            break;
+
+            default:
+                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
             break;
         }
     }
@@ -135,8 +122,6 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
 
                 completeListe = completeListeService.getCompleteListeByListeId(listeInternalBddId);
 
-            } catch (TechnicalAppException e) {
-                Alerte.showAlertDialog("Technical Problem", this.getClass().getSimpleName() + "modifyListe(): " + "Probleme de recuperation de la liste", this);
             } catch (FonctionalAppException e) {
                 Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "modifyListe(): " + "Probleme de recuperatoion de la liste", this);
             }
@@ -224,46 +209,41 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
 
-                    String wordTextStr = "";
-                    String defTextStr = "";
+                String wordTextStr = "";
+                String defTextStr = "";
+                wordTextStr =String.valueOf(editWordText.getText());
+                defTextStr = String.valueOf(editDefText.getText());
 
-                    wordTextStr =String.valueOf(editWordText.getText());
-                    defTextStr = String.valueOf(editDefText.getText());
+                if (isValidate(wordTextStr, defTextStr)) {
 
-                    if (isValidate(wordTextStr, defTextStr)) {
+                    MotDefInternalBdd motDef = null;
 
-                        MotDefInternalBdd motDef = null;
-
-                        if(motDef_in != null){
-                            motDef_in.setMot(wordTextStr);
-                            motDef_in.setDefinition(defTextStr);
-                            motDef = motDef_in;
-
-                            //motDefService.updateMotDefInternalBdd(motDef_in);
-                        }
-                        else {
-                            motDef = new MotDefInternalBdd();
-                            motDef.setMot(wordTextStr);
-                            motDef.setDefinition(defTextStr);
-                        }
-
-                        completeListe.getMotDefInternalBdds().add(motDef);
-
-                        try {
-                            completeListeService.updateCompleteListe(completeListe);
-
-                        } catch (FonctionalAppException e) {
-                            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "showAlertBoxWordAndDef(): " + "Probleme d'enregistrement de la liste", context);
-                        }
-
-                        showListeComplete();
+                    if(motDef_in != null){
+                        motDef_in.setMot(wordTextStr);
+                        motDef_in.setDefinition(defTextStr);
+                        motDef = motDef_in;
                     }
+                    else {
+                        motDef = new MotDefInternalBdd();
+                        motDef.setMot(wordTextStr);
+                        motDef.setDefinition(defTextStr);
+                    }
+
+                    completeListe.getMotDefInternalBdds().add(motDef);
+
+                    try {
+                        completeListeService.updateCompleteListe(completeListe);
+
+                    } catch (FonctionalAppException e) {
+                        Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "showAlertBoxWordAndDef(): " + "Probleme d'enregistrement de la liste", context);
+                    }
+                    showListeComplete();
+                }
                 }
             }
         );
 
         AlertDialog alertDialog = alertDialogBuilder.create();
-
         alertDialog.show();
     }
 }

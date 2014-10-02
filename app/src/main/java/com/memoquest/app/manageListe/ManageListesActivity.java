@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.memoquest.app.R;
+import com.memoquest.app.util.Alerte;
 
 public class ManageListesActivity extends Activity implements View.OnClickListener {
 
@@ -47,6 +48,10 @@ public class ManageListesActivity extends Activity implements View.OnClickListen
                 intent3.putExtra("modifyMode", false);
                 intent3.putExtra("deleteMode", true);
                 startActivity(intent3);
+            break;
+
+            default:
+                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
             break;
         }
     }

@@ -1,23 +1,16 @@
 package com.memoquest.app.menu;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.memoquest.app.R;
-import com.memoquest.app.manageListe.ManageListesActivity;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
@@ -28,15 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-/*
-Infos bulle
-
-Toast.makeText(getApplicationContext(), "Click ListItem Number " + position, Toast.LENGTH_LONG).show();
-*/
-
-
-public class SwitchUserActivity extends Activity {
+public class SwitchUserActivity extends Activity implements View.OnClickListener {
 
     private UserService userService;
     private TextView newUseText;
@@ -48,6 +33,27 @@ public class SwitchUserActivity extends Activity {
         setContentView(R.layout.activity_switch_user);
 
         userService = new UserService(this);
+
+        newUseText = (TextView) this.findViewById(R.id.newUseText);
+        newUseText.setOnClickListener(this);
+
+        initActivity();
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.newUseText:
+                Intent intent = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
+                startActivity(intent);
+            break;
+
+            default:
+                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
+            break;
+        }
+    }
+
+    private void initActivity(){
         getAllUserInternalBdd();
 
         if(users.size() == 0){
@@ -61,14 +67,6 @@ public class SwitchUserActivity extends Activity {
         else {
             showUserListview();
         }
-
-        newUseText = (TextView) this.findViewById(R.id.newUseText);
-        newUseText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void showUserListview(){

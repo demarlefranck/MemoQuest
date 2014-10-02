@@ -4,20 +4,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.memoquest.app.R;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.model.ListeInternalBdd;
-import com.memoquest.model.MotDefInternalBdd;
 import com.memoquest.service.CompleteListeService;
 import com.memoquest.service.InternalBdd.ListeService;
 
@@ -38,14 +35,11 @@ public class SelectOrDeleteListesActivity extends ActionBarActivity {
         setContentView(R.layout.activity_select_list);
 
         context = this;
-
         listeService = new ListeService(this);
-
         completeListeService = new CompleteListeService(this);
 
         showListOfListe();
     }
-
 
     private void showListOfListe() {
 
@@ -63,23 +57,12 @@ public class SelectOrDeleteListesActivity extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                ListeInternalBdd listeInternalBdd = listes.get(position);
-                redirectIntent(listeInternalBdd.getId());
-
-                /*
-                ListeInternalBdd listeInternalBdd = listes.get(position);
-                Intent intent = new Intent(SelectOrDeleteListesActivity.this, ModifyListesActivity.class);
-                intent.putExtra("listeInternalBddId", listeInternalBdd.getId());
-                startActivity(intent);
-                */
+            ListeInternalBdd listeInternalBdd = listes.get(position);
+            redirectIntent(listeInternalBdd.getId());
             }
         });
 
     }
-
-
 
     private void redirectIntent(Integer listeId){
 
@@ -91,7 +74,7 @@ public class SelectOrDeleteListesActivity extends ActionBarActivity {
             Boolean deleteMode = (Boolean) objetbunble.get("deleteMode");
 
             if(modifyMode){
-                Intent intent = new Intent(SelectOrDeleteListesActivity.this, ModifyListesActivity.class);
+                Intent intent = new Intent(SelectOrDeleteListesActivity.this, CreateNewListesActivity.class);
                 intent.putExtra("listeInternalBddId", listeId);
                 startActivity(intent);
             }
@@ -149,31 +132,31 @@ public class SelectOrDeleteListesActivity extends ActionBarActivity {
     }
 
     /*
-     Fenetre de dialogue permettant la saisie d'un mot et de sa definition
-  */
+         Fenetre de dialogue permettant la saisie d'un mot et de sa definition
+    */
     private void showAlertBoxDeleteListe(Integer listeId) {
         new AlertDialog.Builder(context).setTitle("Confirmation")
-                                        .setTitle("Fonctionnalité momentanément indisponible")
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        }
-                )
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                                        .setTitle("Fonctionnalité indisponible")
+                                        .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                }
+                                        )
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
 
-                            /*
-                                   Doit juste mettre ListeInternalBdd.setMustDeleted = true
+                                                    /*
+                                                           Doit juste mettre ListeInternalBdd.setMustDeleted = true
 
-                                   pour etre delete sur le serveur avant de le delete dans la base
-                             */
+                                                           pour etre delete sur le serveur avant de le delete dans la base
+                                                     */
 
-                        showListOfListe();
-                    }
-                })
-                .setIcon(R.drawable.ic_launcher)
-                .show();
+                                                showListOfListe();
+                                            }
+                                        })
+                                        .setIcon(R.drawable.ic_launcher)
+                                        .show();
 
     }
 }

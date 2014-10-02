@@ -128,29 +128,45 @@ public class ListeInternalBdd {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
 
         ListeInternalBdd that = (ListeInternalBdd) o;
 
-        if (category != null ? !category.equals(that.category) : that.category != null)
+        if (category != null ? !category.equals(that.category) : that.category != null){
             return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null)
+        }
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null){
             return false;
-        if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null)
+        }
+        if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null){
             return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (mustDeleted != null ? !mustDeleted.equals(that.mustDeleted) : that.mustDeleted != null)
+        }
+        if (id != null ? !id.equals(that.id) : that.id != null){
             return false;
-        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
-        if (serverId != null ? !serverId.equals(that.serverId) : that.serverId != null)
+        }
+        if (nom != null ? !nom.equals(that.nom) : that.nom != null) {
             return false;
-        if (shared != null ? !shared.equals(that.shared) : that.shared != null) return false;
-        if (theme != null ? !theme.equals(that.theme) : that.theme != null) return false;
-        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null)
+        }
+        if (serverId != null ? !serverId.equals(that.serverId) : that.serverId != null){
             return false;
-        if (updateUser != null ? !updateUser.equals(that.updateUser) : that.updateUser != null)
+        }
+        if (shared != null ? !shared.equals(that.shared) : that.shared != null){
             return false;
+        }
+        if (theme != null ? !theme.equals(that.theme) : that.theme != null){
+            return false;
+        }
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null){
+            return false;
+        }
+        if (updateUser != null ? !updateUser.equals(that.updateUser) : that.updateUser != null){
+            return false;
+        }
 
         return true;
     }

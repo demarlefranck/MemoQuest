@@ -3,24 +3,17 @@ package com.memoquest.app.play;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.memoquest.app.R;
-import com.memoquest.app.menu.MenuActivity;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
-import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.ListeInternalBdd;
-import com.memoquest.model.UserInternalBdd;
 import com.memoquest.service.InternalBdd.ListeService;
-import com.memoquest.service.InternalBdd.UserService;
 
 import java.util.ArrayList;
 import java.util.HashMap;

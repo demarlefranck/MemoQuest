@@ -115,27 +115,45 @@ public class UserInternalBdd {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
 
         UserInternalBdd that = (UserInternalBdd) o;
 
-        if (actif != null ? !actif.equals(that.actif) : that.actif != null) return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null)
+        if (actif != null ? !actif.equals(that.actif) : that.actif != null){
             return false;
-        if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null)
+        }
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null){
             return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null)
+        }
+        if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null){
             return false;
-        if (pseudo != null ? !pseudo.equals(that.pseudo) : that.pseudo != null) return false;
-        if (serverId != null ? !serverId.equals(that.serverId) : that.serverId != null)
+        }
+        if (email != null ? !email.equals(that.email) : that.email != null){
             return false;
-        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null)
+        }
+        if (id != null ? !id.equals(that.id) : that.id != null){
             return false;
-        if (updateUser != null ? !updateUser.equals(that.updateUser) : that.updateUser != null)
+        }
+        if (password != null ? !password.equals(that.password) : that.password != null){
             return false;
+        }
+        if (pseudo != null ? !pseudo.equals(that.pseudo) : that.pseudo != null){
+            return false;
+        }
+        if (serverId != null ? !serverId.equals(that.serverId) : that.serverId != null){
+            return false;
+        }
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null){
+            return false;
+        }
+        if (updateUser != null ? !updateUser.equals(that.updateUser) : that.updateUser != null){
+            return false;
+        }
 
         return true;
     }

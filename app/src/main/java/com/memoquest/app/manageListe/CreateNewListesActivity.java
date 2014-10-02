@@ -13,12 +13,8 @@ import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.model.CompleteListe;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.service.CompleteListeService;
-import com.memoquest.service.InternalBdd.UserService;
-import com.memoquest.utils.MyDateUtils;
 
-public class CreateNewListesActivity extends Activity {
-
-
+public class CreateNewListesActivity extends Activity implements View.OnClickListener {
 
     private EditText titreListText;
     private EditText themeListText;
@@ -28,8 +24,7 @@ public class CreateNewListesActivity extends Activity {
     private String titreListTextStr;
     private String themeListTextStr;
     private String cathegoryListTextStr;
-
-    private Integer listeId;
+    private CompleteListe completeListe;
 
     private CompleteListeService completeListeService;
 
@@ -38,36 +33,73 @@ public class CreateNewListesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_list);
 
-        listeId = null;
+        /*
+            Penser a ajouter l'attribut shared
+         */
+
+        completeListe = null;
 
         completeListeService = new CompleteListeService(this);
-
         titreListText = (EditText) this.findViewById(R.id.titreListText);
         themeListText = (EditText) this.findViewById(R.id.themeListText);
         cathegoryListText = (EditText) this.findViewById(R.id.cathegoryListText);
 
-
-        /*
-         Recuperer bundle de l'activitée precedente (ManageListesActivity et SelectListesActivity)
-
-          si null => rien faire
-          si id    => mettre les valeur dans les input
-                et listeId = id
-          */
-
         addListText = (TextView) this.findViewById(R.id.addWordsAndDef);
-        addListText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        addListText.setOnClickListener(this);
 
-            if(isValidate()){
-                if (listeId == null)
-                    listeId = createNewCompleteListe();
-                Intent intent = new Intent(CreateNewListesActivity.this, ModifyListesActivity.class);
-                intent.putExtra("listeInternalBddId", listeId);
-                startActivity(intent);
+        initActivity();
+    }
+
+    private void initActivity() {
+
+        Bundle objetbunble = this.getIntent().getExtras();
+
+        if (objetbunble != null && objetbunble.containsKey("listeInternalBddId")){
+
+            Integer listeId = (Integer) objetbunble.get("listeInternalBddId");
+
+            try {
+                completeListe = completeListeService.getCompleteListeByListeId(listeId);
+            } catch (FonctionalAppException e) {
+                Alerte.showAlertDialog("erreur technique", "Lors de la recuperation des valeurs de la liste", this);
             }
-            }
-        });
+            titreListTextStr = completeListe.getListeInternalBdd().getNom();
+            themeListTextStr = completeListe.getListeInternalBdd().getTheme();
+            cathegoryListTextStr = completeListe.getListeInternalBdd().getCategory();
+
+            titreListText.setText(titreListTextStr);
+            themeListText.setText(themeListTextStr);
+            cathegoryListText.setText(cathegoryListTextStr);
+        }
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.addWordsAndDef:
+                if(isValidate()){
+                    if (completeListe == null) {
+                        createNewCompleteListe();
+                    }
+                    else{
+                        try {
+                            completeListe.getListeInternalBdd().setNom(titreListTextStr);
+                            completeListe.getListeInternalBdd().setTheme(themeListTextStr);
+                            completeListe.getListeInternalBdd().setCategory(cathegoryListTextStr);
+                            completeListeService.updateCompleteListe(completeListe);
+                        } catch (FonctionalAppException e) {
+                            Alerte.showAlertDialog("erreur technique", "Lors de la recuperation des valeurs de la liste", this);
+                        }
+                    }
+                    Intent intent = new Intent(CreateNewListesActivity.this, ModifyListesActivity.class);
+                    intent.putExtra("listeInternalBddId", completeListe.getListeInternalBdd().getId());
+                    startActivity(intent);
+                }
+            break;
+
+            default:
+                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
+            break;
+        }
     }
 
     public Boolean isValidate(){
@@ -95,24 +127,26 @@ public class CreateNewListesActivity extends Activity {
         return true;
     }
 
-    public Integer createNewCompleteListe(){
+    public void createNewCompleteListe(){
 
+        int listeId = -1;
         ListeInternalBdd listeInternalBdd = new ListeInternalBdd();
         listeInternalBdd.setNom(titreListTextStr);
         listeInternalBdd.setTheme(themeListTextStr);
         listeInternalBdd.setCategory(cathegoryListTextStr);
         listeInternalBdd.setShared(false);
 
-        CompleteListe completeListe = new CompleteListe();
+        completeListe = new CompleteListe();
         completeListe.setListeInternalBdd(listeInternalBdd);
 
         try {
-
-            return completeListeService.addCompleteListe(completeListe);
-
+            listeId = completeListeService.addCompleteListe(completeListe);
         } catch (FonctionalAppException e) {
             Alerte.showAlertDialog("Problème technique", "Une erreur s'est produite lors de la création de la liste", this);
         }
-        return null;
+
+        if(listeId != -1){
+            completeListe.getListeInternalBdd().setId(listeId);
+        }
     }
 }

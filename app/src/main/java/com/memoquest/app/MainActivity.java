@@ -3,12 +3,8 @@ package com.memoquest.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.memoquest.app.menu.ConnectionActivity;
 import com.memoquest.app.menu.MenuActivity;
 import com.memoquest.app.menu.SwitchUserActivity;
 import com.memoquest.app.util.Alerte;
@@ -18,10 +14,7 @@ import com.memoquest.service.ConnexionService;
 import com.memoquest.service.InternalBdd.UserService;
 import com.memoquest.service.Synchro.ManagerSynchroService;
 
-
 public class MainActivity extends Activity {
-//public class MainActivity extends Activity {
-
 
     private ConnexionService connexionService;
     private UserService userService;
@@ -113,28 +106,4 @@ public class MainActivity extends Activity {
         Log.i("","MainActivity.class: onResume()");
         super.onResume();
     }
-
-
-/*
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-*/
 }

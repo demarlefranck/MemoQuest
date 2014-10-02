@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.ListeInternalBdd;
-import com.memoquest.model.MotDefInternalBdd;
 import com.memoquest.model.UserInternalBdd;
 
 import java.util.LinkedList;
@@ -68,8 +66,7 @@ public class SQLiteTableUserDao {
         UserInternalBdd userInternalBdd = null;
         Cursor cursor = db.rawQuery(query, null);
 
-        if (cursor.moveToFirst())
-        {
+        if (cursor.moveToFirst()) {
             do {
                 userInternalBdd = new UserInternalBdd();
                 userInternalBdd.setId(cursor.getInt(0));
@@ -92,12 +89,15 @@ public class SQLiteTableUserDao {
     }
 
     public UserInternalBdd convertListesToUserInternalBdd(List<UserInternalBdd> listes, int searchParam) throws TechnicalAppException, FonctionalAppException {
-        if(listes.size() > 1)
+        if(listes.size() > 1){
             throw new TechnicalAppException("Plus d'un user à été trouvé avec l'id: " + searchParam);
-        else if(listes.size()== 0)
+        }
+        else if(listes.isEmpty()){
             throw new FonctionalAppException("Aucun user à été trouvé avec l'id: " + searchParam);
-        else
+        }
+        else{
             return listes.get(0);
+        }
     }
 
     public int addUserInternalBdd(SQLiteDatabase db, UserInternalBdd user) {
@@ -114,16 +114,18 @@ public class SQLiteTableUserDao {
 
     public UserInternalBdd getUserInternalBddActif(SQLiteDatabase db) throws FonctionalAppException, TechnicalAppException {
 
-        List<UserInternalBdd> users = new LinkedList<UserInternalBdd>();
         String query = "SELECT  * FROM " + NAME_TABLE_USER + " WHERE " + KEY_USER_ACTIF + " = " + 1 + ";";
         List<UserInternalBdd>  userInternalBddList = mapBddResultToUserInternalBdd(db, query);
 
-        if(userInternalBddList.size() > 1)
+        if(userInternalBddList.size() > 1){
             throw new TechnicalAppException("Plus d'un user a été trouvé");
-        else if(userInternalBddList.size()== 0)
+        }
+        else if(userInternalBddList.isEmpty()){
             return null;
-        else
+        }
+        else{
             return userInternalBddList.get(0);
+        }
     }
 
     public UserInternalBdd getUserInternalBddActifById(SQLiteDatabase db, int id) throws TechnicalAppException, FonctionalAppException {
@@ -133,7 +135,6 @@ public class SQLiteTableUserDao {
     }
 
     public List<UserInternalBdd> getAllUserInternalBdd(SQLiteDatabase db) throws TechnicalAppException {
-        List<UserInternalBdd> users = new LinkedList<UserInternalBdd>();
         String query = "SELECT  * FROM " + NAME_TABLE_USER;
         return mapBddResultToUserInternalBdd(db, query);
     }

@@ -3,11 +3,7 @@ package com.memoquest.app.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +15,7 @@ import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.service.ConnexionService;
 
 
-public class ConnectionActivity extends Activity {
+public class ConnectionActivity extends Activity implements View.OnClickListener {
 
     private EditText loginText;
     private EditText passwordText;
@@ -35,37 +31,46 @@ public class ConnectionActivity extends Activity {
 
         loginText = (EditText) this.findViewById(R.id.loginText);
         passwordText = (EditText) this.findViewById(R.id.passwordText);
+
         connexionText = (TextView) this.findViewById(R.id.connexionText);
+        connexionText.setOnClickListener(this);
+
         signinText = (TextView) this.findViewById(R.id.signinText);
+        signinText.setOnClickListener(this);
+
         passwordForbidText = (TextView) this.findViewById(R.id.passwordForbidText);
+        passwordForbidText.setOnClickListener(this);
 
         connexionService = new ConnexionService(this);
-
-        connexionText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            if(isAuthentifiate(v)){
-                Intent intent = new Intent(ConnectionActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
-            }
-        });
-
-        signinText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            if (signinText != null)
-                signinText.setMovementMethod(LinkMovementMethod.getInstance());
-            }
-        });
-
-        passwordForbidText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            if (passwordForbidText != null)
-                passwordForbidText.setMovementMethod(LinkMovementMethod.getInstance());
-           }
-        });
     }
 
-    private Boolean isAuthentifiate(View v) {
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.connexionText:
+                if(isAuthentifiate()){
+                    Intent intent = new Intent(ConnectionActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                }
+            break;
+
+            case R.id.signinText:
+                if (signinText != null)
+                    signinText.setMovementMethod(LinkMovementMethod.getInstance());
+            break;
+
+            case R.id.passwordForbidText:
+                if (passwordForbidText != null)
+                    passwordForbidText.setMovementMethod(LinkMovementMethod.getInstance());
+            break;
+
+            default:
+                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
+            break;
+        }
+    }
+
+    private Boolean isAuthentifiate() {
 
         ConnexionService connexionService = new ConnexionService(this);
 

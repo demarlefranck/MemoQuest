@@ -3,10 +3,7 @@ package com.memoquest.app.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.memoquest.app.R;
@@ -16,13 +13,12 @@ import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.service.InternalBdd.UserService;
 
-
-public class MenuActivity extends Activity {
+public class MenuActivity extends Activity implements View.OnClickListener {
 
     private TextView manageListText;
+    private TextView playText;
     private TextView changeUserText;
     private UserService userService;
-    //  private ImageButton playImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +28,36 @@ public class MenuActivity extends Activity {
         userService = new UserService(this);
 
         manageListText = (TextView) this.findViewById(R.id.manageListText);
-        manageListText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ManageListesActivity.class);
-                startActivity(intent);
-            }
-        });
+        manageListText.setOnClickListener(this);
 
         changeUserText = (TextView) this.findViewById(R.id.changeUserText);
-        changeUserText.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startSwitchUserActivity();
-            }
-        });
+        changeUserText.setOnClickListener(this);
 
-
-
-
-        /*
-        playImageButton = (ImageButton) this.findViewById(R.id.imageButtonPlay);
-
-        playImageButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ManageListesActivity.class);
-                startActivity(intent);
-            }
-        });
-*/
+        playText = (TextView) this.findViewById(R.id.playTextView);
+        playText.setOnClickListener(this);
     }
 
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.manageListText:
+                Intent intent = new Intent(MenuActivity.this, ManageListesActivity.class);
+                startActivity(intent);
+            break;
+
+            case R.id.changeUserText:
+                startSwitchUserActivity();
+            break;
+
+            case R.id.playTextView:
+                Alerte.showAlertDialog("Confirmation", "Fonctionnalité indisponible", this);
+            break;
+
+            default:
+                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
+            break;
+        }
+    }
 
     private void startSwitchUserActivity(){
         try {
