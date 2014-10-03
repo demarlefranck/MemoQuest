@@ -1,4 +1,4 @@
-package com.memoquest.app.manageListe;
+package com.memoquest.app.manage.liste;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,11 +16,12 @@ import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.service.CompleteListeService;
-import com.memoquest.service.InternalBdd.ListeService;
+import com.memoquest.service.bdd.ListeService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SelectOrDeleteListesActivity extends ActionBarActivity {
 
@@ -47,7 +48,7 @@ public class SelectOrDeleteListesActivity extends ActionBarActivity {
 
         final ListView listView = (ListView) findViewById(R.id.listeListview);
         String[] values = getListeTitleValues();
-        final ArrayList<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
             list.add(values[i]);
         }
@@ -74,11 +75,13 @@ public class SelectOrDeleteListesActivity extends ActionBarActivity {
             Boolean deleteMode = (Boolean) objetbunble.get("deleteMode");
 
             if(modifyMode){
+
                 Intent intent = new Intent(SelectOrDeleteListesActivity.this, CreateNewListesActivity.class);
                 intent.putExtra("listeInternalBddId", listeId);
                 startActivity(intent);
-            }
-            else if(deleteMode){
+
+            }else if(deleteMode){
+
                 showAlertBoxDeleteListe(listeId);
             }
         }
@@ -109,7 +112,7 @@ public class SelectOrDeleteListesActivity extends ActionBarActivity {
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        Map<String, Integer> mIdMap = new HashMap<String, Integer>();
 
         public StableArrayAdapter(Context context, int textViewResourceId,
                                   List<String> objects) {

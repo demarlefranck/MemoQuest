@@ -1,16 +1,8 @@
-package com.memoquest.dao.internalBdd;
+package com.memoquest.dao.bdd;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.memoquest.exception.FonctionalAppException;
-import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.model.ListeInternalBdd;
-import com.memoquest.model.MotDefInternalBdd;
-import com.memoquest.model.UserInternalBdd;
-
-import java.util.List;
 
 public class SQLiteDatabaseManager extends SQLiteOpenHelper {
 

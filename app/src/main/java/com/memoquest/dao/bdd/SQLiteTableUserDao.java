@@ -1,4 +1,4 @@
-package com.memoquest.dao.internalBdd;
+package com.memoquest.dao.bdd;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -29,7 +29,9 @@ public class SQLiteTableUserDao {
     private static final String KEY_UPDATE_USER = "update_user";
     private static final String KEY_UPDATE_TIME = "update_time";
 
-    public SQLiteTableUserDao() {}
+    public SQLiteTableUserDao() {
+        
+    }
 
     public String getCreateTableUserRequest(){
 
@@ -90,13 +92,17 @@ public class SQLiteTableUserDao {
 
     public UserInternalBdd convertListesToUserInternalBdd(List<UserInternalBdd> listes, int searchParam) throws TechnicalAppException, FonctionalAppException {
         if(listes.size() > 1){
+
             throw new TechnicalAppException("Plus d'un user à été trouvé avec l'id: " + searchParam);
-        }
-        else if(listes.isEmpty()){
+
+        } else if(listes.isEmpty()){
+
             throw new FonctionalAppException("Aucun user à été trouvé avec l'id: " + searchParam);
-        }
-        else{
+
+        } else{
+
             return listes.get(0);
+
         }
     }
 
@@ -118,12 +124,15 @@ public class SQLiteTableUserDao {
         List<UserInternalBdd>  userInternalBddList = mapBddResultToUserInternalBdd(db, query);
 
         if(userInternalBddList.size() > 1){
+
             throw new TechnicalAppException("Plus d'un user a été trouvé");
-        }
-        else if(userInternalBddList.isEmpty()){
+
+        } else if(userInternalBddList.isEmpty()){
+
             return null;
-        }
-        else{
+
+        } else{
+
             return userInternalBddList.get(0);
         }
     }

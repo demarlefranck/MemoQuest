@@ -1,4 +1,4 @@
-package com.memoquest.app.manageListe;
+package com.memoquest.app.manage.liste;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.memoquest.app.R;
-import com.memoquest.app.menu.MenuActivity;
+import com.memoquest.app.manage.menu.MenuActivity;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.model.CompleteListe;
@@ -25,6 +26,7 @@ import com.memoquest.service.CompleteListeService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ModifyListesActivity extends Activity implements View.OnClickListener {
@@ -84,7 +86,7 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
 
         String[] values = getWordListValues();
 
-        final ArrayList<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
             list.add(values[i]);
         }
@@ -107,22 +109,30 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
     private void loadListeByInternalBddId() {
 
         int listeInternalBddId = -1;
+        String bundleKey = "listeInternalBddId";
 
         Bundle objetbunble = this.getIntent().getExtras();
 
-        if (objetbunble != null && objetbunble.containsKey("listeInternalBddId"))
-            listeInternalBddId = this.getIntent().getIntExtra("listeInternalBddId", -1);
-        else
+        if (objetbunble != null && objetbunble.containsKey(bundleKey)){
+
+            listeInternalBddId = this.getIntent().getIntExtra(bundleKey, -1);
+
+        } else{
+
+            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onCreate(): " + "Probleme d'identification de la liste", this);
+        }
+
+        if (listeInternalBddId == -1){
+
             Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onCreate(): " + "Probleme d'identification de la liste", this);
 
-        if (listeInternalBddId == -1)
-            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onCreate(): " + "Probleme d'identification de la liste", this);
-        else {
+        } else {
             try {
 
                 completeListe = completeListeService.getCompleteListeByListeId(listeInternalBddId);
 
             } catch (FonctionalAppException e) {
+                Log.e("ERROR", e.toString());
                 Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "modifyListe(): " + "Probleme de recuperatoion de la liste", this);
             }
         }
@@ -130,11 +140,15 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
 
 
     public Boolean isValidate(String wordTextStr, String defTextStr){
-        if(wordTextStr.equals("")){
+        String empty = "";
+
+        if(wordTextStr.equals(empty)) {
+
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir un mot", this);
             return false;
-        }
-        else if(defTextStr.equals("")){
+
+        } else if(defTextStr.equals(empty)){
+
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir une définition", this);
             return false;
         }
@@ -155,7 +169,7 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        Map<String, Integer> mIdMap = new HashMap<String, Integer>();
 
         public StableArrayAdapter(Context context, int textViewResourceId, List<String> objects) {
             super(context, textViewResourceId, objects);
@@ -180,7 +194,7 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
     /*
         Fenetre de dialogue permettant la saisie d'un mot et de sa definition
      */
-    private void showAlertBoxWordAndDef(final MotDefInternalBdd motDef_in) {
+    private void showAlertBoxWordAndDef(final MotDefInternalBdd motDefInput) {
 
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.word_def_edit_alerte_box, null);
@@ -188,9 +202,9 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
         final EditText editWordText = (EditText) promptsView.findViewById(R.id.editTextWord);
         final EditText editDefText = (EditText) promptsView.findViewById(R.id.editTextDef);
 
-        if(motDef_in != null){
-            editWordText.setText(motDef_in.getMot());
-            editDefText.setText(motDef_in.getDefinition());
+        if(motDefInput != null){
+            editWordText.setText(motDefInput.getMot());
+            editDefText.setText(motDefInput.getDefinition());
         }
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -218,12 +232,14 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
 
                     MotDefInternalBdd motDef = null;
 
-                    if(motDef_in != null){
-                        motDef_in.setMot(wordTextStr);
-                        motDef_in.setDefinition(defTextStr);
-                        motDef = motDef_in;
-                    }
-                    else {
+                    if(motDefInput != null){
+
+                        motDefInput.setMot(wordTextStr);
+                        motDefInput.setDefinition(defTextStr);
+                        motDef = motDefInput;
+
+                    } else {
+
                         motDef = new MotDefInternalBdd();
                         motDef.setMot(wordTextStr);
                         motDef.setDefinition(defTextStr);
@@ -235,7 +251,9 @@ public class ModifyListesActivity extends Activity implements View.OnClickListen
                         completeListeService.updateCompleteListe(completeListe);
 
                     } catch (FonctionalAppException e) {
+
                         Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "showAlertBoxWordAndDef(): " + "Probleme d'enregistrement de la liste", context);
+
                     }
                     showListeComplete();
                 }

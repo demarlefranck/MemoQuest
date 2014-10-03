@@ -16,7 +16,9 @@ public class UserInternalBdd {
     private Integer updateUser;
     private String updateTime;
 
-    public UserInternalBdd(){}
+    public UserInternalBdd(){
+
+    }
 
     public Integer getId() {
         return id;

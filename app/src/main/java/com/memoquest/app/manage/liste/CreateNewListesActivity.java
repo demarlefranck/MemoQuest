@@ -1,8 +1,9 @@
-package com.memoquest.app.manageListe;
+package com.memoquest.app.manage.liste;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -52,15 +53,17 @@ public class CreateNewListesActivity extends Activity implements View.OnClickLis
 
     private void initActivity() {
 
+        String bundleKey = "listeInternalBddId";
         Bundle objetbunble = this.getIntent().getExtras();
 
-        if (objetbunble != null && objetbunble.containsKey("listeInternalBddId")){
+        if (objetbunble != null && objetbunble.containsKey(bundleKey)){
 
-            Integer listeId = (Integer) objetbunble.get("listeInternalBddId");
+            Integer listeId = (Integer) objetbunble.get(bundleKey);
 
             try {
                 completeListe = completeListeService.getCompleteListeByListeId(listeId);
             } catch (FonctionalAppException e) {
+                Log.e("ERROR", e.toString());
                 Alerte.showAlertDialog("erreur technique", "Lors de la recuperation des valeurs de la liste", this);
             }
             titreListTextStr = completeListe.getListeInternalBdd().getNom();
@@ -74,36 +77,36 @@ public class CreateNewListesActivity extends Activity implements View.OnClickLis
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.addWordsAndDef:
-                if(isValidate()){
-                    if (completeListe == null) {
-                        createNewCompleteListe();
-                    }
-                    else{
-                        try {
-                            completeListe.getListeInternalBdd().setNom(titreListTextStr);
-                            completeListe.getListeInternalBdd().setTheme(themeListTextStr);
-                            completeListe.getListeInternalBdd().setCategory(cathegoryListTextStr);
-                            completeListeService.updateCompleteListe(completeListe);
-                        } catch (FonctionalAppException e) {
-                            Alerte.showAlertDialog("erreur technique", "Lors de la recuperation des valeurs de la liste", this);
-                        }
-                    }
-                    Intent intent = new Intent(CreateNewListesActivity.this, ModifyListesActivity.class);
-                    intent.putExtra("listeInternalBddId", completeListe.getListeInternalBdd().getId());
-                    startActivity(intent);
-                }
-            break;
 
-            default:
-                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
-            break;
+        if(v.getId() == R.id.addWordsAndDef){
+            if(isValidate()){
+                if (completeListe == null) {
+                    createNewCompleteListe();
+                }
+
+                try {
+                    completeListe.getListeInternalBdd().setNom(titreListTextStr);
+                    completeListe.getListeInternalBdd().setTheme(themeListTextStr);
+                    completeListe.getListeInternalBdd().setCategory(cathegoryListTextStr);
+                    completeListeService.updateCompleteListe(completeListe);
+                } catch (FonctionalAppException e) {
+                    Log.e("ERROR", e.toString());
+                    Alerte.showAlertDialog("erreur technique", "Lors de la recuperation des valeurs de la liste", this);
+                }
+
+                Intent intent = new Intent(CreateNewListesActivity.this, ModifyListesActivity.class);
+                intent.putExtra("listeInternalBddId", completeListe.getListeInternalBdd().getId());
+                startActivity(intent);
+            }
+        } else{
+
+            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
         }
     }
 
     public Boolean isValidate(){
 
+        String empty = "";
         titreListTextStr = "";
         themeListTextStr = "";
         cathegoryListTextStr ="";
@@ -112,15 +115,18 @@ public class CreateNewListesActivity extends Activity implements View.OnClickLis
         themeListTextStr = String.valueOf(themeListText.getText());
         cathegoryListTextStr = String.valueOf(cathegoryListText.getText());
 
-        if(titreListTextStr.equals("")){
+        if(titreListTextStr.equals(empty)){
+
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir le titre de la liste", this);
             return false;
-        }
-        else if(themeListTextStr.equals("")){
+
+        } else if(themeListTextStr.equals(empty)){
+
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir le thême de la liste", this);
             return false;
-        }
-        else if(cathegoryListTextStr.equals("")){
+
+        } else if(cathegoryListTextStr.equals(empty)){
+
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir la catégorie de la liste", this);
             return false;
         }
@@ -142,6 +148,7 @@ public class CreateNewListesActivity extends Activity implements View.OnClickLis
         try {
             listeId = completeListeService.addCompleteListe(completeListe);
         } catch (FonctionalAppException e) {
+            Log.e("ERROR", e.toString());
             Alerte.showAlertDialog("Problème technique", "Une erreur s'est produite lors de la création de la liste", this);
         }
 

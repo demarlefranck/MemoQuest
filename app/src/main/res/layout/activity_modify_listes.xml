@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.memoquest.app.menu.SwitchUserActivity"
+    tools:context="com.memoquest.app.manage.menu.SwitchUserActivity"
     android:background="#ffffff">
 
 

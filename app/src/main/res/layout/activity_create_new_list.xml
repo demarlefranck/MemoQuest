@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.memoquest.app.manageListe.CreateNewListesActivity"
+    tools:context="com.memoquest.app.manage.liste.CreateNewListesActivity"
     android:background="#ffffff">
 
     <RelativeLayout
@@ -40,7 +40,7 @@
 
         <EditText
             android:id="@+id/cathegoryListText"
-            android:hint="Cathégorie de la liste"
+            android:hint="Catégorie de la liste"
             android:background="@drawable/round_corner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -55,7 +55,7 @@
 
         <EditText
             android:id="@+id/themeListText"
-            android:hint="Thême de la liste"
+            android:hint="Thème de la liste"
             android:background="@drawable/round_corner"
             android:layout_width="match_parent"
             android:layout_height="40dp"

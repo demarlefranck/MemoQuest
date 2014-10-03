@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,11 +14,12 @@ import com.memoquest.app.R;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.model.ListeInternalBdd;
-import com.memoquest.service.InternalBdd.ListeService;
+import com.memoquest.service.bdd.ListeService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SelectListActivity extends Activity {
 
@@ -34,7 +36,7 @@ public class SelectListActivity extends Activity {
 
         final ListView listView = (ListView) findViewById(R.id.userListview);
         String[] values = getListeTitleValues();
-        final ArrayList<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
             list.add(values[i]);
         }
@@ -58,6 +60,7 @@ public class SelectListActivity extends Activity {
             listes = listeService.getListeInternalBddByUser();
 
         } catch (FonctionalAppException e) {
+            Log.e("ERROR", e.toString());
             Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "getAllListeInternalBddByUser(): " + e.toString(), this);
         }
     }
@@ -74,7 +77,7 @@ public class SelectListActivity extends Activity {
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        Map<String, Integer> mIdMap = new HashMap<String, Integer>();
 
         public StableArrayAdapter(Context context, int textViewResourceId,
                                   List<String> objects) {

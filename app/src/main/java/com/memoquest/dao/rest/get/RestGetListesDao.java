@@ -58,7 +58,6 @@ public class RestGetListesDao extends AsyncTask<Void, Void, List<ListeRest> > {
     }
 
     public List<ListeRest> httpEntityToObject(HttpEntity httpEntity){
-        List<ListeRest> listes = null;
 
         StringBuilder builder = new StringBuilder();
 

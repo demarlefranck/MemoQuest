@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.memoquest.app.menu.MenuActivity;
-import com.memoquest.app.menu.SwitchUserActivity;
+import com.memoquest.app.manage.menu.MenuActivity;
+import com.memoquest.app.manage.menu.SwitchUserActivity;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.service.ConnexionService;
-import com.memoquest.service.InternalBdd.UserService;
-import com.memoquest.service.Synchro.ManagerSynchroService;
+import com.memoquest.service.bdd.UserService;
+import com.memoquest.service.synchro.ManagerSynchroService;
 
 public class MainActivity extends Activity {
 
@@ -36,16 +36,17 @@ public class MainActivity extends Activity {
         userService = new UserService(this);
         managerSynchroService = new ManagerSynchroService();
 
-        if(connexionService.isConnected(this))
+        if(connexionService.isConnected(this)){
+
             startWithConnection();
-        else
+
+        } else{
+
             startWithoutConnection();
+        }
     }
 
     public void startWithConnection(){
-
-
-        Log.d("DEBUG", "MainActivity.class: startWithConnection()");
 
        try {
             //verif authentification
@@ -56,34 +57,41 @@ public class MainActivity extends Activity {
 
                 Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
                 startActivity(intentMenu);
-           }
-            else{
+
+           } else{
+
                 Intent intentConnexion = new Intent(MainActivity.this, SwitchUserActivity.class);
                 startActivity(intentConnexion);
+
             }
         } catch (TechnicalAppException e) {
+
             Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithConnection(): " + e.toString(), this);
+
         } catch (FonctionalAppException e) {
+
             Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithConnection(): " + e.toString(), this);
         }
     }
 
     public void startWithoutConnection() {
 
-
-        Log.d("DEBUG", "MainActivity.class: startWithoutConnection()");
-
         try {
             if (userService.isAuthentifiate()) {
+
                 Intent intentMenu = new Intent(MainActivity.this, MenuActivity.class);
                 startActivity(intentMenu);
-            }
-            else {
+
+            } else {
+
                 Alerte.showAlertDialog("Probleme de connexion", "Une connexion internet est requise", this);
             }
         } catch (TechnicalAppException e) {
+
             Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithoutConnection(): " + e.toString(), this);
+
         } catch (FonctionalAppException e) {
+
             Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startWithoutConnection(): " + e.toString(), this);
         }
     }

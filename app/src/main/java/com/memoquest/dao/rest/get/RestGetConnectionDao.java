@@ -30,8 +30,9 @@ public class RestGetConnectionDao extends AsyncTask<Void, Void, Boolean> {
             HttpGet httpGet = new HttpGet(url);
             HttpResponse httpResponse = httpclient.execute(httpGet);
 
-            if (httpResponse.getStatusLine().getStatusCode() == 200)
+            if (httpResponse.getStatusLine().getStatusCode() == 200){
                 return true;
+            }
 
         } catch (UnknownHostException e) {
             new TechnicalAppException("RestGetConnectionDaoTest.class: Probleme de connection au serveur " + e.toString());

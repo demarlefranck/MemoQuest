@@ -1,9 +1,8 @@
-package com.memoquest.service.InternalBdd;
+package com.memoquest.service.bdd;
 
 import android.content.Context;
 
-import com.memoquest.dao.internalBdd.SQLiteDatabaseManager;
-import com.memoquest.dao.internalBdd.SQLiteTableMotDefDao;
+import com.memoquest.dao.bdd.SQLiteDatabaseManager;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.MotDefInternalBdd;

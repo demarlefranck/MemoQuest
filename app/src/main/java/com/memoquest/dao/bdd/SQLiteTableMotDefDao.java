@@ -1,4 +1,4 @@
-package com.memoquest.dao.internalBdd;
+package com.memoquest.dao.bdd;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -30,7 +30,9 @@ public class SQLiteTableMotDefDao {
     private static final String KEY_UPDATE_USER = "update_user";
     private static final String KEY_UPDATE_TIME = "update_time";
 
-    public SQLiteTableMotDefDao() {}
+    public SQLiteTableMotDefDao() {
+
+    }
 
     public String getCreateTableMotDefRequest(){
         return "CREATE TABLE " +  NAME_TABLE_MOT_DEF + " ( " +
@@ -67,8 +69,7 @@ public class SQLiteTableMotDefDao {
         List<MotDefInternalBdd> listes = new LinkedList<MotDefInternalBdd>();
         MotDefInternalBdd motDefInternalBdd = null;
         Cursor cursor = db.rawQuery(query, null);
-        if (cursor.moveToFirst())
-        {
+        if (cursor.moveToFirst()) {
             do {
                 motDefInternalBdd = new MotDefInternalBdd();
                 motDefInternalBdd.setId(cursor.getInt(0));
@@ -91,12 +92,18 @@ public class SQLiteTableMotDefDao {
     }
 
     public MotDefInternalBdd convertMotDefsToMotDefInternalBdd(List<MotDefInternalBdd> listes, String searchParam) throws TechnicalAppException, FonctionalAppException {
-        if(listes.size() > 1)
+        if(listes.size() > 1){
+
             throw new TechnicalAppException("Plus d'un mot / definition à été trouvée avec l'id: " + searchParam);
-        else if(listes.size()== 0)
+
+        } else if(listes.isEmpty()){
+
             throw new FonctionalAppException("Aucun mot / definition à été trouvée avec l'id: " + searchParam);
-        else
+
+        } else{
+
             return listes.get(0);
+        }
     }
 
     public int addMotDefToInternalBdd(SQLiteDatabase db, MotDefInternalBdd motDefInternalBdd){

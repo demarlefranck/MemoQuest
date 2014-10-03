@@ -1,4 +1,4 @@
-package com.memoquest.app.manageListe;
+package com.memoquest.app.manage.liste;
 
 import android.app.Activity;
 import android.content.Intent;

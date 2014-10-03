@@ -13,6 +13,9 @@ import java.util.Locale;
  */
 public class MyDateUtils {
 
+    public MyDateUtils() {
+    }
+
     public static String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -37,12 +40,15 @@ public class MyDateUtils {
         Date date2 = MyDateUtils.convertDateStringToDate(dateStr2);
 
         if(date1.compareTo(date2) > 0) {
+
             return 1;
-        }
-        else if(date1.compareTo(date2) < 0) {
+
+        } else if(date1.compareTo(date2) < 0) {
+
             return -1;
-        }
-        else if(date1.compareTo(date2) == 0) {
+
+        } else if(date1.compareTo(date2) == 0) {
+
             return 0;
         }
         return null;

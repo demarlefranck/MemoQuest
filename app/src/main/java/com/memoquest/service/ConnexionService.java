@@ -6,7 +6,7 @@ import com.memoquest.dao.ConnexionDao;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.UserInternalBdd;
-import com.memoquest.service.InternalBdd.UserService;
+import com.memoquest.service.bdd.UserService;
 import com.memoquest.utils.MyDateUtils;
 
 import java.security.MessageDigest;
@@ -41,8 +41,7 @@ public class ConnexionService {
 
             return true;
         }
-        else
-            return false;
+        return false;
     }
 
     public Boolean isConnected(Context context){
@@ -58,33 +57,33 @@ public class ConnexionService {
 
         MessageDigest messageDigest;
 
-        StringBuffer 	stringBuffer 		= 	new StringBuffer();
+        StringBuilder 	stringBuilder 		= 	new StringBuilder();
 
-        StringBuffer 	stringBufferTemp 	= 	new StringBuffer();
+        StringBuilder 	stringBuilderTemp 	= 	new StringBuilder();
 
         try {
 
             messageDigest = MessageDigest.getInstance( "MD5" );
 
-            stringBufferTemp.append( password );
+            stringBuilderTemp.append(password);
 
-            stringBufferTemp.append( saltWord );
+            stringBuilderTemp.append(saltWord);
 
-            messageDigest.update( stringBufferTemp.toString().getBytes() );
+            messageDigest.update(stringBuilderTemp.toString().getBytes());
 
-            byte 	byteData[]	 	= 		messageDigest.digest();
+            byte[] 	byteData = messageDigest.digest();
 
             for (int i = 0; i < byteData.length; i++) {
 
-                stringBuffer.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+                stringBuilder.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
 
             }
-        }
-        catch ( NoSuchAlgorithmException e )	{
+        } catch ( NoSuchAlgorithmException e ) {
+
             new TechnicalAppException("ConnexionService.class: toMD5(): Probleme lors de l'encryptage du mot de passe: " + e.toString());
     	}
 
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 
 }

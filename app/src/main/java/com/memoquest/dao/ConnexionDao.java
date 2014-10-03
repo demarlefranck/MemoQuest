@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.memoquest.dao.rest.get.RestGetConnectionDao;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.service.InternalBdd.UserService;
 
 import java.util.concurrent.ExecutionException;
 
@@ -28,21 +27,26 @@ public class ConnexionDao {
         String login15 = "devill_b@etna-alternance.net";
 
         if(loginTextStr.equals(login10) && passwordTextStr.equals(password)){
+
             return 10;
-        }
-        else if(loginTextStr.equals(login11) && passwordTextStr.equals(password)){
+
+        } else if(loginTextStr.equals(login11) && passwordTextStr.equals(password)){
+
             return 11;
-        }
-        else if(loginTextStr.equals(login12) && passwordTextStr.equals(password)){
+
+        } else if(loginTextStr.equals(login12) && passwordTextStr.equals(password)){
+
             return 12;
-        }
-        else if(loginTextStr.equals(login13) && passwordTextStr.equals(password)){
+
+        } else if(loginTextStr.equals(login13) && passwordTextStr.equals(password)){
+
             return 13;
-        }
-        else if(loginTextStr.equals(login14) && passwordTextStr.equals(password)){
+        } else if(loginTextStr.equals(login14) && passwordTextStr.equals(password)){
+
             return 14;
-        }
-        else if(loginTextStr.equals(login15) && passwordTextStr.equals(password)){
+
+        } else if(loginTextStr.equals(login15) && passwordTextStr.equals(password)){
+
             return 15;
         }
         return null;

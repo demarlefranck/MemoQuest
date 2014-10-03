@@ -17,29 +17,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.memoquest.app.menu.ConnectionActivity"
+            android:name="com.memoquest.app.manage.menu.ConnectionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_connection"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.memoquest.app.menu.MenuActivity"
+            android:name="com.memoquest.app.manage.menu.MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name="com.memoquest.app.manageListe.ManageListesActivity"
+            android:name="com.memoquest.app.manage.liste.ManageListesActivity"
             android:label="@string/title_activity_manage_list" >
         </activity>
         <activity
-            android:name="com.memoquest.app.manageListe.CreateNewListesActivity"
+            android:name="com.memoquest.app.manage.liste.CreateNewListesActivity"
             android:label="@string/title_activity_create_new_list" >
         </activity>
         <activity
-            android:name="com.memoquest.app.manageListe.ModifyListesActivity"
+            android:name="com.memoquest.app.manage.liste.ModifyListesActivity"
             android:label="@string/title_activity_modify_listes" >
         </activity>
         <activity
-            android:name="com.memoquest.app.menu.SwitchUserActivity"
+            android:name="com.memoquest.app.manage.menu.SwitchUserActivity"
             android:label="@string/title_activity_switch_user" >
         </activity>
         <activity
@@ -51,7 +51,7 @@
             android:label="@string/title_activity_select_play" >
         </activity>
         <activity
-            android:name="com.memoquest.app.manageListe.SelectOrDeleteListesActivity"
+            android:name="com.memoquest.app.manage.liste.SelectOrDeleteListesActivity"
             android:label="@string/title_activity_select_or_delete_listes" >
         </activity>
     </application>

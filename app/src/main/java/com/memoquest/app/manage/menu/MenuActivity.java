@@ -1,17 +1,18 @@
-package com.memoquest.app.menu;
+package com.memoquest.app.manage.menu;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.memoquest.app.R;
-import com.memoquest.app.manageListe.ManageListesActivity;
+import com.memoquest.app.manage.liste.ManageListesActivity;
 import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
-import com.memoquest.service.InternalBdd.UserService;
+import com.memoquest.service.bdd.UserService;
 
 public class MenuActivity extends Activity implements View.OnClickListener {
 
@@ -65,8 +66,10 @@ public class MenuActivity extends Activity implements View.OnClickListener {
             userService.updateAllUserInternalBddToNoActif();
 
         } catch (TechnicalAppException e) {
+            Log.e("ERROR", e.toString());
             Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startSwitchUserActivity(): " + e.toString(), this);
         } catch (FonctionalAppException e) {
+            Log.e("ERROR", e.toString());
             Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startSwitchUserActivity(): " + e.toString(), this);
         }
         Intent intent = new Intent(MenuActivity.this, SwitchUserActivity.class);

@@ -5,12 +5,9 @@ import android.content.Context;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.CompleteListe;
-import com.memoquest.model.ListeInternalBdd;
 import com.memoquest.model.MotDefInternalBdd;
-import com.memoquest.service.InternalBdd.ListeService;
-import com.memoquest.service.InternalBdd.MotDefService;
-import com.memoquest.service.InternalBdd.UserService;
-import com.memoquest.utils.MyDateUtils;
+import com.memoquest.service.bdd.ListeService;
+import com.memoquest.service.bdd.MotDefService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,34 +37,42 @@ public class CompleteListeService {
 
     public int addCompleteListe(CompleteListe completeList) throws FonctionalAppException {
 
-        int newListeId = 0;
 
         if(completeList.getListeInternalBdd().getId() != null){
+
             updateCompleteListe(completeList);
+
+        } else{
+
+            return addListeAndMotDef(completeList);
         }
-        else{
-            completeList.getListeInternalBdd().setMustDeleted(false);
-            List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
-
-            try {
-
-                newListeId = listeService.addListeInternalBdd(completeList.getListeInternalBdd());
-
-
-                if(motDefInternalBdd != null) {
-                    for (MotDefInternalBdd motDef : motDefInternalBdd) {
-                        motDef.setMotDefListeInternalBddId(completeList.getListeInternalBdd().getId());
-                        motDefService.addMotDefInternalBdd(motDef);
-                    }
-                }
-
-            } catch (TechnicalAppException e) {
-                throw  new FonctionalAppException(this.getClass().getSimpleName() + "addCompleteListe(): probleme" + e.toString());
-            }
-        }
-        return newListeId;
+        return 0;
     }
 
+    public int addListeAndMotDef(CompleteListe completeList) throws FonctionalAppException {
+
+        int newListeId = 0;
+
+        completeList.getListeInternalBdd().setMustDeleted(false);
+        List<MotDefInternalBdd> motDefInternalBdd = completeList.getMotDefInternalBdds();
+
+        try {
+
+            newListeId = listeService.addListeInternalBdd(completeList.getListeInternalBdd());
+
+            if(motDefInternalBdd != null) {
+                for (MotDefInternalBdd motDef : motDefInternalBdd) {
+                    motDef.setMotDefListeInternalBddId(completeList.getListeInternalBdd().getId());
+                    motDefService.addMotDefInternalBdd(motDef);
+                }
+            }
+
+        } catch (TechnicalAppException e) {
+            throw  new FonctionalAppException(this.getClass().getSimpleName() + "addCompleteListe(): probleme" + e.toString());
+        }
+
+        return newListeId;
+    }
 
     public void updateCompleteListe(CompleteListe completeList) throws FonctionalAppException {
 
@@ -81,13 +86,14 @@ public class CompleteListeService {
                 for (MotDefInternalBdd motDef : motDefInternalBdd) {
 
                     if(motDef.getId() == null){
+
                         motDef.setMotDefListeInternalBddId(completeList.getListeInternalBdd().getId());
                         motDefService.addMotDefInternalBdd(motDef);
-                    }
-                    else{
+
+                    } else {
+
                         motDefService.updateMotDefInternalBdd(motDef);
                     }
-
                 }
             }
 

@@ -1,9 +1,10 @@
-package com.memoquest.app.menu;
+package com.memoquest.app.manage.menu;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,11 +16,12 @@ import com.memoquest.app.util.Alerte;
 import com.memoquest.exception.FonctionalAppException;
 import com.memoquest.exception.TechnicalAppException;
 import com.memoquest.model.UserInternalBdd;
-import com.memoquest.service.InternalBdd.UserService;
+import com.memoquest.service.bdd.UserService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SwitchUserActivity extends Activity implements View.OnClickListener {
 
@@ -41,30 +43,32 @@ public class SwitchUserActivity extends Activity implements View.OnClickListener
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.newUseText:
-                Intent intent = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
-                startActivity(intent);
-            break;
 
-            default:
-                Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
-            break;
+        if(v.getId() == R.id.newUseText){
+
+            Intent intent = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
+            startActivity(intent);
+
+        } else{
+            Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
         }
     }
 
     private void initActivity(){
         getAllUserInternalBdd();
 
-        if(users.size() == 0){
+        if(users.isEmpty()){
+
             Intent intentMenu = new Intent(SwitchUserActivity.this, ConnectionActivity.class);
             startActivity(intentMenu);
-        }
-        else if(users.size() == 1 && users.get(0).getActif()){
+
+        }else if(users.size() == 1 && users.get(0).getActif()){
+
             Intent intentMenu = new Intent(SwitchUserActivity.this, MenuActivity.class);
             startActivity(intentMenu);
-        }
-        else {
+
+        }else {
+
             showUserListview();
         }
     }
@@ -73,10 +77,12 @@ public class SwitchUserActivity extends Activity implements View.OnClickListener
         final ListView listView = (ListView) findViewById(R.id.userListview);
         String[] values = getUserEmailListValues();
 
-        final ArrayList<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
+
         for (int i = 0; i < values.length; ++i) {
             list.add(values[i]);
         }
+
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
                 android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
@@ -85,12 +91,12 @@ public class SwitchUserActivity extends Activity implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //verif authentification
-                try {
-                    UserInternalBdd userInternalBdd = users.get(position);
-                    userService.updateAllUserInternalBddToNoActif();
-                    userInternalBdd.setActif(true);
-                    userService.updateUserInternalBdd(userInternalBdd);
+            //verif authentification
+            try {
+                UserInternalBdd userInternalBdd = users.get(position);
+                userService.updateAllUserInternalBddToNoActif();
+                userInternalBdd.setActif(true);
+                userService.updateUserInternalBdd(userInternalBdd);
 
                 if (userService.isAuthentifiate()) {
 
@@ -99,8 +105,11 @@ public class SwitchUserActivity extends Activity implements View.OnClickListener
                 }
 
             } catch (TechnicalAppException e) {
+
                 Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startMenuActivity(): " + e.toString(), getApplicationContext());
+
             } catch (FonctionalAppException e) {
+
                 Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "startMenuActivity(): " + e.toString(), getApplicationContext());
             }
             }
@@ -113,8 +122,11 @@ public class SwitchUserActivity extends Activity implements View.OnClickListener
             users = userService.getAllUserInternalBdd();
 
         } catch (TechnicalAppException e) {
+            Log.e("ERROR", e.toString());
             Alerte.showAlertDialog("Technical Problem", this.getClass().getSimpleName() + "getAllUserInternalBdd(): " + e.toString(), this);
+
         } catch (FonctionalAppException e) {
+
             Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "getAllUserInternalBdd(): " + e.toString(), this);
         }
     }
@@ -131,7 +143,7 @@ public class SwitchUserActivity extends Activity implements View.OnClickListener
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        Map<String, Integer> mIdMap = new HashMap<String, Integer>();
 
         public StableArrayAdapter(Context context, int textViewResourceId,
                                   List<String> objects) {

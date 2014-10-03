@@ -7,8 +7,8 @@ public class MotDefInternalBdd {
 
     private Integer id;
     private Integer motDefServerId;
-    private Integer MotDefListeInternalBddId;
-    private Integer MotDefListeServerId;
+    private Integer motDefListeInternalBddId;
+    private Integer motDefListeServerId;
     private String mot;
     private String definition;
     private Boolean mustDeleted;
@@ -34,19 +34,19 @@ public class MotDefInternalBdd {
     }
 
     public Integer getMotDefListeInternalBddId() {
-        return MotDefListeInternalBddId;
+        return motDefListeInternalBddId;
     }
 
     public void setMotDefListeInternalBddId(Integer motDefListeInternalBddId) {
-        MotDefListeInternalBddId = motDefListeInternalBddId;
+        this.motDefListeInternalBddId = motDefListeInternalBddId;
     }
 
     public Integer getMotDefListeServerId() {
-        return MotDefListeServerId;
+        return motDefListeServerId;
     }
 
     public void setMotDefListeServerId(Integer motDefListeServerId) {
-        MotDefListeServerId = motDefListeServerId;
+        this.motDefListeServerId = motDefListeServerId;
     }
 
     public String getMot() {
@@ -123,15 +123,19 @@ public class MotDefInternalBdd {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         MotDefInternalBdd that = (MotDefInternalBdd) o;
 
-        if (MotDefListeInternalBddId != null ? !MotDefListeInternalBddId.equals(that.MotDefListeInternalBddId) : that.MotDefListeInternalBddId != null){
+        if (motDefListeInternalBddId != null ? !motDefListeInternalBddId.equals(that.motDefListeInternalBddId) : that.motDefListeInternalBddId != null){
             return false;
         }
-        if (MotDefListeServerId != null ? !MotDefListeServerId.equals(that.MotDefListeServerId) : that.MotDefListeServerId != null){
+        if (motDefListeServerId != null ? !motDefListeServerId.equals(that.motDefListeServerId) : that.motDefListeServerId != null){
             return false;
         }
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null){
@@ -143,7 +147,6 @@ public class MotDefInternalBdd {
         if (definition != null ? !definition.equals(that.definition) : that.definition != null){
             return false;
         }
-        //if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (mot != null ? !mot.equals(that.mot) : that.mot != null){
             return false;
         }
@@ -167,8 +170,8 @@ public class MotDefInternalBdd {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (motDefServerId != null ? motDefServerId.hashCode() : 0);
-        result = 31 * result + (MotDefListeInternalBddId != null ? MotDefListeInternalBddId.hashCode() : 0);
-        result = 31 * result + (MotDefListeServerId != null ? MotDefListeServerId.hashCode() : 0);
+        result = 31 * result + (motDefListeInternalBddId != null ? motDefListeInternalBddId.hashCode() : 0);
+        result = 31 * result + (motDefListeServerId != null ? motDefListeServerId.hashCode() : 0);
         result = 31 * result + (mot != null ? mot.hashCode() : 0);
         result = 31 * result + (definition != null ? definition.hashCode() : 0);
         result = 31 * result + (mustDeleted != null ? mustDeleted.hashCode() : 0);

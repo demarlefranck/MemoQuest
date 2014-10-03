@@ -1,9 +1,10 @@
-package com.memoquest.app.menu;
+package com.memoquest.app.manage.menu;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,7 +23,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
     private TextView connexionText;
     private TextView signinText;
     private TextView passwordForbidText;
-    private ConnexionService connexionService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
         passwordForbidText = (TextView) this.findViewById(R.id.passwordForbidText);
         passwordForbidText.setOnClickListener(this);
-
-        connexionService = new ConnexionService(this);
     }
 
     public void onClick(View v) {
@@ -53,17 +51,16 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                     startActivity(intent);
                 }
             break;
-
             case R.id.signinText:
-                if (signinText != null)
+                if (signinText != null){
                     signinText.setMovementMethod(LinkMovementMethod.getInstance());
+                }
             break;
-
             case R.id.passwordForbidText:
-                if (passwordForbidText != null)
+                if (passwordForbidText != null){
                     passwordForbidText.setMovementMethod(LinkMovementMethod.getInstance());
+                }
             break;
-
             default:
                 Alerte.showAlertDialog("Fonctional Problem", this.getClass().getSimpleName() + "onClick(): " + "Switch default.....", this);
             break;
@@ -74,26 +71,31 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
         ConnexionService connexionService = new ConnexionService(this);
 
+        String empty = "";
         String loginTextStr = String.valueOf(loginText.getText());
         String passwordTextStr = String.valueOf(passwordText.getText());
 
-        if (loginTextStr.equals("")){
+        if (loginTextStr.equals(empty)){
+
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir votre identifiant", this);
             return false;
-        }
-        else if (passwordTextStr.equals("")){
+
+        } else if (passwordTextStr.equals(empty)){
+
             Alerte.showAlertDialog("erreur de saisie", "Veuillez saisir votre password", this);
             return false;
-        }
-        else {
+
+        } else {
             try {
                 if (connexionService.isAuthentifiateByServeur(loginTextStr, passwordTextStr) == false) {
                     Alerte.showAlertDialog("erreur d'authentification", "L'authentification a échouée", this);
                     return false;
                 }
             } catch (TechnicalAppException e) {
+                Log.e("ERROR", e.toString());
                 Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "isAuthentifiate(): " + e.toString(), this);
             } catch (FonctionalAppException e) {
+                Log.e("ERROR", e.toString());
                 Alerte.showAlertDialog("Probleme Systeme", this.getClass().getSimpleName() + "isAuthentifiate(): " + e.toString(), this);
             }
         }
